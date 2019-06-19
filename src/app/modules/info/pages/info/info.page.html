@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button class="button-clear ion-chevron-left" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>{{appName}}</h1>
+  <p>{{message}}</p>
+  <ion-list>
+    <ion-item *ngFor="let item of features">
+      <ion-card>
+        <p>{{item}}</p>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+  <h3>Novità della versione {{version}}</h3>
+
+  <ion-list>
+    <ion-item *ngFor="let item of newFeatures">
+      <ion-card>
+        <ion-icon name="star-outline"></ion-icon>
+        <p>{{item}}</p>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <p>{{email}}</p>
+
+  <ion-button (click)="scanCode()">
+    <ion-icon name="barcode"></ion-icon>
+  </ion-button>
+  <p>{{scannedData}}</p>
+  <font color="red">{{error}}</font>
+
+</ion-content>
