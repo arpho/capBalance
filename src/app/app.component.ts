@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-
+import {configs } from './configs/credentials';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import * as firebase from 'firebase/app';
+import { InfoService } from './modules/info/services/info/info.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,18 +19,48 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Categorie',
+      url: '/categorie',
+      icon: 'pricetags'
+    },
+    {
+      title: 'Pagamenti',
+      url: '/pagamenti',
+      icon: 'cash'
+    },
+    {
+      title: 'Fornitori',
+      url: '/fornitori',
+      icon: 'people'
+    },
+    {
+      title: 'Carrelli della spesa',
+      url: '/home',
+      icon: 'cart'
+    },
+    {
+      title: 'Grafici',
+      url: '/grafici',
+      icon: 'stats'
+    },
+    {
+      title: 'info',
+      url: '/info',
+      icon: 'information-circle'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private info: InfoService,
+    private router: Router
   ) {
     this.initializeApp();
+    if (!firebase.apps.length) {
+      firebase.initializeApp(configs.firebase);
+    }
   }
 
   initializeApp() {

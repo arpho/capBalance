@@ -29,6 +29,8 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.1.0",
     "@ionic/storage": "^2.2.0",
+    "@ngrx/effects": "^7.4.0",
+    "@ngrx/store": "^7.4.0",
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
     "firebase-admin": "^8.1.0",

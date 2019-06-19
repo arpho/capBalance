@@ -14,6 +14,12 @@ import { ItemModule } from './modules/item/item.module';
 import {UserModule} from './modules/user/user.module'
 import { DynamicFormModule } from './modules/dynamic-form/dynamic-form.module';
 import { GeoLocationModule } from './modules/geo-location/geo-location.module';
+import { Storage,IonicStorageModule } from '@ionic/storage';
+import { OnlineStatusModule } from './modules/online-status/online-status.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,9 +30,13 @@ import { GeoLocationModule } from './modules/geo-location/geo-location.module';
     UserModule,
     IonicModule.forRoot(),
     DynamicFormModule,
+    OnlineStatusModule,
     GeoLocationModule,
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [
     StatusBar,

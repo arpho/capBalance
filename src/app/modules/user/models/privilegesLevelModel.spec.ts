@@ -3,17 +3,17 @@ import { RoleModel } from "./privilegesLevelModel";
 
 describe("testing PrivilegesLevelModel", function() {
   const sviluppatore = new RoleModel({
-    level: 1,
+    value: 1,
     key: "sviluppatore"
   });
 
   const abilitato = new RoleModel({
-    level: 3,
+    value: 3,
     key: "test abilitato"
   });
   it("sviluppatore is allowed at abilitato's level", function() {
     const userLevel = new RoleModel({
-      level: 1,
+      value: 1,
       key: "sviluppatore"
     });
 
