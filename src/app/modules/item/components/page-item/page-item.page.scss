@@ -1,0 +1,47 @@
+p.note {
+    font-style: italic;
+    background-color: lightgray;
+    font-size: 0.7em;
+    top: 17px;
+    position: relative;
+}
+
+p.itemTitle {
+    font-weight: bold;
+    font-style: oblique;
+}
+
+ion-fab.fab-horizontal-end.fab-vertical-bottom.hydrated {
+    top: 0px;
+}
+
+p.note {
+    font-style: italic;
+    font-size: large;
+}
+
+p.value3 {
+    position: relative;
+}
+
+span.value2 {
+    position: absolute;
+    top: 3em;
+}
+
+span.value4 {
+    position: relative;
+}
+
+p.note {
+    width: fit-content;
+}
+
+div.input-wrapper {
+    padding-left: unset;
+    padding-right: unset;
+    -webkit-padding-start: 16px;
+    padding-inline-start: 16px;
+    -webkit-padding-end: 16px;
+    padding-inline-end: 16px;
+}
