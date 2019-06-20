@@ -34,6 +34,7 @@ import { AppEffects } from './app.effects';
     GeoLocationModule,
     IonicStorageModule.forRoot(),
     AppRoutingModule,
+    OnlineStatusModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects])
