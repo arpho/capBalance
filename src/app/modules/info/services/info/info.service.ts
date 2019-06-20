@@ -26,7 +26,7 @@ export class InfoService {
   }
 
   getPackage() {
-    return this.http.get("assets/package.json");
+    return this.http.get("assets/version.json");
   }
   async setActualVersion(version: string = this.actualVersion) {
     return this.storage.set("version", version);

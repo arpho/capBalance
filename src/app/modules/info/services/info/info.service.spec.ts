@@ -17,11 +17,9 @@ describe("InfoService", () => {
     expect(service.getPackage()).toBeTruthy();
     // service.setActualVersion4Test("0.10.0.1")
   });
-  it("should be createdconvert version to number", () => {
+  it("should convert version to number", () => {
     const service: InfoService = TestBed.get(InfoService);
-    expect(service).toBeTruthy();
-    expect(service.getPackage()).toBeTruthy();
-    // service.setActualVersion4Test("0.10.0.1")
+    service.setActualVersion4Test("0.10.0.1")
     expect(service.version2Number("1.0.0.1")).toBe(1.001);
     expect(
       service.version2Number("1.0.0.1") < service.version2Number("1.0.0.2")

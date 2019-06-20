@@ -1,10 +1,11 @@
-import { SetIsOnLine } from "../actions/network.actions";
-import { Observable, merge, of, fromEvent } from "rxjs";
-import { switchMap, mapTo, map } from "rxjs/operators";
+import { SetIsOnLine } from '../actions/network.actions';
+import { Observable, merge, of, fromEvent } from 'rxjs';
+import { switchMap, mapTo, map } from 'rxjs/operators';
+// tslint:disable-next-line: quotemark
 import { Injectable } from "@angular/core";
-import { Actions, Effect, ofType } from "@ngrx/effects";
-import * as networkActions from "../actions/network.actions";
-import { Action } from "@ngrx/store";
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as networkActions from '../actions/network.actions';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class NetworkEffects {
@@ -16,8 +17,8 @@ export class NetworkEffects {
     switchMap(() => {
       return merge(
         of(navigator.onLine),
-        fromEvent(window, "online").pipe(mapTo(true)),
-        fromEvent(window, "offline").pipe(mapTo(false))
+        fromEvent(window, 'online').pipe(mapTo(true)),
+        fromEvent(window, 'offline').pipe(mapTo(false))
       );
     }),
     map(isOnline => {
