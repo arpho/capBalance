@@ -15,15 +15,19 @@ export class NetworkMonitorComponent implements OnInit {
   title = 'connectionDetector';
   status = 'ONLINE'; //initializing as online by default
   isConnected = true;
+  icon = 'wifi'
   ngOnInit(){
     this.connectionService.monitor().subscribe((isConnected)=> {
       this.isConnected = isConnected;
       if(this.isConnected){
         this.status = 'ONLINE';
+        this.icon = 'wifi'
+        console.log('connected',this.isConnected,this.status)
       } else {
+        this.icon = 'airplane'
         this.status = 'OFFLINE';
+        console.log('connected',this.isConnected,this.status)
       }
-      alert(this.status);
     });
 
   }

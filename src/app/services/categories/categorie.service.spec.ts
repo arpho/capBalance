@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NetworkEffects } from './network-effects.service';
+import { CategoriesService } from './categorie.service';
 
-describe('NetworkEffectsService', () => {
+describe('CategorieService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: NetworkEffects = TestBed.get(NetworkEffects);
+    const service: CategoriesService = TestBed.get(CategoriesService);
     expect(service).toBeTruthy();
   });
 });

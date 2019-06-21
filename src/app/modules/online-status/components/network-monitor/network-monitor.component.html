@@ -1,3 +1,5 @@
-<h1>Detect Online/Offline</h1>
-<h2>Online: {{status }}</h2>
+<div  [ngSwitch]="status">
+    <div *ngSwitchCase="'ONLINE'"><ion-icon name="wifi"></ion-icon></div>
+    <div *ngSwitchDefault><ion-icon name="airplane"></ion-icon></div>
+</div>
 

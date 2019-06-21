@@ -1,1 +1,10 @@
-{"version":"0.9.0.1"}
+{
+    "version": "0.9.0.2",
+    "features": [
+        "not Authorized page"
+    ],
+    "newFeatures": [
+        "rolGuard is working",
+        "improved ui"
+    ]
+}
