@@ -1,5 +1,7 @@
 {
-  "name": "ionic-app-base",
-  "integrations": {},
+  "name": "capBalance",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

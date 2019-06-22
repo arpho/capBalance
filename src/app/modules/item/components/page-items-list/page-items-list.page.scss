@@ -7,11 +7,13 @@
 }
 
 .counter {
-    // background-color: #1976d2;
-    // border-radius: 10px;
-    // width: fit-content;
-    font-size: small;
-    font-style: italic;
+    font-size: xx-small;
+    font-style: oblique;
+    /* background-color: #1976d2; */
+    border-radius: 10px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    /* width: fit-content; */
 }
 
 .container {

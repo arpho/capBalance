@@ -16,7 +16,7 @@ export class CategoriePage implements OnInit {
   filterFields: any;
   public filterFunction: (item: ItemModelInterface) => Boolean;
 
-  constructor(private categories: CategoriesService) {
+  constructor(public categories: CategoriesService) {
     this.filterFields = [
       new TextboxQuestion({
         key: 'title',
@@ -44,6 +44,7 @@ export class CategoriePage implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.categories.getEntitiesList()) {
       this.categories.getEntitiesList().on('value', eventCategoriesListSnapshot => {
         this.CategoriesList = [];

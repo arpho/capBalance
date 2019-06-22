@@ -11,10 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ItemModule } from './modules/item/item.module';
-import {UserModule} from './modules/user/user.module'
+import { UserModule } from './modules/user/user.module'
 import { DynamicFormModule } from './modules/dynamic-form/dynamic-form.module';
 import { GeoLocationModule } from './modules/geo-location/geo-location.module';
-import { Storage,IonicStorageModule } from '@ionic/storage';
+import { Storage, IonicStorageModule } from '@ionic/storage';
 import { OnlineStatusModule } from './modules/online-status/online-status.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
@@ -40,7 +40,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects])
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     StatusBar,
     SplashScreen,
@@ -48,4 +48,4 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

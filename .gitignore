@@ -19,6 +19,7 @@ www/
 node_modules/
 tmp/
 temp/
+*.png
 platforms/
 plugins/
 plugins/android.json

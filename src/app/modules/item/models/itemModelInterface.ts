@@ -15,7 +15,7 @@ export interface ItemModelInterface {
   getTitle(): Value;
   getCountingText(): string;
   getNote(): Value;
-  build(item: {});
+  build?(item: {});
   load(key: string, service: ItemServiceInterface);
   isArchived?(): boolean;
   archiveItem?(b: boolean);

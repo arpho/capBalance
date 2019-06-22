@@ -1,0 +1,7 @@
+{
+  "appId": "com.capBalance.app",
+  "appName": "capBalance",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

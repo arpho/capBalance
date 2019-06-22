@@ -1,7 +1,7 @@
 {
-  "name": "ionic-app-base",
+  "name": "capBalance",
   "version": "0.0.0",
-  "author": "Ionic Framework",
+  "author": "ArphoSolutions",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
@@ -14,6 +14,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.6",
+    "@angular/animations": "5.2.11",
     "@angular/common": "^7.2.2",
     "@angular/core": "^7.2.2",
     "@angular/forms": "^7.2.2",
@@ -23,6 +24,8 @@
     "@angular/pwa": "^0.12.4",
     "@angular/router": "^7.2.2",
     "@angular/service-worker": "^7.2.2",
+    "@capacitor/android": "^1.1.0",
+    "@capacitor/cli": "1.1.0",
     "@capacitor/core": "1.0.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -34,6 +37,7 @@
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
     "firebase-admin": "^8.1.0",
+    "ionic-tooltips": "^3.1.0",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",

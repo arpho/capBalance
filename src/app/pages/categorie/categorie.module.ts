@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CategoriePage } from './categorie.page';
+import { DynamicFormModule } from 'src/app/modules/dynamic-form/dynamic-form.module';
+import { ItemModule } from 'src/app/modules/item/item.module';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    DynamicFormModule,
+    ItemModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

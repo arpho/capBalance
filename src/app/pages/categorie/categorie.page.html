@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button
+        class="button-clear ion-chevron-left"
+        defaultHref="/home"
+      ></ion-back-button>
+    </ion-buttons>
+   
     <ion-title>categorie</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <app-dynamic-form [questions]="filterFields" (interactiveSubmit)="filterFunction=filter($event)"></app-dynamic-form>
+  <my-items-list [items_list]="CategoriesList" [service]="categories" [filterFunction]="filterFunction"></my-items-list>
 </ion-content>
