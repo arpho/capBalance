@@ -9,10 +9,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'list', loadChildren: './list/list.module#ListPageModule' },
-  { path: 'user', loadChildren: './modules/user/user.module#UserModule' },
-  { path: 'info', loadChildren: './modules/info/pages/info/info.module#InfoPageModule' },
   { path: 'categorie', loadChildren: './pages/categorie/categorie.module#CategoriePageModule', canActivate: [AuthGuard] },
-  { path: 'pagamenti', loadChildren: './pages/payments/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
+  { path: 'pagamenti', loadChildren: './pages/pagamenti/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
+  { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule' },
 
 ];
 

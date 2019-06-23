@@ -7,6 +7,7 @@ import { FilterItemsPipe } from "./pipes/filter-items.pipe";
 import { ReactiveFormsModule } from "@angular/forms";
 import { PageItemComponent } from "./components/page-item/page-item.component";
 import { PageItemsListComponent } from "./components/page-items-list/page-items-list.page";
+import { ShowValueComponent } from './components/show-value/show-value.component';
 
 @NgModule({
   declarations: [
@@ -14,15 +15,17 @@ import { PageItemsListComponent } from "./components/page-items-list/page-items-
     ItemsListComponent,
     FilterItemsPipe,
     PageItemComponent,
-    PageItemsListComponent
+    PageItemsListComponent,
+    ShowValueComponent
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
   exports: [
     MyItemComponent,
     ItemsListComponent,
     PageItemComponent,
-    PageItemsListComponent
+    PageItemsListComponent,
+    ShowValueComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class ItemModule {}
+export class ItemModule { }

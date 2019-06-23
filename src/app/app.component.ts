@@ -68,5 +68,13 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    // devo controllare perchè durante il routing ci sono condizioni che ripassano  da qui e ritorno alla home
+    this.info.areThereNews().then(v => {
+      if (v > 0) {
+        this.info.navigateTo().then(path => {
+          this.router.navigateByUrl(path);
+        });
+      }
+    });
   }
 }

@@ -21,6 +21,7 @@ import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { InfoModule } from './modules/info/info.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BrowserModule,
     ItemModule,
     UserModule,
+    InfoModule,
     IonicModule.forRoot(),
     DynamicFormModule,
     OnlineStatusModule,
