@@ -159,7 +159,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
 
 
     serialize() {
-        return { key: this.key, title: this.title };
+        return  this.key;
     }
 
 }
