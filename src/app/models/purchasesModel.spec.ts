@@ -20,7 +20,4 @@ describe('testing purchaseModel', () => {
     })
 
 
-    it('categorie field is ok',()=>{
-        expect(purchase.categorie).toBe(testdata.categorie)
-    })
 })

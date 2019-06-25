@@ -43,7 +43,7 @@ export class PaymentsModel implements ItemModelInterface {
                 this.key = key;
             }
         });
-
+        return this
     }
 
     getFilterPopup(next) {

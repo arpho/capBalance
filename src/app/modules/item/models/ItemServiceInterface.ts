@@ -2,8 +2,10 @@
 import * as firebase from 'firebase';
 import { ItemModelInterface } from './itemModelInterface';
 export interface ItemServiceInterface {
-
-
+// extra service for complex models
+extraService0?: ItemServiceInterface
+extraService1?:ItemServiceInterface
+extraService2?: ItemServiceInterface
 
     /**get one item from firebase
      * @param key:string

@@ -67,6 +67,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                 this.ecommerce = this.ecommerce || this.onLine;
             });
         }
+        return this 
     }
 
     getFilterParams() {

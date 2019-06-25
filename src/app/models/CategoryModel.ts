@@ -24,6 +24,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
             this.title = cat.val().title;
             this.key = key;
         });
+        return this
     }
     getCountingText() { return 'categorie'; }
 

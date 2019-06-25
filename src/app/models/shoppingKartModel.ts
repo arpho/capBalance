@@ -14,6 +14,8 @@ export class ShoppingKartModel implements ItemModelInterface {
     dataAcquisto: string
     dataAddebito: string
     fornitore: SupplierModel;
+    fornitoreId: string; // campo di comodo
+    pagamentoId: string // campo di comodo
     key: string
     title: string
     moneta = "€"
@@ -26,9 +28,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     note: string
 
 
-    constructor(arg:{}){
-        this.archived = arg['archived']
-        this.dataAcquisto = arg['dataAcquisto']
+    constructor() {
     }
     build?(item: {}) {
         throw new Error("Method not implemented.");
@@ -43,10 +43,10 @@ export class ShoppingKartModel implements ItemModelInterface {
         return true;
     }
     getValue3(): Value {
-        return new Value({value:undefined,label:'value3 to be defined'})
+        return new Value({ value: undefined, label: 'value3 to be defined' })
     }
     getValue4(): Value {
-        return new Value({value:undefined,label:'value to be defined'})
+        return new Value({ value: undefined, label: 'value to be defined' })
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error("Method not implemented.");
@@ -55,7 +55,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         throw new Error("Method not implemented.");
     }
     getAggregate(): Value {
-        return new Value({value:undefined,label:'aggregate to be defined'})
+        return new Value({ value: undefined, label: 'aggregate to be defined' })
     }
     aggregateAction?() {
         throw new Error("Method not implemented.");
@@ -67,7 +67,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         throw new Error("Method not implemented.");
     }
     getElement(): { element: string; genere: Genere } {
-        
+
         const genere: Genere = 'a';
         return { element: 'carrello della spesa', genere };
     }
@@ -92,14 +92,22 @@ export class ShoppingKartModel implements ItemModelInterface {
     load(key: string, service: ItemServiceInterface) {
         service.getItem(key).on('value', (kart) => {
             if (kart.val()) {
+                // carico i valori 
                 Object.keys(kart.val()).forEach(k => { this[k] = kart.val()[k] })
             }
         })
 
-        this.purchases = this.loadPurchases(this.purchases || this.items)
+        this.purchases = this.loadPurchases(this.purchases || this.items, service.extraService0)
+        const fornitore = new SupplierModel()
+        fornitore.load(this.fornitoreId, service.extraService1)
+        this.fornitore = fornitore
+        const pagamento = new PaymentsModel()
+        pagamento.load(this.pagamentoId, service.extraService2)
+        this.pagagamento = pagamento
+
     }
-    loadPurchases(items: PurchaseModel[]): PurchaseModel[] {
-        const purchases = items.map(value => new PurchaseModel(value))
+    loadPurchases(items: PurchaseModel[], categories?): PurchaseModel[] {
+        const purchases = items.map(value => new PurchaseModel(value, categories))
         return purchases
     }
 
