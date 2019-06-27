@@ -59,7 +59,7 @@ export class FornitoriPage implements OnInit, OnChanges {
     this.filterFunction = (item: ItemModelInterface) => filterNote(item) && filterTitle(item);
     const filterEcommerce: (item: ItemModelInterface) => boolean = (!filterParams.ecommerce) ? (item: ItemModelInterface) => true :
       (item: SupplierModel) => item.ecommerce;
-       // combina le funzioni filtro elemewntari
+    // combina le funzioni filtro elemewntari
     this.filterFunction = (item: ItemModelInterface) => filterEcommerce(item) && filterNote(item) && filterTitle(item);
 
   }
@@ -71,9 +71,7 @@ export class FornitoriPage implements OnInit, OnChanges {
     this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
       this.SuppliersList = [];
       eventSuppliersListSnapshot.forEach(snap => {
-        const supplier = new SupplierModel();
-        supplier.load(snap.key, this.suppliers);
-        this.SuppliersList.push(supplier);
+        this.SuppliersList.push(new SupplierModel(undefined, snap.key, this.suppliers));
       });
     });
   }

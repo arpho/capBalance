@@ -19,6 +19,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     key: string;
     ecommerce: boolean;
     onLine: boolean; // back compatibility
+    service:ItemServiceInterface
     constructor(fornitore?: {
         nome: string,
         note: string,
@@ -34,7 +35,8 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         key: string,
         ecommerce: boolean,
 
-    }) {
+    },key?:string,service?:ItemServiceInterface) {
+        if(fornitore){
         this.key = fornitore && fornitore.key || '';
         this.nome = fornitore && fornitore.nome || '';
         this.note = fornitore && fornitore.note || '';
@@ -45,6 +47,12 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         this.fidelity_card = fornitore && fornitore.fidelity_card || '';
         this.title = fornitore && fornitore.title || this.nome;
         this.ecommerce = fornitore && fornitore.ecommerce || false;
+        }
+        if(key && service){
+            this.key = key
+            this.service = service
+            this.load(key,service)
+        }
 
     }
 

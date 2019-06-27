@@ -1,10 +1,11 @@
 {
-    "version": "0.9.0.8",
+    "version": "0.9.1",
     "features": [
-        "not Authorized page"
+        "manage suppliers",
+        "manage payment's kind",
+        "manage categories"
     ],
     "newFeatures": [
-        "suppliers page",
-        "improved ui"
+        "models refactoring"
     ]
 }

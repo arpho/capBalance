@@ -7,6 +7,9 @@ import { Value } from '../modules/item/models/value';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 import { QuickAction } from '../modules/item/models/QuickAction';
+import { CategoriesService } from '../services/categories/categorie.service';
+import { PaymentsService } from '../services/payments/payments.service';
+import { SuppliersService } from '../services/suppliers/suppliers.service';
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -26,9 +29,13 @@ export class ShoppingKartModel implements ItemModelInterface {
     items: Array<PurchaseModel> // for back compatibility
     purchases: Array<PurchaseModel>
     note: string
+    private service: ItemServiceInterface // ShppingKartService
 
 
-    constructor() {
+    constructor(key: string, service: ItemServiceInterface) {
+        this.key = key
+        this.service = service
+        this.load(key,service)
     }
     build?(item: {}) {
         throw new Error("Method not implemented.");

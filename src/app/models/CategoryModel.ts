@@ -10,9 +10,14 @@ import { GeneratedFile } from '@angular/compiler';
 export class CategoryModel implements FirebaseObject, ItemModelInterface {
     key: string;
     title: string;
-    service: any;
+    service: ItemServiceInterface;
     note: string;
-    constructor() {
+    constructor(key?:string,service?:ItemServiceInterface) {
+        if(service&& key){
+        this.key = key
+        this.service = service 
+        this.load(key,service)
+        }
     }
     build(obj: { title: string, key: string }) {
         this.title = obj.title;

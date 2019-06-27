@@ -10,17 +10,25 @@ export class PaymentsModel implements ItemModelInterface {
     addebito: string;
     key: string;
     archived: boolean;
+    service: ItemServiceInterface
     constructor(payment?: {
         nome: FormControl,
         addebito: FormControl,
         note: FormControl
         key: FormControl
-    }) {
-        this.nome = payment && payment.nome.value || '';
-        this.title = this.nome;
-        this.addebito = payment && payment.addebito.value || '';
-        this.note = payment && payment.note.value || '';
-        this.key = payment && payment.key.value || '';
+    }, key?: string, service?: ItemServiceInterface) {
+        if (payment) {
+            this.nome = payment && payment.nome.value || '';
+            this.title = this.nome;
+            this.addebito = payment && payment.addebito.value || '';
+            this.note = payment && payment.note.value || '';
+            this.key = payment && payment.key.value || '';
+        }
+        if (key && service) {
+            this.key = key;
+            this.service = service;
+            this.load(key,service)
+        }
 
     }
 
