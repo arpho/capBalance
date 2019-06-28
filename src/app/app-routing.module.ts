@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'categorie', loadChildren: './pages/categorie/categorie.module#CategoriePageModule', canActivate: [AuthGuard] },
   { path: 'pagamenti', loadChildren: './pages/pagamenti/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
   { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule' },
+  { path: 'shopping-karts', loadChildren: './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule' },
 
 ];
 

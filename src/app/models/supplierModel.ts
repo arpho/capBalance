@@ -90,7 +90,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     getTitle() {
         const value = new Value();
         value.label = 'fornitore';
-        value.value = this.title;
+        value.value = this.nome;
         return value;
     }
 

@@ -12,11 +12,11 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     title: string;
     service: ItemServiceInterface;
     note: string;
-    constructor(key?:string,service?:ItemServiceInterface) {
-        if(service&& key){
-        this.key = key
-        this.service = service 
-        this.load(key,service)
+    constructor(key?: string, service?: ItemServiceInterface) {
+        if (service && key) {
+            this.key = key
+            this.service = service
+            this.load(key, service)
         }
     }
     build(obj: { title: string, key: string }) {
@@ -26,7 +26,9 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
 
     load(key, service) {
         service.getItem(key).on('value', cat => {
-            this.title = cat.val().title;
+            if (cat.val()) {
+                this.title = cat.val().title;
+            }
             this.key = key;
         });
         return this
@@ -165,7 +167,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
 
 
     serialize() {
-        return  this.key;
+        return this.key;
     }
 
 }

@@ -10,6 +10,7 @@ import { QuickAction } from '../modules/item/models/QuickAction';
 import { CategoriesService } from '../services/categories/categorie.service';
 import { PaymentsService } from '../services/payments/payments.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
+import { BirthDateModel } from '../modules/user/models/birthDateModel'
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -22,7 +23,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     key: string
     title: string
     moneta = "€"
-    pagagamento: PaymentsModel
+    pagamento: PaymentsModel
     online: boolean
     tassoConversione: number
     totale: number
@@ -32,10 +33,12 @@ export class ShoppingKartModel implements ItemModelInterface {
     private service: ItemServiceInterface // ShppingKartService
 
 
-    constructor(key: string, service: ItemServiceInterface) {
+    constructor(key?: string, service?: ItemServiceInterface) {
         this.key = key
         this.service = service
-        this.load(key,service)
+        if (key && service) {
+            this.load(key, service)
+        }
     }
     build?(item: {}) {
         throw new Error("Method not implemented.");
@@ -50,10 +53,10 @@ export class ShoppingKartModel implements ItemModelInterface {
         return true;
     }
     getValue3(): Value {
-        return new Value({ value: undefined, label: 'value3 to be defined' })
+        return new Value({ value: new BirthDateModel(new Date(this.dataAcquisto)).formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
-        return new Value({ value: undefined, label: 'value to be defined' })
+        return new Value({ value: '  ' + this.fornitore.nome, label: ' fornitore ' })
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error("Method not implemented.");
@@ -80,7 +83,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getTitle() {
         // tslint:disable: semicolon
-        return new Value({ value: `${this.fornitore.getTitle().value}`, label: 'titolo' })
+        return new Value({ value: `${this.title}`, label: 'titolo' })
 
     }
 
@@ -89,7 +92,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     getValue2() {
-        return new Value({ value: this.totale * this.tassoConversione, label: 'totale' })
+        return new Value({ value: this.totale * (this.tassoConversione||1), label: 'totale' })
     }
 
     getNote() {
@@ -103,19 +106,20 @@ export class ShoppingKartModel implements ItemModelInterface {
                 Object.keys(kart.val()).forEach(k => { this[k] = kart.val()[k] })
             }
         })
-
-        this.purchases = this.loadPurchases(this.purchases || this.items, service.extraService0)
-        const fornitore = new SupplierModel()
-        fornitore.load(this.fornitoreId, service.extraService1)
-        this.fornitore = fornitore
-        const pagamento = new PaymentsModel()
-        pagamento.load(this.pagamentoId, service.extraService2)
-        this.pagagamento = pagamento
+        this.fornitore = new SupplierModel(undefined, this.fornitoreId, service.extraService1)
+        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, service.extraService2)
+        if (this.purchases || this.items) { // ci sono carrelli senza acquisti
+            this.purchases = this.loadPurchases(this.purchases || this.items, service.extraService0)
+        }
+        console.log(this)
+        this.title = `${this.fornitore.getTitle().value}  ${new BirthDateModel(new Date(this.dataAcquisto)).formatDate()}`
+        console.log('title', this.title)
 
     }
-    loadPurchases(items: PurchaseModel[], categories?): PurchaseModel[] {
-        const purchases = items.map(value => new PurchaseModel(value, categories))
-        return purchases
+
+    loadPurchases(items: {}[], categories?): PurchaseModel[] {
+        return items.map(value => new PurchaseModel(value, categories))
+
     }
 
 }

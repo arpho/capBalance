@@ -15,14 +15,14 @@ export class PurchaseModel {
         this.descrizione = item['descrizione']
         this.moneta = item['moneta']
         this.picture = item['picture']
-        this.categoriesKeys = item['categorie']
+        this.categoriesKeys = item['categorieId']
         if (categories) {
             // è presente categoriesService carico le categorie
-            this.categorie = this.categoriesKeys.map(key => {
-                const categoria = new CategoryModel();
-                categoria.load(key, categories)
-                return categoria;
-            })
+            if (this.categoriesKeys) {
+                this.categorie = this.categoriesKeys.map(key => {
+                    return new CategoryModel(key, categories);
+                })
+            }
         }
 
     }

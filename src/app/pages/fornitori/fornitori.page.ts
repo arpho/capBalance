@@ -7,15 +7,16 @@ import { Router } from '@angular/router';
 import { GeoService } from '../../modules/geo-location/services/geo-service';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
+import {ItemControllerInterface} from '../../modules/item/models/ItemControllerInterface'
 
 @Component({
   selector: 'app-fornitori',
   templateUrl: './fornitori.page.html',
   styleUrls: ['./fornitori.page.scss'],
 })
-export class FornitoriPage implements OnInit, OnChanges {
-  public SuppliersList: Array<SupplierModel>;
-  public filterLabel: String = 'Categorie';
+export class FornitoriPage implements OnInit, OnChanges,ItemControllerInterface {
+  public ItemsList: Array<SupplierModel>;
+  public filterLabel: string = 'Categorie';
   public filterString: string;
   public filterFields: any;
   public filterFunction: (item: SupplierModel) => boolean;
@@ -69,9 +70,9 @@ export class FornitoriPage implements OnInit, OnChanges {
       this.position = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
     });
     this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-      this.SuppliersList = [];
+      this.ItemsList = [];
       eventSuppliersListSnapshot.forEach(snap => {
-        this.SuppliersList.push(new SupplierModel(undefined, snap.key, this.suppliers));
+        this.ItemsList.push(new SupplierModel(undefined, snap.key, this.suppliers));
       });
     });
   }

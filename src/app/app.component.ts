@@ -35,7 +35,7 @@ export class AppComponent {
     },
     {
       title: 'Carrelli della spesa',
-      url: '/home',
+      url: '/shopping-karts',
       icon: 'cart'
     },
     {

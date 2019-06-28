@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button
+          class="button-clear ion-chevron-left"
+          defaultHref="/home"
+        ></ion-back-button>
+      </ion-buttons>
+    <ion-title>Carrelli della spesa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <app-dynamic-form [questions]="filterFields" (interactiveSubmit)="filter()"></app-dynamic-form>
+    <app-page-items-list [items_list]="ItemsList" [service]="service" [filterFunction]="filterFunction"></app-page-items-list>
+  
+
+</ion-content>
