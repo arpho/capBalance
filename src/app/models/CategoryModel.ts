@@ -16,7 +16,6 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         if (service && key) {
             this.key = key
             this.service = service
-            this.load(key, service)
         }
     }
     build(obj: { title: string, key: string }) {
@@ -24,12 +23,11 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         this.key = obj.key;
     }
 
-    load(key, service) {
-        service.getItem(key).on('value', cat => {
+    load() {
+        this.service.getItem(this.key).on('value', cat => {
             if (cat.val()) {
                 this.title = cat.val().title;
             }
-            this.key = key;
         });
         return this
     }

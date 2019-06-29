@@ -51,7 +51,6 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         if(key && service){
             this.key = key
             this.service = service
-            this.load(key,service)
         }
 
     }
@@ -60,13 +59,12 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         return " fornitori"
     }
 
-    load(key, service) {
-        if (service.getItem(key)) {
-            service.getItem(key).on('value', sup => {
+    load() {
+        if (this.service.getItem(this.key)) {
+            this.service.getItem(this.key).on('value', sup => {
 
                 const loader = ([Key, value]) => { this[Key] = value; };
                 Object.entries(sup.val()).forEach(loader);
-                this.key = key;
                 // retro compatibilità
                 this.title = this.title || this.nome;
                 this.latitude = Number(this.latitude || this.latitudine);

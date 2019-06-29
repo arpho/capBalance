@@ -32,11 +32,11 @@ export class EditUserPage implements OnInit {
 
   ngOnInit() {
     const userKey = this.route.snapshot.paramMap.get("key");
-    this.currentUser = new UserModel();
+    this.currentUser = new UserModel(undefined,userKey, this.service);
     this.currentUser.key = userKey;
     if (userKey) {
       this.currentUser
-        .load(userKey, this.service)
+        .load()
         .then(() => console.log("loaded user", this.currentUser));
     }
     if (!this.currentUser.birthDate) {

@@ -9,6 +9,7 @@ export class PurchaseModel {
     categorie: Array<CategoryModel>
     picture: string
     categoriesKeys: Array<string>
+    service: ItemServiceInterface
 
     constructor(item: {}, categories?: ItemServiceInterface) {
         this.barcode = item['barcode']
@@ -18,6 +19,7 @@ export class PurchaseModel {
         this.categoriesKeys = item['categorieId']
         if (categories) {
             // è presente categoriesService carico le categorie
+            this.service = categories
             if (this.categoriesKeys) {
                 this.categorie = this.categoriesKeys.map(key => {
                     return new CategoryModel(key, categories);
@@ -25,5 +27,8 @@ export class PurchaseModel {
             }
         }
 
+    }
+    load() {
+        this.categorie.forEach(cat => cat.load()) // carico  le categorie da firebase}
     }
 }

@@ -18,8 +18,8 @@ export class UsersPage implements OnInit {
         // console.log("distribuzioni", snapshot);
         this.usersList = [];
         snapshot.forEach(snap => {
-          const user = new UserModel();
-          user.load(snap.key, this.service);
+          const user = new UserModel(undefined,snap.key, this.service);
+          user.load();
 
           this.usersList.push(user);
         });

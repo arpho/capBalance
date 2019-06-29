@@ -19,8 +19,11 @@ export class UserModel implements ItemModelInterface {
   quickActions: Array<QuickAction>;
   enabled: Boolean;
   privileges: RoleModel;
+  service:ItemServiceInterface
 
-  constructor(item?: Object) {
+  constructor(item?: Object,key?:string,service?:ItemServiceInterface) {
+    this.key = key
+    this.service = service
     if (item) {
       this.build(item);
     }
@@ -82,11 +85,10 @@ export class UserModel implements ItemModelInterface {
     };
   }
 
-  async load(key: string, service: ItemServiceInterface) {
-    if (service.getItem(key)) {
-      service.getItem(key).on("value", value => {
+  async load() {
+    if (this.service.getItem(this.key)) {
+      this.service.getItem(this.key).on("value", value => {
         this.build(value.val());
-        this.key = key;
         return this;
       });
     }

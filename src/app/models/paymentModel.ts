@@ -27,7 +27,6 @@ export class PaymentsModel implements ItemModelInterface {
         if (key && service) {
             this.key = key;
             this.service = service;
-            this.load(key,service)
         }
 
     }
@@ -40,15 +39,14 @@ export class PaymentsModel implements ItemModelInterface {
         const out: ItemFilterOPtions = new ItemFilterOPtions('categoria', 'text');
         return [out];
     }
-    load(key: string, service: ItemServiceInterface) {
-        service.getItem(key).on('value', pay => {
+    load() {
+        this.service.getItem(this.key).on('value', pay => {
             if (pay.val()) {
                 this.nome = pay.val().nome ? pay.val().nome : '';
                 this.title = this.nome;
                 this.title = pay.val().title || this.nome; // se lo item è aggiornato avrà il valore di tilte, altrimenti quello di nome
                 this.note = pay.val().note;
                 this.archived = pay.val().archived;
-                this.key = key;
             }
         });
         return this

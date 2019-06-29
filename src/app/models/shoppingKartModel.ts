@@ -36,9 +36,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     constructor(key?: string, service?: ItemServiceInterface) {
         this.key = key
         this.service = service
-        if (key && service) {
-            this.load(key, service)
-        }
+       
     }
     build?(item: {}) {
         throw new Error("Method not implemented.");
@@ -99,17 +97,20 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    load(key: string, service: ItemServiceInterface) {
-        service.getItem(key).on('value', (kart) => {
+    load() {
+        this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori 
                 Object.keys(kart.val()).forEach(k => { this[k] = kart.val()[k] })
             }
         })
-        this.fornitore = new SupplierModel(undefined, this.fornitoreId, service.extraService1)
-        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, service.extraService2)
+        this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
+        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
+        this.fornitore.load()
+        this.pagamento.load()
         if (this.purchases || this.items) { // ci sono carrelli senza acquisti
-            this.purchases = this.loadPurchases(this.purchases || this.items, service.extraService0)
+            this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
+            this.purchases.forEach(p=>p.load()) // carica le categorie degli acqwuisti
         }
         console.log(this)
         this.title = `${this.fornitore.getTitle().value}  ${new BirthDateModel(new Date(this.dataAcquisto)).formatDate()}`
