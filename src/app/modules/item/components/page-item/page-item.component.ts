@@ -25,7 +25,11 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
     super(alertCtrl);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.Item) {
+      this.Item.load()
+    }
+  }
   doAction(action: QuickAction) {
     action.getAction()({
       alertCtrl: this.alertCtrl,

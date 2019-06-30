@@ -29,6 +29,8 @@ export class PurchaseModel {
 
     }
     load() {
-        this.categorie.forEach(cat => cat.load()) // carico  le categorie da firebase}
+        if (this.categorie) {
+            this.categorie.forEach(cat => cat.load()) // carico  le categorie da firebase}
+        }
     }
 }

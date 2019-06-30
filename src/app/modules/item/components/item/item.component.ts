@@ -19,9 +19,13 @@ import { ItemServiceInterface } from "../../models/ItemServiceInterface";
 export class MyItemComponent implements OnInit, OnChanges {
   @Input() Item: ItemModelInterface;
   @Input() Service: ItemServiceInterface;
-  constructor(public alertCtrl: AlertController) {}
+  constructor(public alertCtrl: AlertController) { }
 
-  ngOnChanges(changes: SimpleChanges) {}
+  ngOnChanges(changes: SimpleChanges) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.Item) {
+      this.Item.load()
+    }
+  }
 }

@@ -112,9 +112,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
             this.purchases.forEach(p=>p.load()) // carica le categorie degli acqwuisti
         }
-        console.log(this)
         this.title = `${this.fornitore.getTitle().value}  ${new BirthDateModel(new Date(this.dataAcquisto)).formatDate()}`
-        console.log('title', this.title)
 
     }
 
