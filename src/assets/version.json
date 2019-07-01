@@ -1,12 +1,12 @@
 {
-    "version": "0.9.3.1",
+    "version": "0.9.3.2",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
-        "picture on home page",
+        "fab button in item-list-page",
         "refactored model loading",
         "pagina carrelli della spesa",
         "new home's image",

@@ -28,7 +28,7 @@ export class PurchaseModel {
         }
 
     }
-    load() {
+    async load() {
         if (this.categorie) {
             this.categorie.forEach(cat => cat.load()) // carico  le categorie da firebase}
         }

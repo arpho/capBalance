@@ -97,7 +97,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    load() {
+    async load() {
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori 

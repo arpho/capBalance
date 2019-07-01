@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   Input,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from "@angular/core";
 import { MyItemComponent } from "../item/item.component";
 import { AlertController } from "@ionic/angular";
@@ -21,7 +22,7 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
   @Input() Item: ItemModelInterface;
   @Input() Service: ItemServiceInterface;
 
-  constructor(public alertCtrl: AlertController, public router: Router) {
+  constructor(public alertCtrl: AlertController, public router: Router,) {
     super(alertCtrl);
   }
 

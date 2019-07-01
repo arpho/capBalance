@@ -38,7 +38,7 @@ export class PaymentsModel implements ItemModelInterface {
         const out: ItemFilterOPtions = new ItemFilterOPtions('categoria', 'text');
         return [out];
     }
-    load() {
+    async load() {
         if (this.key && this.service) {
             this.service.getItem(this.key).on('value', pay => {
                 if (pay.val()) {

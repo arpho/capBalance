@@ -23,7 +23,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         this.key = obj.key;
     }
 
-    load() {
+    async load() {
         this.service.getItem(this.key).on('value', cat => {
             if (cat.val()) {
                 this.title = cat.val().title;

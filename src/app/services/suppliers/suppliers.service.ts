@@ -7,7 +7,7 @@ import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterfa
 @Injectable({
   providedIn: 'root'
 })
-export class SuppliersService implements ItemServiceInterface {
+export class SuppliersService implements ItemServiceInterface  {
   public suppliersListRef: firebase.database.Reference;
   constructor() {
     firebase.auth().onAuthStateChanged(user => {
