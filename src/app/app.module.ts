@@ -22,10 +22,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { InfoModule } from './modules/info/info.module';
+import { CreateSupplierPage } from './pages/create-supplier/create-supplier.page';
+import { CreateShoppingKartPage } from './pages/create-shopping-kart/create-shopping-kart.page';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent,
+     CreateSupplierPage,
+     CreateShoppingKartPage
+  ],
   imports: [
     BrowserModule,
     ItemModule,
@@ -41,6 +46,10 @@ import { InfoModule } from './modules/info/info.module';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects])
+  ],
+  entryComponents: [
+    CreateSupplierPage,
+    CreateShoppingKartPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

@@ -7,6 +7,5 @@ export interface ItemControllerInterface {
     filterFields: any;
     filterFunction: (item: ItemModelInterface) => boolean;
     filter(filterParams:any)
-    createItem()
 
 }

@@ -11,6 +11,7 @@ import { CategoriesService } from '../services/categories/categorie.service';
 import { PaymentsService } from '../services/payments/payments.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
 import { BirthDateModel } from '../modules/user/models/birthDateModel'
+import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -59,8 +60,8 @@ export class ShoppingKartModel implements ItemModelInterface {
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error("Method not implemented.");
     }
-    getCreatePopup(service?: ItemServiceInterface) {
-        throw new Error("Method not implemented.");
+    getCreatePopup() {
+        return CreateShoppingKartPage
     }
     getAggregate(): Value {
         return new Value({ value: undefined, label: 'aggregate to be defined' })

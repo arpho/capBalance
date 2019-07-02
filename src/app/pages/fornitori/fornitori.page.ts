@@ -78,12 +78,6 @@ export class FornitoriPage implements OnInit, OnChanges,ItemControllerInterface 
   }
 
 
-  createItem() {
-    this.router.navigateByUrl(`${this.suppliers.getDummyItem().getCreatePopup()}`);
-    console.log('to do ');
-
-
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.geo.getPosition().then(coords => {

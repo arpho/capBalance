@@ -4,6 +4,7 @@ import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 import { Value } from '../modules/item/models/value';
 import { FirebaseObject } from '../models/firebaseObject';
+import {CreateSupplierPage} from '../pages/create-supplier/create-supplier.page'
 export class SupplierModel implements ItemModelInterface, FirebaseObject {
     nome: string;
     note: string;
@@ -184,7 +185,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     getCreatePopup() {
 
-        return 'supplierCreate';
+        return CreateSupplierPage;
     }
 
     getFilterPopup(next) {

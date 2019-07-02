@@ -5,14 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ShoppingKartsPage } from './shopping-karts.page';
-import { ItemModule } from 'src/app/modules/item/item.module';
-import { DynamicFormModule } from 'src/app/modules/dynamic-form/dynamic-form.module';
+import { CreateSupplierPage } from './create-supplier.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ShoppingKartsPage
+    component: CreateSupplierPage
   }
 ];
 
@@ -21,10 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ItemModule,
-    DynamicFormModule,
     RouterModule.forChild(routes)
   ],
-   declarations: [ShoppingKartsPage]
+  // declarations: [CreateSupplierPage]
 })
-export class ShoppingKartsPageModule {}
+export class CreateSupplierPageModule {}

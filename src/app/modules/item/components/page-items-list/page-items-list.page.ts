@@ -6,7 +6,7 @@ import {
   SimpleChanges,
   ChangeDetectionStrategy
 } from "@angular/core";
-import { AlertController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { ItemModelInterface } from "../../models/itemModelInterface";
 import { ItemServiceInterface } from "../../models/ItemServiceInterface";
 import { Router } from "@angular/router";
@@ -24,10 +24,16 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   public showSpinner = true;
 
-  constructor(public alertCtrl: AlertController, public router: Router) {
+  constructor(public alertCtrl: AlertController, public router: Router,public modalController:ModalController) {
     this.filterFunction = v => true;
   }
 
+  async createItem(){
+    console.log('create item')
+     const modal = await this.modalController.create({component:this.dummyItem.getCreatePopup()})
+     return await modal.present()
+
+  }
   ngOnInit() {
     this.filterFunction = (v: ItemModelInterface) => true;
     if (this.service) {
@@ -79,9 +85,5 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     this.router.navigate([item.getEditPopup(), item.key]);
   }
 
-  createItem() {
-    this.router.navigateByUrl(
-      `${this.service.getDummyItem().getCreatePopup()}`
-    );
-  }
+  
 }

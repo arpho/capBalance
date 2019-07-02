@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { IonicModule, NavController } from "@ionic/angular";
+import { IonicModule, NavController, ModalController } from "@ionic/angular";
 import { FilterItemsPipe } from "../../pipes/filter-items.pipe";
 import { MyItemComponent } from "./item.component";
 import { ItemModule } from "../../item.module";
@@ -20,6 +20,7 @@ describe("MyItemComponent", () => {
       imports: [IonicModule.forRoot(), ItemModule],
       providers: [
         NavController,
+        ModalController,
         Location,
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: APP_BASE_HREF, useValue: "/my/app" }

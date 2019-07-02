@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageItemsListComponent } from './page-items-list.page';
 import { FilterItemsPipe } from '../../pipes/filter-items.pipe';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController, AngularDelegate } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -14,7 +14,7 @@ describe('PageItemsListPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PageItemsListComponent, FilterItemsPipe],
-      providers: [AlertController],
+      providers: [AlertController,ModalController,AngularDelegate],
       imports: [RouterModule, RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
