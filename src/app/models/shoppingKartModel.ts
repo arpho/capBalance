@@ -54,7 +54,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: new BirthDateModel(new Date(this.dataAcquisto)).formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
-        return new Value({ value: '  ' + this.fornitore.nome, label: ' fornitore ' })
+        return new Value({ value: '  ' + this.fornitore.title || this.fornitore.nome, label: ' fornitore ' })
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error("Method not implemented.");
@@ -81,7 +81,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getTitle() {
         // tslint:disable: semicolon
-        return new Value({ value: `${this.title}`, label: 'titolo' })
+        return new Value({ value: `${ this.getValue4().value}`, label: 'titolo' })
 
     }
 
@@ -97,7 +97,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    async load() {
+    async load(next:()=> void) {
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori 
@@ -106,7 +106,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         })
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
-        this.fornitore.load()
+        this.fornitore.load(next)
         this.pagamento.load()
         if (this.purchases || this.items) { // ci sono carrelli senza acquisti
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)

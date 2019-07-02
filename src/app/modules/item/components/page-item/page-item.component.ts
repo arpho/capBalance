@@ -22,13 +22,16 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
   @Input() Item: ItemModelInterface;
   @Input() Service: ItemServiceInterface;
 
-  constructor(public alertCtrl: AlertController, public router: Router,) {
+  constructor(public alertCtrl: AlertController, public router: Router, public ref: ChangeDetectorRef) {
     super(alertCtrl);
   }
 
   ngOnInit() {
     if (this.Item) {
-      this.Item.load()
+      const next = () => {
+        this.ref.markForCheck()
+      }
+      this.Item.load(next)
     }
   }
   doAction(action: QuickAction) {

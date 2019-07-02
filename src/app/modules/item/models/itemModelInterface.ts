@@ -16,7 +16,7 @@ export interface ItemModelInterface {
   getCountingText(): string;
   getNote(): Value;
   build?(item: {});
-  load(); // load the item from firebase
+  load(next?: () => void); // load the item from firebase
   isArchived?(): boolean;
   archiveItem?(b: boolean);
   isArchivable?(): boolean;

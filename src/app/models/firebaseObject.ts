@@ -2,5 +2,5 @@ import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterfac
 
 export interface FirebaseObject {
     serialize();
-    load(item: string, service: ItemServiceInterface);
+    // load(item: string, service: ItemServiceInterface);
 }

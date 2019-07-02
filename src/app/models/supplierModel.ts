@@ -59,7 +59,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         return " fornitori"
     }
 
-    load() {
+    load(next: ()=> void) {
         if (this.service.getItem(this.key)) {
             this.service.getItem(this.key).on('value', sup => {
 
@@ -71,6 +71,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                 this.longitude = Number(this.longitude || this.longitudine);
                 this.address = this.address || this.indirizzo;
                 this.ecommerce = this.ecommerce || this.onLine;
+                next()
             });
         }
         return this 
