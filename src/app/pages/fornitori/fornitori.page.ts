@@ -29,8 +29,8 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
     public geo: GeoService,
     public router: Router, ) {
     this.sorterFunction = (a: SupplierModel, b: SupplierModel) => {
-      
-      console.log('sorting',a,b, )
+
+      console.log('sorting', a, b)
       // console.log('distanza con a', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude))
       // console.log('distanza con b',this.distance(b.latitude, b.longitude, this.position.latitude, this.position.longitude))
       // console.log('distance', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude) -
@@ -90,14 +90,16 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
     this.geo.getPosition().then(coords => {
       this.position = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
     });
-    this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-      this.ItemsList = [];
-      eventSuppliersListSnapshot.forEach(snap => {
-        const supplier = new SupplierModel(undefined,snap.key,this.suppliers)
-        supplier.load()
-        this.ItemsList.push(supplier);
+    if (this.suppliers.getEntitiesList()) {
+      this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
+        this.ItemsList = [];
+        eventSuppliersListSnapshot.forEach(snap => {
+          const supplier = new SupplierModel(undefined, snap.key, this.suppliers)
+          supplier.load()
+          this.ItemsList.push(supplier);
+        });
       });
-    });
+    }
   }
 
 

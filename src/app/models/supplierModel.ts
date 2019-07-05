@@ -6,6 +6,7 @@ import { Value } from '../modules/item/models/value';
 import { FirebaseObject } from '../models/firebaseObject';
 import { CreateSupplierPage } from '../pages/create-supplier/create-supplier.page'
 import { Coordinates } from '../modules/geo-location/models/coordinates';
+import { FornitoriPage } from '../pages/fornitori/fornitori.page';
 export class SupplierModel implements ItemModelInterface, FirebaseObject {
     nome: string;
     note: string;
@@ -22,12 +23,14 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     ecommerce: boolean;
     onLine: boolean; // back compatibility
     service: ItemServiceInterface
+
+
     constructor(fornitore?: {
         nome: string,
         note: string,
         title?: string,
         fidelity_card?: string,
-        address: {
+        address?: {
 
             address: string,
             latitude: number,
@@ -39,16 +42,18 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     }, key?: string, service?: ItemServiceInterface) {
         if (fornitore) {
-            this.key = fornitore && fornitore.key || '';
-            this.nome = fornitore && fornitore.nome || '';
-            this.note = fornitore && fornitore.note || '';
-            this.altitude = fornitore && fornitore.altitude || '';
-            // this.address = fornitore && fornitore.address.address || '';
-            this.latitude = fornitore && fornitore.address.latitude || 0;
-            this.longitude = fornitore && fornitore.address.longitude || 0;
-            this.fidelity_card = fornitore && fornitore.fidelity_card || '';
-            this.title = fornitore && fornitore.title || this.nome;
-            this.ecommerce = fornitore && fornitore.ecommerce || false;
+            Object.entries(fornitore).forEach(([key, value]) => {
+                this[key] = fornitore[key]
+            })
+            this.title = this.title || this.nome
+            if (this.address) {
+                this.address =
+                    new Coordinates({ latitude: this.address.latitude, longitude: this.address.longitude, address: this.address.address })
+            }
+            else {
+                this.address
+                    = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
+            }
         }
         if (key && service) {
             this.key = key
@@ -73,9 +78,10 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                 this.longitude = Number(this.longitude || this.longitudine);
                 // this.address = this.address || this.indirizzo;
                 this.ecommerce = this.ecommerce || this.onLine;
+                this.title = this.title || this.nome
                 if (this.address) {
-                    this.address = 
-                    new Coordinates({ latitude: this.address.latitude, longitude: this.address.longitude, address: this.address.address })
+                    this.address =
+                        new Coordinates({ latitude: this.address.latitude, longitude: this.address.longitude, address: this.address.address })
                 }
                 else {
                     this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
@@ -135,7 +141,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         this.latitudine = fornitore && fornitore.latitudine.value || '';
         this.longitudine = fornitore && fornitore.longitudine.value || '';
         this.ecommerce = fornitore && fornitore.ecommerce.value || false;
-        this.title
+
         return this;
     }
 
