@@ -1,11 +1,12 @@
 {
-    "version": "0.9.3.4",
+    "version": "0.9.3.5",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "sortring supplier by distance",
         "bug fixed",
         "popup create supplier",
         "popup create shopping kart",

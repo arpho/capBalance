@@ -6,6 +6,7 @@ import { FilterItemsPipe } from '../../pipes/filter-items.pipe';
 import { AlertController, ModalController, AngularDelegate } from '@ionic/angular';
 import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SorterItemsPipe } from '../../pipes/sorter-items.pipe';
 
 describe('PageItemsListPage', () => {
   let component: PageItemsListComponent;
@@ -13,7 +14,7 @@ describe('PageItemsListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PageItemsListComponent, FilterItemsPipe],
+      declarations: [PageItemsListComponent, FilterItemsPipe,SorterItemsPipe],
       providers: [AlertController,ModalController,AngularDelegate],
       imports: [RouterModule, RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

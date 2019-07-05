@@ -22,20 +22,24 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() service: ItemServiceInterface;
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
+  @Input() sorterFunction: any
   public showSpinner = true;
 
-  constructor(public alertCtrl: AlertController, public router: Router,public modalController:ModalController) {
+  constructor(public alertCtrl: AlertController, public router: Router, public modalController: ModalController) {
     this.filterFunction = v => true;
   }
 
-  async createItem(){
+  async createItem() {
     console.log('create item')
-     const modal = await this.modalController.create({component:this.dummyItem.getCreatePopup()})
-     return await modal.present()
+    const modal = await this.modalController.create({ component: this.dummyItem.getCreatePopup() })
+    return await modal.present()
 
   }
   ngOnInit() {
     this.filterFunction = (v: ItemModelInterface) => true;
+    if (!this.sorterFunction) {
+      this.sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => 0
+    }
     if (this.service) {
       this.dummyItem = this.service.getDummyItem();
     }
@@ -47,12 +51,12 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     const alert = await this.alertCtrl.create({
       message: ` vuoi deavero cancellare quest${element.genere} ${
         element.element
-      }?(${item.title})`,
+        }?(${item.title})`,
       buttons: [
         {
           text: "Annulla",
           role: "cancel",
-          handler: () => {}
+          handler: () => { }
         },
         {
           text: "Cancella",
@@ -85,5 +89,5 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     this.router.navigate([item.getEditPopup(), item.key]);
   }
 
-  
+
 }

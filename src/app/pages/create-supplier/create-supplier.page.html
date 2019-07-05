@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>createSupplier</ion-title>
+    <ion-title>nuovo Fornitore</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -10,5 +10,6 @@
 </ion-header>
 
 <ion-content>
+    <app-dynamic-form [questions]="filterFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)"></app-dynamic-form>
 
 </ion-content>

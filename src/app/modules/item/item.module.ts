@@ -8,15 +8,17 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { PageItemComponent } from "./components/page-item/page-item.component";
 import { PageItemsListComponent } from "./components/page-items-list/page-items-list.page";
 import { ShowValueComponent } from './components/show-value/show-value.component';
+import { SorterItemsPipe } from './pipes/sorter-items.pipe';
 
 @NgModule({
   declarations: [
     MyItemComponent,
     ItemsListComponent,
     FilterItemsPipe,
+    SorterItemsPipe,
     PageItemComponent,
     PageItemsListComponent,
-    ShowValueComponent
+    ShowValueComponent,
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
   exports: [
