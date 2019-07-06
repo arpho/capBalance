@@ -35,6 +35,7 @@ export class DynamicFormComponent implements OnInit {
   constructor(private qcs: QuestionControlService) {}
 
   ngOnInit() {
+    console.log('question form  ciao')
     this.form = this.qcs.toFormGroup(this.questions);
 
     if (this.questions.filter(v => v.key === "location").length > 0) {

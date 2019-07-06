@@ -34,7 +34,8 @@ import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module'
     PageItemComponent,
     PageItemsListComponent,
     ItemsFilterComponent,
-    ShowValueComponent
+    ShowValueComponent,
+    FilterPopupPage
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

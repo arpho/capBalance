@@ -1,5 +1,5 @@
 {
-    "version": "0.9.3.7",
+    "version": "0.9.3.8",
     "features": [
         "manage suppliers",
         "manage payment's kind",
@@ -7,6 +7,7 @@
     ],
     "newFeatures": [
         "ItemFilter",
+        "itemFilterPopup",
         "refactored geoService",
         "bug fixing",
         "sortring supplier by distance",

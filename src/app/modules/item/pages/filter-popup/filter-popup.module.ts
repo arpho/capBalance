@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FilterPopupPage } from './filter-popup.page';
+import { DynamicFormModule } from 'src/app/modules/dynamic-form/dynamic-form.module';
 
 const routes: Routes = [
   {
@@ -19,8 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    DynamicFormModule,
     RouterModule.forChild(routes)
   ],
-   declarations: [FilterPopupPage]
+   // declarations: [FilterPopupPage]
 })
 export class FilterPopupPageModule {}
