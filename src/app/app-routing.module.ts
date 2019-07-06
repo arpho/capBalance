@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'pagamenti', loadChildren: './pages/pagamenti/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
   { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule' },
   { path: 'shopping-karts', loadChildren: './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule' },
+  // { path: 'filter-popup', loadChildren: './modules/item/pages/filter-popup/filter-popup.module#FilterPopupPageModule' },
+  // { path: 'filter-popup', loadChildren: './item/pages/filter-popup/filter-popup.module#FilterPopupPageModule' },
   // { path: 'create-shopping-kart', loadChildren: './pages/create-shopping-kart/create-shopping-kart.module#CreateShoppingKartPageModule' },
   // { path: 'create-supplier', loadChildren: './pages/create-supplier/create-supplier.module#CreateSupplierPageModule' },
 

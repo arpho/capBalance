@@ -24,12 +24,14 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { InfoModule } from './modules/info/info.module';
 import { CreateSupplierPage } from './pages/create-supplier/create-supplier.page';
 import { CreateShoppingKartPage } from './pages/create-shopping-kart/create-shopping-kart.page';
+import { FilterPopupPage } from './modules/item/pages/filter-popup/filter-popup.page';
 
 @NgModule({
   declarations: [
     AppComponent,
      CreateSupplierPage,
-     CreateShoppingKartPage
+     CreateShoppingKartPage,
+     // FilterPopupPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { CreateShoppingKartPage } from './pages/create-shopping-kart/create-shop
   ],
   entryComponents: [
     CreateSupplierPage,
-    CreateShoppingKartPage
+    CreateShoppingKartPage,
+    FilterPopupPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

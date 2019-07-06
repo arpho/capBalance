@@ -24,6 +24,7 @@ const routes: Routes = [
     GeoLocationModule,
     CommonModule,
     FormsModule,
+    ItemModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

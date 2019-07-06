@@ -7,7 +7,7 @@ import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterfa
 @Injectable({
   providedIn: 'root'
 })
-export class SuppliersService implements ItemServiceInterface  {
+export class SuppliersService implements ItemServiceInterface {
   public suppliersListRef: firebase.database.Reference;
   constructor() {
     firebase.auth().onAuthStateChanged(user => {
@@ -34,14 +34,16 @@ export class SuppliersService implements ItemServiceInterface  {
 
 
   getItem(prId: string): firebase.database.Reference {
-    return (this.suppliersListRef) ? this.suppliersListRef.child(prId) : undefined;
+
+    return (this.suppliersListRef && prId) ? this.suppliersListRef.child(prId) : undefined;
   }
 
   updateItem(item: ItemModelInterface) {
     return this.suppliersListRef.child(item.key).update(item.serialize());
   }
   deleteItem(key: string) {
-    return this.suppliersListRef.child(key).remove();
+
+    return (key)?this.suppliersListRef.child(key).remove(): undefined;
   }
 
 }

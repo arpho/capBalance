@@ -30,7 +30,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   async createItem() {
-    console.log('create item')
     const modal = await this.modalController.create({ component: this.dummyItem.getCreatePopup() })
     return await modal.present()
 

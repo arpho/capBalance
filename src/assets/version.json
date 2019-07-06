@@ -1,11 +1,14 @@
 {
-    "version": "0.9.3.5",
+    "version": "0.9.3.7",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "ItemFilter",
+        "refactored geoService",
+        "bug fixing",
         "sortring supplier by distance",
         "bug fixed",
         "popup create supplier",

@@ -30,12 +30,11 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
     public router: Router, ) {
     this.sorterFunction = (a: SupplierModel, b: SupplierModel) => {
 
-      console.log('sorting', a, b)
       // console.log('distanza con a', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude))
       // console.log('distanza con b',this.distance(b.latitude, b.longitude, this.position.latitude, this.position.longitude))
       // console.log('distance', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude) -
-      return this.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
-        this.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
+      return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
+        this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
     }
     this.filterFields = [
       new TextboxQuestion({
@@ -62,15 +61,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
 
   }
 
-  distance(lat1, lon1, lat2, lon2) {
-    const p = 0.017453292519943295;    // Math.PI / 180
-    const c = Math.cos;
-    const a = 0.5 - c((lat2 - lat1) * p) / 2 +
-      c(lat1 * p) * c(lat2 * p) *
-      (1 - c((lon2 - lon1) * p)) / 2;
-
-    return 12742 * Math.asin(Math.sqrt(a)) || 6371; // 2 * R; R = 6371 km  se NaN lo considero molto distante
-  }
 
   filter(filterParams) { // è possibile filtrare per titolo, nota  e ecommerce
     console.log(filterParams);
@@ -96,6 +86,7 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
         eventSuppliersListSnapshot.forEach(snap => {
           const supplier = new SupplierModel(undefined, snap.key, this.suppliers)
           supplier.load()
+          supplier.key = snap.key // alcuni item non hanno il campo key
           this.ItemsList.push(supplier);
         });
       });

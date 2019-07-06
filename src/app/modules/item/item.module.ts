@@ -9,23 +9,31 @@ import { PageItemComponent } from "./components/page-item/page-item.component";
 import { PageItemsListComponent } from "./components/page-items-list/page-items-list.page";
 import { ShowValueComponent } from './components/show-value/show-value.component';
 import { SorterItemsPipe } from './pipes/sorter-items.pipe';
+import { ItemsFilterComponent } from './components/items-filter/items-filter.component';
+import { FilterPopupPage } from './pages/filter-popup/filter-popup.page';
+import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module';
 
 @NgModule({
   declarations: [
     MyItemComponent,
     ItemsListComponent,
     FilterItemsPipe,
+    FilterPopupPage,
+    ItemsFilterComponent,
     SorterItemsPipe,
     PageItemComponent,
     PageItemsListComponent,
     ShowValueComponent,
+    ItemsFilterComponent,
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
+  entryComponents:[FilterPopupPage],
   exports: [
     MyItemComponent,
     ItemsListComponent,
     PageItemComponent,
     PageItemsListComponent,
+    ItemsFilterComponent,
     ShowValueComponent
   ],
   schemas: [NO_ERRORS_SCHEMA]
