@@ -13,7 +13,6 @@ export class FilterPopupPage implements OnInit {
 
   constructor(public modalCtrl: ModalController, navParams: NavParams) {
     this.filterFields = navParams.get('filterFields')
-    console.log('question',this.filterFields)
   }
 
 
@@ -21,7 +20,9 @@ export class FilterPopupPage implements OnInit {
   }
 
   filter(ev) {
-    console.log('data', ev)
+  }
+  submit(ev){
+    this.modalCtrl.dismiss(ev)
   }
 
   dismiss() {

@@ -10,7 +10,7 @@
     </ion-buttons>
     <ion-title>fornitori</ion-title>
     <div slot='end'>
-    <app-items-filter [filterFields]="filterFields"></app-items-filter>
+    <app-items-filter [filterFields]="filterFields"(filterSet)="filter($event)"></app-items-filter>
     </div>
   </ion-toolbar>
 </ion-header>

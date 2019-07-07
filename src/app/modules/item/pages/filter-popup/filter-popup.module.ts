@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { FilterPopupPage } from './filter-popup.page';
-import { DynamicFormModule } from 'src/app/modules/dynamic-form/dynamic-form.module';
+import { DynamicFormModule } from '../../../dynamic-form/dynamic-form.module';
 
 const routes: Routes = [
   {

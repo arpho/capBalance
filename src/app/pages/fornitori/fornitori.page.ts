@@ -63,7 +63,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
 
 
   filter(filterParams) { // è possibile filtrare per titolo, nota  e ecommerce
-    console.log(filterParams);
     const filterTitle: (item: ItemModelInterface) => boolean = (!filterParams.title) ? (item: ItemModelInterface) => true :
       (item: ItemModelInterface) => item.title.toLocaleLowerCase().indexOf(filterParams.title.toLowerCase()) > -1;
     const filterNote = (!filterParams.note) ? (item: ItemModelInterface) => true :

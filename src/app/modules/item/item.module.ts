@@ -18,7 +18,7 @@ import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module'
     MyItemComponent,
     ItemsListComponent,
     FilterItemsPipe,
-    FilterPopupPage,
+    // FilterPopupPage,
     ItemsFilterComponent,
     SorterItemsPipe,
     PageItemComponent,
@@ -27,7 +27,7 @@ import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module'
     ItemsFilterComponent,
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
-  entryComponents:[FilterPopupPage],
+  // entryComponents:[FilterPopupPage],
   exports: [
     MyItemComponent,
     ItemsListComponent,
@@ -35,7 +35,7 @@ import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module'
     PageItemsListComponent,
     ItemsFilterComponent,
     ShowValueComponent,
-    FilterPopupPage
+    // FilterPopupPage
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

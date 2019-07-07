@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
 
@@ -9,15 +9,17 @@ import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
 })
 export class ItemsFilterComponent implements OnInit {
   @Input() filterFields: any
+  @Output() filterSet: EventEmitter<{}> = new EventEmitter()
 
   constructor(public modal:ModalController) { }
 
   ngOnInit() {
-    console.log('filterrFields',this.filterFields)
   }
   async showPopup(){
-    console.log('showing')
     const modal =  await this.modal.create({component:FilterPopupPage,componentProps:{filterFields:this.filterFields}})
+    modal.onDidDismiss().then(data=>{
+      this.filterSet.emit(data.data)
+    })
     return await modal.present()
   }
 

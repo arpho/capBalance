@@ -31,7 +31,7 @@ import { FilterPopupPage } from './modules/item/pages/filter-popup/filter-popup.
     AppComponent,
      CreateSupplierPage,
      CreateShoppingKartPage,
-     // FilterPopupPage
+     FilterPopupPage
   ],
   imports: [
     BrowserModule,
