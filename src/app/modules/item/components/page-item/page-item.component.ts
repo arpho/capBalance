@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef
 } from "@angular/core";
 import { MyItemComponent } from "../item/item.component";
-import { AlertController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { ItemModelInterface } from "../../models/itemModelInterface";
 import { ItemServiceInterface } from "../../models/ItemServiceInterface";
 import { QuickAction } from "../../models/QuickAction";
@@ -22,7 +22,7 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
   @Input() Item: ItemModelInterface;
   @Input() Service: ItemServiceInterface;
 
-  constructor(public alertCtrl: AlertController, public router: Router, public ref: ChangeDetectorRef) {
+  constructor(public alertCtrl: AlertController, public router: Router, public ref: ChangeDetectorRef, public modal: ModalController) {
     super(alertCtrl);
   }
 
@@ -38,7 +38,8 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
     action.getAction()({
       alertCtrl: this.alertCtrl,
       router: this.router,
-      Service: this.Service
+      Service: this.Service,
+      modal: this.modal
     });
   }
 }

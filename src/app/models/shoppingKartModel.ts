@@ -12,6 +12,7 @@ import { PaymentsService } from '../services/payments/payments.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
 import { BirthDateModel } from '../modules/user/models/birthDateModel'
 import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
+import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -31,10 +32,10 @@ export class ShoppingKartModel implements ItemModelInterface {
     items: Array<PurchaseModel> // for back compatibility
     purchases: Array<PurchaseModel>
     note: string
-    private service: ItemServiceInterface // ShppingKartService
+    private service: ShoppingKartsService
 
 
-    constructor(key?: string, service?: ItemServiceInterface) {
+    constructor(key?: string, service?: ShoppingKartsService) {
         this.key = key
         this.service = service
        

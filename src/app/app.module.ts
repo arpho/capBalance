@@ -25,12 +25,14 @@ import { InfoModule } from './modules/info/info.module';
 import { CreateSupplierPage } from './pages/create-supplier/create-supplier.page';
 import { CreateShoppingKartPage } from './pages/create-shopping-kart/create-shopping-kart.page';
 import { FilterPopupPage } from './modules/item/pages/filter-popup/filter-popup.page';
+import { ViewSupplierPage } from './pages/view-supplier/view-supplier.page';
 
 @NgModule({
   declarations: [
     AppComponent,
      CreateSupplierPage,
      CreateShoppingKartPage,
+     ViewSupplierPage,
      FilterPopupPage
   ],
   imports: [
@@ -52,6 +54,7 @@ import { FilterPopupPage } from './modules/item/pages/filter-popup/filter-popup.
   entryComponents: [
     CreateSupplierPage,
     CreateShoppingKartPage,
+    ViewSupplierPage,
     FilterPopupPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

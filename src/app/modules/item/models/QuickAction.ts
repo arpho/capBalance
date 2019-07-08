@@ -1,4 +1,5 @@
 import { ItemServiceInterface } from "./ItemServiceInterface";
+import { ModalController } from '@ionic/angular';
 export class QuickAction {
   icon: string;
   title: string;
@@ -7,15 +8,17 @@ export class QuickAction {
     router: any;
     alertCtrl: any;
     Service: ItemServiceInterface;
+    modal: ModalController
   }) => void;
   constructor(args: {
     icon: string;
     title: string;
     description: string;
     action: (params: {
-      router: any;
-      alertCtrl: any;
+      router?: any;
+      alertCtrl?: any;
       Service?: ItemServiceInterface;
+      modal?: ModalController
     }) => void;
   }) {
     this.title = args.title;

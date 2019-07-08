@@ -13,7 +13,7 @@ import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
   extraService0?: ItemServiceInterface;
-  extraService1?: ItemServiceInterface;
+  extraService1?: SuppliersService;
   extraService2?: ItemServiceInterface;
   getItem(key: string): firebase.database.Reference {
     return this.shoppingKartsListRef.child(key);

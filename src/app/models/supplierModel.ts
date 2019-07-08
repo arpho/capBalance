@@ -7,6 +7,10 @@ import { FirebaseObject } from '../models/firebaseObject';
 import { CreateSupplierPage } from '../pages/create-supplier/create-supplier.page'
 import { Coordinates } from '../modules/geo-location/models/coordinates';
 import { FornitoriPage } from '../pages/fornitori/fornitori.page';
+import { QuickAction } from '../modules/item/models/QuickAction';
+import { ModalController, AlertController } from '@ionic/angular';
+import { ViewSupplierPage } from '../pages/view-supplier/view-supplier.page';
+import { SuppliersService } from '../services/suppliers/suppliers.service';
 export class SupplierModel implements ItemModelInterface, FirebaseObject {
     nome: string;
     note: string;
@@ -22,7 +26,9 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     key: string;
     ecommerce: boolean;
     onLine: boolean; // back compatibility
-    service: ItemServiceInterface
+    // tslint:disable: semicolon
+    service: SuppliersService
+    quickActions: Array<QuickAction>
 
 
     constructor(fornitore?: {
@@ -40,7 +46,19 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         key: string,
         ecommerce: boolean,
 
-    }, key?: string, service?: ItemServiceInterface) {
+
+    }, key?: string, service?: SuppliersService) {
+        this.quickActions = [
+            new QuickAction({
+                icon: 'eye',
+                title: 'visualiza',
+                description: "",
+                action: async (args: { alertCtrl?: any, router: any, modal: ModalController }) => {
+                    const modal = await args.modal.create({ component: ViewSupplierPage, componentProps: { supplier: this } })
+                    return await modal.present()
+                }
+            })
+        ]
         if (fornitore) {
             Object.entries(fornitore).forEach(([key, value]) => {
                 this[key] = fornitore[key]
@@ -62,6 +80,10 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     }
 
+    getQuickActions() {
+        return this.quickActions
+    }
+
     getCountingText() {
         return " fornitori"
     }
@@ -81,7 +103,11 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                 this.title = this.title || this.nome
                 if (this.address) {
                     this.address =
-                        new Coordinates({ latitude: this.address.latitude, longitude: this.address.longitude, address: this.address.address })
+                        new Coordinates({
+                            latitude: this.address.latitude,
+                            longitude: this.address.longitude,
+                            address: this.address.address
+                        })
                 }
                 else {
                     this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
@@ -111,16 +137,15 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     hasQuickActions() {
-        return false;
+        return true;
     }
 
     build(item) {
-        this.key = item.key || '';
+        this.key = this.key || item.key
         // this.nome = item.nome || '';
-        this.title = item.title || item.nome
+        this.title = item.title
         this.note = item.note || '';
-        this.latitudine = item.latitudine || '';
-        this.longitudine = item.longitudine || '';
+        this.address = new Coordinates().clone(item.address)
         this.ecommerce = this.ecommerce;
     }
     buildFromActiveForm(fornitore: {
