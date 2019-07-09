@@ -17,6 +17,7 @@ export class PurchaseModel {
         this.moneta = item['moneta']
         this.picture = item['picture']
         this.categoriesKeys = item['categorieId']
+        this.key = item['key'] ||''
         if (categories) {
             // è presente categoriesService carico le categorie
             this.service = categories
@@ -27,6 +28,17 @@ export class PurchaseModel {
             }
         }
 
+    }
+
+    serialize() {
+        return {
+            barcode: this.barcode || '',
+            descrizione: this.descrizione || '',
+            moneta: this.moneta || '',
+            picture: this.picture || '',
+            categorieId: this.categoriesKeys || [],
+            key:this.key||''
+        }
     }
     async load() {
         if (this.categorie) {

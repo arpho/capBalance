@@ -1,3 +1,4 @@
+// tslint:disable:semicolon
 import { ItemModelInterface, Genere } from '../modules/item/models/itemModelInterface';
 import { SupplierModel } from './supplierModel';
 import { PaymentsModel } from './paymentModel';
@@ -24,7 +25,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     pagamentoId: string // campo di comodo
     key: string
     title: string
-    moneta = "€"
+    moneta = '€'
     pagamento: PaymentsModel
     online: boolean
     tassoConversione: number
@@ -32,16 +33,33 @@ export class ShoppingKartModel implements ItemModelInterface {
     items: Array<PurchaseModel> // for back compatibility
     purchases: Array<PurchaseModel>
     note: string
+    // -next-line: semicolon
     private service: ShoppingKartsService
 
 
-    constructor(key?: string, service?: ShoppingKartsService) {
-        this.key = key
-        this.service = service
-       
+    constructor(args?: { key?: string, service?: ShoppingKartsService, item?: {} }) {
+        if (args) {
+
+            this.key = (args.key) ? args.key : ''
+            this.service = (args.service) ? args.service : undefined
+            if (args.item) {
+                this.build(args.item)
+            }
+        }
+
     }
     build?(item: {}) {
-        throw new Error("Method not implemented.");
+        const loader = ([Key, value]) => {
+            if (Key !== 'key') { // evito di sovrascrivere la chiave
+                this[Key] = value;
+            }
+        }
+        Object.entries(item).forEach(loader)
+        this.fornitore = new SupplierModel()
+        this.fornitore.key = this.fornitoreId
+        this.pagamento = new PaymentsModel()
+        this.pagamento.key = this.pagamentoId
+
     }
     isArchived(): boolean {
         return this.archived
@@ -74,7 +92,13 @@ export class ShoppingKartModel implements ItemModelInterface {
         return false
     }
     serialize() {
-        throw new Error("Method not implemented.");
+        return {
+            fornitoreId: this.fornitore.key || '',
+            pagamentoId: this.pagamento.key || '',
+            key: this.key || '',
+            archived: Boolean(this.archived),
+            online: Boolean(this.online)
+        }
     }
     getElement(): { element: string; genere: Genere } {
 
@@ -83,7 +107,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getTitle() {
         // tslint:disable: semicolon
-        return new Value({ value: `${ this.getValue4().value}`, label: 'titolo' })
+        return new Value({ value: `${this.getValue4().value}`, label: 'titolo' })
 
     }
 
@@ -92,14 +116,14 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     getValue2() {
-        return new Value({ value: this.totale * (this.tassoConversione||1), label: 'totale' })
+        return new Value({ value: this.totale * (this.tassoConversione || 1), label: 'totale' })
     }
 
     getNote() {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    async load(next:()=> void) {
+    async load(next: () => void) {
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori 
@@ -112,7 +136,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento.load()
         if (this.purchases || this.items) { // ci sono carrelli senza acquisti
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
-            this.purchases.forEach(p=>p.load()) // carica le categorie degli acqwuisti
+            this.purchases.forEach(p => p.load()) // carica le categorie degli acqwuisti
         }
         this.title = `${this.fornitore.getTitle().value}  ${new BirthDateModel(new Date(this.dataAcquisto)).formatDate()}`
 

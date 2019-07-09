@@ -24,13 +24,13 @@ export class ShoppingKartsService implements ItemServiceInterface {
   deleteItem(key: string) {
     return this.shoppingKartsListRef.child(key).remove();
   }
-  getDummyItem(): import("../../modules/item/models/itemModelInterface").ItemModelInterface {
+  getDummyItem(): import('../../modules/item/models/itemModelInterface').ItemModelInterface {
     return new ShoppingKartModel()
   }
-  createItem(item: ItemModelInterface): import("firebase").database.ThenableReference {
+  createItem(item: ItemModelInterface): import('firebase').database.ThenableReference {
     return this.shoppingKartsListRef.push(item.serialize());
   }
-  getEntitiesList(): import("firebase").database.Reference {
+  getEntitiesList(): import('firebase').database.Reference {
     return this.shoppingKartsListRef
   }
 
