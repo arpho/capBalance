@@ -18,17 +18,19 @@ import { SupplierModel } from 'src/app/models/supplierModel';
 export class CreateSupplierPage implements OnInit {
   filterFields: any
   supplier: SupplierModel
+  showSpinner = false
 
   filter(ev) {
   }
 
   submit(supplier) {
-    console.log('got supplier', supplier)
+    this.showSpinner = true
     this.supplier = new SupplierModel(supplier)
     console.log("new supplier", this.supplier)
     this.suppliers.createItem(this.supplier).then(sup => {
       console.log('created supplier', sup)
       this.modalCtrl.dismiss(sup.key)
+      this.showSpinner = false
     })
 
   }

@@ -21,6 +21,7 @@ export class ViewSupplierPage implements OnInit {
   supplier: SupplierModel
   supplierFields: any
   suppliers: SuppliersService
+  showSpinner = false
 
   constructor(
     public modalCtrl: ModalController,
@@ -28,7 +29,6 @@ export class ViewSupplierPage implements OnInit {
   ) {
     // super(suppliers, geo, router, modalCtrl)
     this.supplier = navParams.get('supplier')
-    console.log('got supplier ', this.supplier)
     if (this.supplier) {
       this.suppliers = this.supplier.service
     }
@@ -72,10 +72,11 @@ export class ViewSupplierPage implements OnInit {
   filter(sup) {
   }
   submit(sup) {
+    this.showSpinner = true
 
     this.supplier.build(sup)
     this.suppliers.updateItem(this.supplier).then(v => {
-      console.log('supplier updated')
+      this.showSpinner = false
       this.dismiss()
     })
   }
