@@ -1,11 +1,12 @@
 {
-    "version": "0.9.4.0",
+    "version": "0.9.4.1",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "bug fixed",
         "update supplier",
         "ItemFilter",
         "itemFilterPopup",

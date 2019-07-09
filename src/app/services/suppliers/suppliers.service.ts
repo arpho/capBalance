@@ -24,7 +24,8 @@ export class SuppliersService implements ItemServiceInterface {
   }
 
   createItem(item: ItemModelInterface) {
-    return this.suppliersListRef.push(item);
+    console.log('puhing',item.serialize())
+    return this.suppliersListRef.push(item.serialize());
 
   }
 
@@ -38,12 +39,12 @@ export class SuppliersService implements ItemServiceInterface {
     return (this.suppliersListRef && prId) ? this.suppliersListRef.child(prId) : undefined;
   }
 
-  updateItem(item: ItemModelInterface) {
+  updateItem(item: SupplierModel) {
     return this.suppliersListRef.child(item.key).update(item.serialize());
   }
   deleteItem(key: string) {
 
-    return (key)?this.suppliersListRef.child(key).remove(): undefined;
+    return (key) ? this.suppliersListRef.child(key).remove() : undefined;
   }
 
 }

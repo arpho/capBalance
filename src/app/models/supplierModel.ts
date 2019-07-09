@@ -92,8 +92,14 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         if (this.service.getItem(this.key)) {
             this.service.getItem(this.key).on('value', sup => {
 
-                const loader = ([Key, value]) => { this[Key] = value; };
-                Object.entries(sup.val()).forEach(loader);
+                const loader = ([Key, value]) => {
+                    if (Key !== 'key') { // evito di sovrascrivere la chiave
+                        this[Key] = value;
+                    }
+                };
+                if (sup.val()) {
+                    Object.entries(sup.val()).forEach(loader);
+                }
                 // retro compatibilità
                 this.title = this.title || this.nome;
                 this.latitude = Number(this.latitude || this.latitudine);
@@ -211,13 +217,13 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     serialize() {
         return {
-            title: this.title,
-            address: this.address,
-            ecommerce: this.ecommerce,
-            fidelity_card: this.fidelity_card,
-            latitude: this.latitude,
-            longitude: this.longitude,
-            note: this.note
+            title: this.title || '',
+            address: this.address.serialize(),
+            ecommerce: Boolean(this.ecommerce),
+
+            fidelity_card: this.fidelity_card || '',
+            note: this.note || ''
+
         };
     }
 

@@ -52,6 +52,7 @@ describe("testing supplierMOdel", () => {
         expect(supplier2.address.latitude).toBe(pennyData2.address.latitude)
         expect(supplier2.address.longitude).toBe(pennyData2.address.longitude)
         expect(supplier.key).toBe(pennyData.key)
+        expect(supplier.fidelity_card).toBe(pennyData.fidelity_card)
     })
     it("supplier should be serialized correctly", () => {
         expect(supplier.serialize()).toBeTruthy()
@@ -65,6 +66,7 @@ describe("testing supplierMOdel", () => {
         expect(supplier.serialize().fidelity_card).toBe(pennyData.fidelity_card)
         expect(supplier.serialize().title).toBe(pennyData.nome)
         expect(supplier.serialize()['altitude']).toBeFalsy()
+        expect(supplier.serialize().fidelity_card).toBe(pennyData.fidelity_card)
         // expect(supplier.serialize().)
     })
 

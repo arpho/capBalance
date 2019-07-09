@@ -23,14 +23,16 @@ export class ItemsListComponent implements OnInit, OnChanges {
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   public showSpinner = true;
 
-  constructor(public alertCtrl: AlertController) {}
+  constructor(public alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.filterFunction = (v: ItemModelInterface) => true;
     if (this.service) {
       this.dummyItem = this.service.getDummyItem();
     }
+
   }
+
 
   async create() {
     const popup = this.service.getDummyItem().getCreatePopup(this.service);
@@ -44,12 +46,12 @@ export class ItemsListComponent implements OnInit, OnChanges {
     const alert = await this.alertCtrl.create({
       message: ` vuoi davvero cancellare quest${element.genere} ${
         element.element
-      }?(${item.title})`,
+        }?(${item.title})`,
       buttons: [
         {
           text: "Annulla",
           role: "cancel",
-          handler: () => {}
+          handler: () => { }
         },
         {
           text: "Cancella",
@@ -62,7 +64,7 @@ export class ItemsListComponent implements OnInit, OnChanges {
     await alert.present();
   }
 
-  async showFilter() {}
+  async showFilter() { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.items_list && changes.items_list.currentValue) {
