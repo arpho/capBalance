@@ -1,10 +1,11 @@
-import { Value } from "./value";
-import { ItemServiceInterface } from "./ItemServiceInterface";
-import { AlertOptions } from "@ionic/core";
-import { ItemFilterOPtions } from "./ItemFIlterOptions";
-import { QuickAction } from "./QuickAction";
+// tslint: disable:semicolon
+import { Value } from './value';
+import { ItemServiceInterface } from './ItemServiceInterface';
+import { AlertOptions } from '@ionic/core';
+import { ItemFilterOPtions } from './ItemFIlterOptions';
+import { QuickAction } from './QuickAction';
 
-export type Genere = "o" | "a";
+export type Genere = 'o' | 'a';
 
 export interface ItemModelInterface {
   title: string;
@@ -12,6 +13,7 @@ export interface ItemModelInterface {
   key: string;
   quickActions?: Array<QuickAction>;
   archived?: boolean;
+  service?: ItemServiceInterface;
   getTitle(): Value;
   getCountingText(): string;
   getNote(): Value;
@@ -26,7 +28,7 @@ export interface ItemModelInterface {
   getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface);
   getCreatePopup(service?: ItemServiceInterface): string | any;
 
-// tslint:disable-next-line: jsdoc-format
+  // tslint:disable-next-line: jsdoc-format
   /**ritorna l'etichetta e il valore da visualizzare del campo aggregato **/
   getAggregate(): Value;
   aggregateAction?(): any | void;

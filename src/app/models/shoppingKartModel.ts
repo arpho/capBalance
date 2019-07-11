@@ -11,7 +11,7 @@ import { QuickAction } from '../modules/item/models/QuickAction';
 import { CategoriesService } from '../services/categories/categorie.service';
 import { PaymentsService } from '../services/payments/payments.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
-import { BirthDateModel } from '../modules/user/models/birthDateModel'
+import { DateModel } from '../modules/user/models/birthDateModel'
 import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
 import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
 
@@ -19,6 +19,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
     archived: boolean;
     dataAcquisto: string
+    purchaseDate: DateModel
     dataAddebito: string
     fornitore: SupplierModel;
     fornitoreId: string; // campo di comodo
@@ -34,10 +35,11 @@ export class ShoppingKartModel implements ItemModelInterface {
     purchases: Array<PurchaseModel>
     note: string
     // -next-line: semicolon
-    private service: ShoppingKartsService
+    public service: ShoppingKartsService
 
 
     constructor(args?: { key?: string, service?: ShoppingKartsService, item?: {} }) {
+        this.purchaseDate = new DateModel(new Date())
         if (args) {
 
             this.key = (args.key) ? args.key : ''
@@ -59,6 +61,8 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.fornitore.key = this.fornitoreId
         this.pagamento = new PaymentsModel()
         this.pagamento.key = this.pagamentoId
+        // purchaseDate deve sempre essere definito
+        this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
 
     }
     isArchived(): boolean {
@@ -70,8 +74,19 @@ export class ShoppingKartModel implements ItemModelInterface {
     isArchivable?(): boolean {
         return true;
     }
+
+    setSupplier(supplier: SupplierModel) {
+        this.fornitore = supplier
+        this.fornitoreId = supplier.key
+    }
+
+    setPayment(pay:PaymentsModel){
+        this.pagamento = pay
+        this.pagamentoId = pay.key
+    }
+
     getValue3(): Value {
-        return new Value({ value: new BirthDateModel(new Date(this.dataAcquisto)).formatDate(), label: ' data di acquisto' })
+        return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
         return new Value({ value: '  ' + this.fornitore.title || this.fornitore.nome, label: ' fornitore ' })
@@ -97,7 +112,8 @@ export class ShoppingKartModel implements ItemModelInterface {
             pagamentoId: this.pagamento.key || '',
             key: this.key || '',
             archived: Boolean(this.archived),
-            online: Boolean(this.online)
+            online: Boolean(this.online),
+            dataAcquisto: (this.purchaseDate) ? this.purchaseDate.formatDate() : ''
         }
     }
     getElement(): { element: string; genere: Genere } {
@@ -130,6 +146,7 @@ export class ShoppingKartModel implements ItemModelInterface {
                 Object.keys(kart.val()).forEach(k => { this[k] = kart.val()[k] })
             }
         })
+        this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
         this.fornitore.load(next)
@@ -138,7 +155,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
             this.purchases.forEach(p => p.load()) // carica le categorie degli acqwuisti
         }
-        this.title = `${this.fornitore.getTitle().value}  ${new BirthDateModel(new Date(this.dataAcquisto)).formatDate()}`
+        this.title = `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
 
     }
 

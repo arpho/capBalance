@@ -43,9 +43,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
       this.dummyItem = this.service.getDummyItem();
       if (this.items_list) {
         this.items_list.forEach(item => {
-          console.log('loading', item.title,item.key,item) // key ok
           item.load()
-          console.log('loaded', item.title, item.key)
         })
       }
     }

@@ -1,4 +1,4 @@
-export class BirthDateModel {
+export class DateModel {
   day: number;
   month: number;
   year: number;

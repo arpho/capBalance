@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CreateShoppingKartPage } from './create-shopping-kart.page';
-import { ItemModule } from 'src/app/modules/item/item.module';
+import { SelectorItemsPage } from './selector-items.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateShoppingKartPage
+    component: SelectorItemsPage
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ItemModule,
     RouterModule.forChild(routes)
   ],
-   // declarations: [CreateShoppingKartPage]
+  // declarations: [SelectorItemsPage]
 })
-export class CreateShoppingKartPageModule {}
+export class SelectorItemsPageModule {}

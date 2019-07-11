@@ -146,10 +146,11 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         return true;
     }
 
+
     build(item) {
         this.key = this.key || item.key
         // this.nome = item.nome || '';
-        this.title = item.title
+        this.title = item.title || item.nome
         this.note = item.note || '';
         this.address = new Coordinates().clone(item.address)
         this.ecommerce = this.ecommerce;

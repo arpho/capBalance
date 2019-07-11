@@ -10,5 +10,21 @@
 </ion-header>
 
 <ion-content>
+    <app-dynamic-form [questions]="kartFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)"></app-dynamic-form>
+    <app-selector-items [text]="textSelectSupplier" [service]="supplierService" 
+    (selectedItem)="selectedSupplier($event)" [sorterFunction]="supplierSorterFunction" 
+    [filterFunction]= "supplierFilterFunction"
+    ></app-selector-items>
+    <app-selector-items [text]="textSelectPayment" [service]="paymentsService" (selectedItem)="selectedPayment($event)" ></app-selector-items>
+  <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
+      <div class="loader">
+          <div class="face">
+            <div class="circle"></div>
+          </div>
+          <div class="face">
+            <div class="circle"></div>
+          </div>
+        </div>
+    </div>
 
 </ion-content>

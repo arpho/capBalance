@@ -12,15 +12,17 @@ import { SorterItemsPipe } from './pipes/sorter-items.pipe';
 import { ItemsFilterComponent } from './components/items-filter/items-filter.component';
 import { FilterPopupPage } from './pages/filter-popup/filter-popup.page';
 import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module';
+import { SelectorItemsComponent } from './components/selector-items/selector-items.component';
 
 @NgModule({
   declarations: [
     MyItemComponent,
     ItemsListComponent,
     FilterItemsPipe,
-    // FilterPopupPage,
+    SelectorItemsComponent,
     ItemsFilterComponent,
     SorterItemsPipe,
+    SelectorItemsComponent,
     PageItemComponent,
     PageItemsListComponent,
     ShowValueComponent,
@@ -32,6 +34,9 @@ import { FilterPopupPageModule } from './pages/filter-popup/filter-popup.module'
     MyItemComponent,
     ItemsListComponent,
     PageItemComponent,
+    SorterItemsPipe,
+    FilterItemsPipe,
+    SelectorItemsComponent,
     PageItemsListComponent,
     ItemsFilterComponent,
     ShowValueComponent,

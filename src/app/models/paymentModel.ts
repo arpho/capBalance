@@ -30,6 +30,13 @@ export class PaymentsModel implements ItemModelInterface {
 
     }
 
+    build(item){
+        this.key = item.key
+        this.title = item.title|| item.nome
+        this.addebito = item.addebito
+        this.note = item.note
+    }
+
     getCountingText() {
         return 'metodi di pagamento'
     }

@@ -14,9 +14,11 @@ export class Coordinates {
 
     public clone(address) {
         // tslint:disable: semicolon
-        this.address = address.address
-        this.latitude = address.latitude
-        this.longitude = address.longitude
+        if (address) {
+            this.address = address.address
+            this.latitude = address.latitude
+            this.longitude = address.longitude
+        }
         return this
     }
 

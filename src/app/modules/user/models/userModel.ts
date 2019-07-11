@@ -4,12 +4,12 @@ import {
 } from "../../item/models/itemModelInterface";
 import { ItemServiceInterface } from "../../item/models/ItemServiceInterface";
 import { Value } from "../../item/models/value";
-import { BirthDateModel } from "./birthDateModel";
+import { DateModel } from "./birthDateModel";
 import { RoleModel } from "./privilegesLevelModel";
 import { configs } from "src/app/configs/configs";
 import { QuickAction } from "../../item/models/QuickAction";
 export class UserModel implements ItemModelInterface {
-  birthDate: BirthDateModel; // { day: number; month: number; year: number };
+  birthDate: DateModel; // { day: number; month: number; year: number };
   email: string;
   firstName: string;
   lastName: string;
@@ -56,7 +56,7 @@ export class UserModel implements ItemModelInterface {
     };
     Object.entries(item).forEach(loader);
     if (item["birthDate"]) {
-      this.birthDate = new BirthDateModel(item["birthDate"]);
+      this.birthDate = new DateModel(item["birthDate"]);
     }
     this.privileges = configs.accessLevel.filter(
       (access: RoleModel) => access.value == this.level

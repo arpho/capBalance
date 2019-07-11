@@ -1,10 +1,11 @@
 // tslint:disable: semicolon
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingKartModel } from './shoppingKartModel'
+import { DateModel } from '../modules/user/models/birthDateModel';
 describe('ShoppingKart should instantiate', () => {
     const kartdata = {
         archived: false,
-        dataAcquisto: '2017-09-16T09:49:13.587Z',
+        dataAcquisto: new Date().toString(),
         fornitoreId: 'qwerty',
         pagamentoId: 'asdfghj',
         key: 'zxcvbnm'
@@ -17,6 +18,7 @@ describe('ShoppingKart should instantiate', () => {
         expect(kart.pagamentoId).toBe(kart.pagamentoId)
         expect(kart.archived).toBe(kartdata.archived)
         expect(kart.key).toBe(kart.key)
+        expect(kart.purchaseDate.formatDate()).toBe(new DateModel(new Date()).formatDate())
     })
 })
 describe('serialize must not have undefined fields', () => {
@@ -42,5 +44,8 @@ describe('serialize must not have undefined fields', () => {
 
     it('checking online', () => {
         expect(kart.serialize().online).toBe(false)
+    })
+    it('checking dataAcquisto', () => {
+        expect(kart.serialize().dataAcquisto).toBe(new DateModel(new Date()).formatDate())
     })
 })
