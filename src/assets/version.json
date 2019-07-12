@@ -1,11 +1,12 @@
 {
-    "version": "0.9.4.4",
+    "version": "0.9.4.5",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "selector supplier  ordina per distanza",
         "added spinner",
         "bug fixed",
         "update supplier",

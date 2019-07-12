@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ItemModelInterface } from '../models/itemModelInterface';
+import { CommonModule } from '@angular/common'
 
 @Pipe({
   name: 'sorterItems'

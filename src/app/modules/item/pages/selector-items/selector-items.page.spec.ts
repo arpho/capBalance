@@ -4,6 +4,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectorItemsPage } from './selector-items.page';
 import { ModalController, AngularDelegate, NavParams } from '@ionic/angular';
 import { MockNavParams } from './mockNavParams';
+import { FilterItemsPipe } from '../../pipes/filter-items.pipe';
+import { SorterItemsPipe } from '../../pipes/sorter-items.pipe';
 
 describe('SelectorItemsPage', () => {
   let component: SelectorItemsPage;
@@ -11,10 +13,10 @@ describe('SelectorItemsPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SelectorItemsPage],
+      declarations: [SelectorItemsPage, FilterItemsPipe, SorterItemsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [ModalController, AngularDelegate,
-      {provide:NavParams,useClass:MockNavParams}]
+        { provide: NavParams, useClass: MockNavParams }]
     })
       .compileComponents();
   }));

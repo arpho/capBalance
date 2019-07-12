@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { SupplierModel } from 'src/app/models/supplierModel';
 
 
 @Pipe({
@@ -19,9 +20,9 @@ export class DistanceSorterPipe implements PipeTransform {
 
   transform(value: [any], location: { longitude: number, latitude: number }) { // uso any per renderlo riutilizzabile
     if (value && location) {
-      return value.sort((a: any, b: { longitude: number, latitude: number }) => {
-        return this.distance(a.latitude, a.longitude, location.latitude, location.longitude) -
-          this.distance(b.latitude, b.longitude, location.latitude, location.longitude);
+      return value.sort((a: SupplierModel, b: SupplierModel) => {
+        return this.distance(a.address.latitude, a.address.longitude, location.latitude, location.longitude) -
+          this.distance(b.address.latitude, b.address.longitude, location.latitude, location.longitude);
       });
     } else {
       return value;
