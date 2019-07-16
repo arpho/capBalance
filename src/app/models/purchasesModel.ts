@@ -31,16 +31,33 @@ export class PurchaseModel {
 
     }
 
+    clone(item: {
+        barcode?: string,
+        prezzo?: any,
+        descrizione: string,
+        moneta: string,
+        note: string,
+        picture: string
+    }) {
+        this.barcode = item.barcode
+        this.note = item.note
+        this.moneta = item.moneta
+        this.picture = item.picture
+        this.prezzo = parseInt(item.prezzo,10)
+        this.descrizione = item.descrizione
+        return this
+    }
+
     build(item) {
         this.barcode = item['barcode']
         this.descrizione = item['descrizione']
-        this.moneta = item['moneta']
+        this.moneta = item['moneta'] || '€'
         this.picture = item['picture']
         this.note = item['note']
         this.categoriesKeys = item['categorieId']
         this.key = item['key'] || ''
         this.note = item['note']
-        this.prezzo = item['prezzo']
+        this.prezzo = parseInt(item['prezzo'], 10)
         this.key = item['key'] || String(new Date().getMilliseconds())
         return this
 

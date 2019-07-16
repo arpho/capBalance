@@ -25,8 +25,8 @@ export class SelectorItemsComponent implements OnInit, OnChanges {
   @Input() item: ItemModelInterface
   @Input() service: ItemServiceInterface
   @Output() selectedItem: EventEmitter<ItemModelInterface> = new EventEmitter()
-  @Input() filterFunction:  (item: ItemModelInterface) => boolean
-  @Input() sorterFunction:  (a: ItemModelInterface, b: ItemModelInterface) => number
+  @Input() filterFunction: (item: ItemModelInterface) => boolean
+  @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
 
 
   constructor(public modalCtrl: ModalController) { }
@@ -57,8 +57,9 @@ export class SelectorItemsComponent implements OnInit, OnChanges {
     });
     modal.onDidDismiss().then(data => {
       this.item = this.service.getDummyItem()
-      this.item = data.data
-      console.log('item', this.item)
+      this.item.key = data.data
+      this.item.service = this.service
+      this.item.load()
       this.selectedItem.emit(data.data)
     })
     return await modal.present()

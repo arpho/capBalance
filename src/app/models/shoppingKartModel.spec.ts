@@ -2,6 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingKartModel } from './shoppingKartModel'
 import { DateModel } from '../modules/user/models/birthDateModel';
+import { PurchaseModel } from './purchasesModel';
 describe('ShoppingKart should instantiate', () => {
     const kartdata = {
         archived: false,
@@ -45,7 +46,29 @@ describe('serialize must not have undefined fields', () => {
     it('checking online', () => {
         expect(kart.serialize().online).toBe(false)
     })
+
     it('checking dataAcquisto', () => {
         expect(kart.serialize().dataAcquisto).toBe(new DateModel(new Date()).formatDate())
+    })
+
+    it('adding items should work', () => {
+        kart.addItem(new PurchaseModel({ key: 'a', prezzo: 1 }))
+        expect(kart.items.length).toBe(1)
+        expect(kart.items[0].prezzo).toBe(1)
+        kart.addItem(new PurchaseModel({ key: 'b', prezzo: 2 }))
+        expect(kart.items.length).toBe(2)
+        expect(kart.items[1].prezzo).toBe(2)
+
+    })
+
+    it('updating item shoulds work', () => {
+        kart.updateItem(new PurchaseModel({ key: 'a', prezzo: 2 }))
+        expect(kart.items[1].prezzo).toBe(2)
+    })
+
+    it('removing item should work', () => {
+        kart.removeItem(new PurchaseModel({ key: 'a' }))
+        expect(kart.items.length).toBe(1)
+        expect(kart.items[0].key).toBe('b')
     })
 })

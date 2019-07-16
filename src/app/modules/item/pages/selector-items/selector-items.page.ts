@@ -25,6 +25,14 @@ export class SelectorItemsPage implements OnInit, OnChanges {
     this.filterFunction = this.navParams.get('filterFunction')
     this.sorterFunction = this.navParams.get('sorterFunction')
   }
+  async createItem() {
+    const modal = await this.modalCtrl.create({ component: this.service.getDummyItem().getCreatePopup() })
+    modal.onDidDismiss().then(item => {
+      console.log('created', item)
+      this.dismiss(item.data)
+    })
+    return await modal.present()
+  }
 
   ngOnInit() {
     if (this.service) {
@@ -43,7 +51,7 @@ export class SelectorItemsPage implements OnInit, OnChanges {
     }
   }
   filter(ev) {
-    this.filterFunction = (item: ItemModelInterface) =>  item.title.toUpperCase().includes(ev.detail.value.toUpperCase())
+    this.filterFunction = (item: ItemModelInterface) => item.title.toUpperCase().includes(ev.detail.value.toUpperCase())
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -62,7 +70,7 @@ export class SelectorItemsPage implements OnInit, OnChanges {
 
 
   dismiss(item?: ItemModelInterface) {
-    this.modalCtrl.dismiss(this.selectedItem)
+    this.modalCtrl.dismiss(item)
   }
 
 }

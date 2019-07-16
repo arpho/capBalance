@@ -15,13 +15,14 @@ export class CreatePurchasePage implements OnInit {
   scannedData: {}
   encodedData: any
   message: string
+  title = "inserimento acquisto"
   purchaseFields: any
   barcodeScannerOption: BarcodeScannerOptions
 
-  constructor(public modalCtrl:ModalController){
+  constructor(public modalCtrl: ModalController) {
     this.purchaseFields = [
       new TextboxQuestion({
-        key: 'title',
+        key: 'descrizione',
         label: 'descrizione',
         value: this.purchase ? this.purchase.descrizione : '',
         order: 1
@@ -46,7 +47,6 @@ export class CreatePurchasePage implements OnInit {
 
   submit(ev) {
     this.purchase.build(ev)
-    console.log(this.purchase)
     this.dismiss(this.purchase)
   }
 

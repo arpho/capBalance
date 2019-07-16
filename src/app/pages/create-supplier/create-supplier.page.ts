@@ -26,9 +26,7 @@ export class CreateSupplierPage implements OnInit {
   submit(supplier) {
     this.showSpinner = true
     this.supplier = new SupplierModel(supplier)
-    console.log("new supplier", this.supplier)
     this.suppliers.createItem(this.supplier).then(sup => {
-      console.log('created supplier', sup)
       this.modalCtrl.dismiss(sup.key)
       this.showSpinner = false
     })

@@ -13,9 +13,10 @@
     <app-dynamic-form [questions]="kartFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)"></app-dynamic-form>
     <app-selector-items [text]="textSelectSupplier" [service]="supplierService" 
     (selectedItem)="selectedSupplier($event)" [sorterFunction]="supplierSorterFunction" 
-    [filterFunction]= "supplierFilterFunction"
+    [filterFunction]= "supplierFilterFunction" (selectedItem)="selectedSupplier($event)"
     ></app-selector-items>
     <app-selector-items [text]="textSelectPayment" [service]="paymentsService" (selectedItem)="selectedPayment($event)" ></app-selector-items>
+
     <ion-button  (click)="addPurchase()"><ion-icon name='basket' ></ion-icon></ion-button>
   <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
       <div class="loader">
@@ -26,6 +27,18 @@
             <div class="circle"></div>
           </div>
         </div>
+    </div>
+
+    <app-total [items]="kart?.items" (total)="setTotal($event)"></app-total>
+    <div class='purchaseList'>
+      <ion-list>
+        <ion-item *ngFor="let purchase of kart.items">
+          <article (click)="detailPurchase(purchase)">
+            <h1>{{purchase.descrizione}}</h1>
+            <h3 slot="end">{{purchase.moneta}}{{purchase.prezzo}}</h3>
+          </article>
+        </ion-item>
+      </ion-list>
     </div>
 
 </ion-content>

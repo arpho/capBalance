@@ -24,7 +24,6 @@ export class SuppliersService implements ItemServiceInterface {
   }
 
   createItem(item: ItemModelInterface) {
-    console.log('puhing',item.serialize())
     return this.suppliersListRef.push(item.serialize());
 
   }

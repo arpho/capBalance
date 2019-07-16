@@ -14,8 +14,11 @@ import { SuppliersService } from '../services/suppliers/suppliers.service';
 import { DateModel } from '../modules/user/models/birthDateModel'
 import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
 import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
+import { OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { DetailShoppingKartPage } from '../pages/detail-shopping-kart/detail-shopping-kart.page';
 
-export class ShoppingKartModel implements ItemModelInterface {
+export class ShoppingKartModel implements ItemModelInterface, OnInit {
     quickActions?: QuickAction[];
     archived: boolean;
     dataAcquisto: string
@@ -48,7 +51,27 @@ export class ShoppingKartModel implements ItemModelInterface {
                 this.build(args.item)
             }
         }
+        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
 
+
+    }
+
+    ngOnInit() {
+        this.quickActions = [
+            new QuickAction({
+                icon: 'eye',
+                title: 'visualiza',
+                description: "",
+                action: async (args: { alertCtrl?: any, router: any, modal: ModalController }) => {
+                    const modal = await args.modal.create({ component: DetailShoppingKartPage, componentProps: { kart: this } })
+                    return await modal.present()
+                }
+            })
+        ]
+    }
+
+    getQuickActions() {
+        return this.quickActions
     }
     build?(item: {}) {
         const loader = ([Key, value]) => {
@@ -86,6 +109,18 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamentoId = pay.key
     }
 
+    addItem(purchase: PurchaseModel) {
+        this.items = [...this.items, purchase]
+    }
+
+    removeItem(purchase: PurchaseModel) {
+        this.items = this.items.filter((v: PurchaseModel) => v.key !== purchase.key)
+    }
+
+    updateItem(purchase: PurchaseModel) {
+        this.items = this.items.map((item: PurchaseModel) => (item.key === purchase.key) ? purchase : item)
+    }
+
     getValue3(): Value {
         return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
@@ -105,7 +140,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         throw new Error("Method not implemented.");
     }
     hasQuickActions?(): boolean {
-        return false
+        return true
     }
     serialize() {
         return {
