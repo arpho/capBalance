@@ -27,6 +27,7 @@ import { CreateShoppingKartPage } from './pages/create-shopping-kart/create-shop
 import { FilterPopupPage } from './modules/item/pages/filter-popup/filter-popup.page';
 import { ViewSupplierPage } from './pages/view-supplier/view-supplier.page';
 import { SelectorItemsPage } from './modules/item/pages/selector-items/selector-items.page';
+import { CreatePurchasePage } from './pages/create-purchase/create-purchase.page';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SelectorItemsPage } from './modules/item/pages/selector-items/selector-
      ViewSupplierPage,
      FilterPopupPage,
      SelectorItemsPage,
+     CreatePurchasePage
      
   ],
   imports: [
@@ -60,6 +62,7 @@ import { SelectorItemsPage } from './modules/item/pages/selector-items/selector-
     ViewSupplierPage,
     FilterPopupPage,
     SelectorItemsPage,
+    CreatePurchasePage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

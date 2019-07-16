@@ -32,12 +32,9 @@ export class SelectorItemsComponent implements OnInit, OnChanges {
   constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log('filterFunction', this.text, this.filterFunction)
-    console.log('sorterFunction', this.text, this.sorterFunction)
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes', changes)
     if (changes.sorterFunction) {
       this.sorterFunction = changes.sorterFunction.currentValue
     }

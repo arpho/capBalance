@@ -12,6 +12,8 @@ import { PaymentsModel } from 'src/app/models/paymentModel';
 import { DateModel } from 'src/app/modules/user/models/birthDateModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { GeoService } from 'src/app/modules/geo-location/services/geo-service';
+import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
+import { PurchaseModel } from 'src/app/models/purchasesModel';
 
 @Component({
   selector: 'app-create-shopping-kart',
@@ -31,7 +33,8 @@ export class CreateShoppingKartPage implements OnInit {
     public viewCtrl: ModalController,
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
-    public geo: GeoService
+    public geo: GeoService,
+    public modalCtrl: ModalController
   ) {
     this.kart = new ShoppingKartModel()
     this.kartFields = [
@@ -58,6 +61,7 @@ export class CreateShoppingKartPage implements OnInit {
       }),
       new DateQuestion({
         key: 'dataAcquisto',
+        // tslint:disable-next-line: quotemark
         label: "data di acquisto",
         value: this.kart.purchaseDate.formatDate(),
         required: true
@@ -65,6 +69,16 @@ export class CreateShoppingKartPage implements OnInit {
     ];
 
 
+  }
+  async addPurchase() {
+    const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
+    modal.onDidDismiss().then((purchase) => {
+      console.log('purchase',purchase)
+      const Purchase = new PurchaseModel(purchase)
+      this.kart.items = [...this.kart.items, Purchase]
+      console.log('purchases',this.kart.items)
+    })
+    return await modal.present()
   }
 
 

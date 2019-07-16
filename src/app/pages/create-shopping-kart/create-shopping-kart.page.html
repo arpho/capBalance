@@ -16,6 +16,7 @@
     [filterFunction]= "supplierFilterFunction"
     ></app-selector-items>
     <app-selector-items [text]="textSelectPayment" [service]="paymentsService" (selectedItem)="selectedPayment($event)" ></app-selector-items>
+    <ion-button  (click)="addPurchase()"><ion-icon name='basket' ></ion-icon></ion-button>
   <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
       <div class="loader">
           <div class="face">

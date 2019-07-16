@@ -14,6 +14,7 @@ export class SelectorItemsPage implements OnInit, OnChanges {
   title: string
   service: ItemServiceInterface
   itemsList: Array<ItemModelInterface>
+  filterText: string
   filterFunction: any // (item: ItemModelInterface) => boolean
   sorterFunction: any // (a: ItemModelInterface, b: ItemModelInterface) => number
 
@@ -41,10 +42,12 @@ export class SelectorItemsPage implements OnInit, OnChanges {
       )
     }
   }
+  filter(ev) {
+    this.filterFunction = (item: ItemModelInterface) =>  item.title.toUpperCase().includes(ev.detail.value.toUpperCase())
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.sorterFunction) {
-      console.log('changed sorterFunction in page ', changes.sorterFunction)
       this.sorterFunction = changes.sorterFunction
     }
     if (changes.filterFunction) {
@@ -54,13 +57,11 @@ export class SelectorItemsPage implements OnInit, OnChanges {
 
   selected(item: ItemModelInterface) {
     this.selectedItem = item
-    console.log('selected', item)
     this.dismiss(item)
   }
 
 
   dismiss(item?: ItemModelInterface) {
-    console.log('dismissing', item)
     this.modalCtrl.dismiss(this.selectedItem)
   }
 

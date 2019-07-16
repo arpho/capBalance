@@ -61,9 +61,10 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.fornitore.key = this.fornitoreId
         this.pagamento = new PaymentsModel()
         this.pagamento.key = this.pagamentoId
+        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
-
+        return this
     }
     isArchived(): boolean {
         return this.archived
@@ -80,7 +81,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.fornitoreId = supplier.key
     }
 
-    setPayment(pay:PaymentsModel){
+    setPayment(pay: PaymentsModel) {
         this.pagamento = pay
         this.pagamentoId = pay.key
     }

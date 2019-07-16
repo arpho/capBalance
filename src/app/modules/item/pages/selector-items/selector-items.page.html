@@ -6,6 +6,8 @@
       <ion-icon name="close"></ion-icon>
     </ion-button>
   </ion-buttons>
+  <ion-icon name="search" slot='secondary'></ion-icon>
+  <ion-input slot="primary" type="text" (ionChange)="filter($event)" ></ion-input>
   </ion-toolbar>
 
 </ion-header>
