@@ -15,23 +15,22 @@ export class PaymentsModel implements ItemModelInterface {
     quickActions: Array<QuickAction>
     archived: boolean;
     service: ItemServiceInterface
-    constructor(payment?: {
-        nome: FormControl,
-        addebito: FormControl,
-        note: FormControl
-        key: FormControl
+    constructor(
+        payment?: {
+            nome?: string,
+            addebito: string,
+            note: string
+            key: string
         },
+        // tslint:disable-next-line: align
         key?: string,
+        // tslint:disable-next-line: align
         service?: ItemServiceInterface) {
 
         if (payment) {
-            this.nome = payment && payment.nome.value || '';
-            this.title = this.nome;
-            this.addebito = payment && payment.addebito.value || '';
-            this.note = payment && payment.note.value || '';
-            this.key = payment && payment.key.value || '';
+            this.build(payment)
         }
-        this.key = key;
+        this.key = key || this.key
         this.service = service;
 
 
@@ -42,6 +41,14 @@ export class PaymentsModel implements ItemModelInterface {
         this.title = item.title || item.nome
         this.addebito = item.addebito
         this.note = item.note
+        return this
+    }
+
+    clone(item) {
+        this.title = item.tilte || item.title
+        this.addebito = item.addebito
+        this.note = item.note
+        return this
     }
 
     getCountingText() {
@@ -94,13 +101,7 @@ export class PaymentsModel implements ItemModelInterface {
         };
     }
 
-    buildPayment(payment: any): PaymentsModel {
-        this.nome = payment.nome;
-        this.key = payment.key;
-        this.addebito = payment.addebito;
-        this.note = payment.note;
-        return this;
-    }
+
 
     getEditPopup(item: ItemModelInterface, service: ItemServiceInterface) {
 
@@ -195,7 +196,10 @@ export class PaymentsModel implements ItemModelInterface {
 
 
     serialize() {
-        const out = { key: this.key, title: this.title, addebito: this.addebito, note: this.note, };
-        return out;
+        return {
+            title: this.title || '',
+            addebito: this.addebito || '', note: this.note || '',
+        };
+
     }
 }

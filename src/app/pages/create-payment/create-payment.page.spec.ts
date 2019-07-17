@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreatePaymentPage } from './create-payment.page';
+import { ModalController, AngularDelegate } from '@ionic/angular';
 
 describe('CreatePaymentPage', () => {
   let component: CreatePaymentPage;
@@ -9,10 +10,11 @@ describe('CreatePaymentPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatePaymentPage ],
+      declarations: [CreatePaymentPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [ModalController, AngularDelegate]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
