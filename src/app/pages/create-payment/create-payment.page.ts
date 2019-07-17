@@ -9,7 +9,7 @@ import { PaymentsModel } from 'src/app/models/paymentModel';
   styleUrls: ['./create-payment.page.scss'],
 })
 export class CreatePaymentPage implements OnInit {
-  showSpinner = false
+  showSpinner = true
   payment: PaymentsModel
   paymentFields: any
 
