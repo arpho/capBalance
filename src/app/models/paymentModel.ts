@@ -1,14 +1,17 @@
+// tslint:disable:semicolon
 import { AbstractControl, FormControl } from '@angular/forms';
 import { ItemModelInterface, Genere } from '../modules/item/models/itemModelInterface';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 import { Value } from '../modules/item/models/value';
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
+import { QuickAction } from '../modules/item/models/QuickAction';
 export class PaymentsModel implements ItemModelInterface {
     nome: string; // retro compatibilità
     title: string;
     note: string;
     addebito: string;
     key: string;
+    quickActions: Array<QuickAction>
     archived: boolean;
     service: ItemServiceInterface
     constructor(payment?: {
@@ -16,7 +19,10 @@ export class PaymentsModel implements ItemModelInterface {
         addebito: FormControl,
         note: FormControl
         key: FormControl
-    }, key?: string, service?: ItemServiceInterface) {
+        },
+        key?: string,
+        service?: ItemServiceInterface) {
+
         if (payment) {
             this.nome = payment && payment.nome.value || '';
             this.title = this.nome;
@@ -30,15 +36,15 @@ export class PaymentsModel implements ItemModelInterface {
 
     }
 
-    build(item){
+    build(item) {
         this.key = item.key
-        this.title = item.title|| item.nome
+        this.title = item.title || item.nome
         this.addebito = item.addebito
         this.note = item.note
     }
 
     getCountingText() {
-        return 'metodi di pagamento'
+        return ' metodi di pagamento'
     }
 
     getFilterParams() {
@@ -159,10 +165,17 @@ export class PaymentsModel implements ItemModelInterface {
             ],
         };
     }
+    getQuickActions() {
+        return this.quickActions
+    }
+
+    hasQuickActions() {
+        return true
+    }
 
     getElement() {
         const genere: Genere = 'o';
-        return { element: 'metodo di pagamento', genere: genere };
+        return { element: 'metodo di pagamento', genere };
     }
 
 
