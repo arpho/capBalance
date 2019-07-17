@@ -20,7 +20,6 @@ export class CategoriesSelectorPage implements OnInit {
       snap.forEach(val => {
         this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
       })
-      console.log(this.categoriesList)
     })
   }
   dismiss(data?) {

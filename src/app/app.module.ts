@@ -34,6 +34,7 @@ import { DetailShoppingKartPage } from './pages/detail-shopping-kart/detail-shop
 import { CreatePaymentPage } from './pages/create-payment/create-payment.page';
 import { CategoriesSelectorComponent } from './components/categories-selector/categories-selector.component';
 import { CategoriesSelectorPage } from './pages/categories-selector/categories-selector.page';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CategoriesSelectorPage } from './pages/categories-selector/categories-s
      CreatePaymentPage,
      TotalComponent,
      CategoriesSelectorComponent,
-     CategoriesSelectorPage
+     CategoriesSelectorPage,
+     CategoryComponent
      
   ],
   imports: [
