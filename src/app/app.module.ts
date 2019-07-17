@@ -31,6 +31,7 @@ import { CreatePurchasePage } from './pages/create-purchase/create-purchase.page
 import { TotalComponent } from './components/total/total.component';
 import { DetailPurchasePage } from './pages/detail-purchase/detail-purchase.page';
 import { DetailShoppingKartPage } from './pages/detail-shopping-kart/detail-shopping-kart.page';
+import { CreatePaymentPage } from './pages/create-payment/create-payment.page';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DetailShoppingKartPage } from './pages/detail-shopping-kart/detail-shop
      CreatePurchasePage,
      DetailPurchasePage,
      DetailShoppingKartPage,
+     CreatePaymentPage,
      TotalComponent
      
   ],
@@ -71,6 +73,7 @@ import { DetailShoppingKartPage } from './pages/detail-shopping-kart/detail-shop
     CreatePurchasePage,
     DetailPurchasePage,
     DetailShoppingKartPage,
+    CreatePaymentPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'selector-items', loadChildren: './modules/item/pages/selector-items/selector-items.module#SelectorItemsPageModule' },
   { path: 'detail-purchase', loadChildren: './pages/detail-purchase/detail-purchase.module#DetailPurchasePageModule' },
   { path: 'detail-shopping-kart', loadChildren: './pages/detail-shopping-kart/detail-shopping-kart.module#DetailShoppingKartPageModule' },
+  { path: 'create-payment', loadChildren: './pages/create-payment/create-payment.module#CreatePaymentPageModule' },
   // { path: 'view-supplier', loadChildren: './pages/view-supplier/view-supplier.module#ViewSupplierPageModule' },
   // { path: 'filter-popup', loadChildren: './modules/item/pages/filter-popup/filter-popup.module#FilterPopupPageModule' },
   // { path: 'filter-popup', loadChildren: './item/pages/filter-popup/filter-popup.module#FilterPopupPageModule' },

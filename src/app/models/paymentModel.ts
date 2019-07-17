@@ -5,6 +5,7 @@ import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterfac
 import { Value } from '../modules/item/models/value';
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { QuickAction } from '../modules/item/models/QuickAction';
+import { CreatePaymentPage } from '../pages/create-payment/create-payment.page';
 export class PaymentsModel implements ItemModelInterface {
     nome: string; // retro compatibilità
     title: string;
@@ -133,37 +134,8 @@ export class PaymentsModel implements ItemModelInterface {
         };
     }
 
-    getCreatePopup(service?: ItemServiceInterface) {
-        const item = new PaymentsModel();
-
-        return {
-            subHeader: 'Crea un nuovo  pagamento',
-            inputs: [
-                {
-                    type: 'text',
-                    name: 'title',
-                    placeholder: 'nome pagamento',
-                },
-                {
-                    type: 'text',
-                    name: 'note',
-                    placeholder: 'note',
-                },
-            ],
-            buttons: [
-                { text: 'Annulla' },
-                {
-                    text: 'Salva',
-                    handler: data => {
-                        item.title = data.title;
-                        item.note = data.note;
-                        service.createItem(item).then((v) => {
-                            // TODO
-                        });
-                    },
-                },
-            ],
-        };
+    getCreatePopup() {
+        return CreatePaymentPage
     }
     getQuickActions() {
         return this.quickActions
