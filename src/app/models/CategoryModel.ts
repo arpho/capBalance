@@ -1,6 +1,6 @@
 
 
-// tslint:disable-next-line: semicolon
+// tslint:disable: semicolon
 import { FirebaseObject } from './firebaseObject';
 import { ItemModelInterface, Genere } from '../modules/item/models/itemModelInterface';
 import { Value } from '../modules/item/models/value';
@@ -13,14 +13,15 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     service: ItemServiceInterface;
     note: string;
     constructor(key?: string, service?: ItemServiceInterface) {
+        this.key = key
         if (service && key) {
-            this.key = key
             this.service = service
         }
     }
     build(obj: { title: string, key: string }) {
         this.title = obj.title;
-        this.key = obj.key;
+        this.key = this.key||obj.key;
+        return this
     }
 
     async load() {
