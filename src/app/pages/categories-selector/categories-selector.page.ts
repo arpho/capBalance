@@ -14,13 +14,12 @@ export class CategoriesSelectorPage implements OnInit {
   categoriesList: Array<CategoryModel>
   selectedCategoriesList: Array<CategoryModel>
   categoryIcon = 'add'
-  selectedCategoryIcon = "remove"
+  selectedCategoryIcon = 'remove'
   colorSelectableCategory = 'green' // add category green 
   colorSelectedCategory = 'orange'
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
-  filterFunction = (a: ItemModelInterface) => {
-    return this.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
-  }
+  filterFunction = (a: ItemModelInterface) => this.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
+
   constructor(public modalCtrl: ModalController, public categories: CategoriesService) { }
 
   ngOnInit() {
