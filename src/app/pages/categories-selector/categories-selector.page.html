@@ -19,7 +19,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let category of categoriesList">
+    <ion-item *ngFor="let category of categoriesList|filterItems: filterFunction |sorterItems: sorterFunction">
       <app-category [category]="category" [icon]="categoryIcon" (clicked)="addCategory(category)"
         [color]="colorSelectableCategory">
 

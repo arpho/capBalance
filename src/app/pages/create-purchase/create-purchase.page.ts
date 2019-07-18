@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner'
+import { CategoryModel } from 'src/app/models/CategoryModel';
 
 @Component({
   selector: 'app-create-purchase',
@@ -42,8 +43,9 @@ export class CreatePurchasePage implements OnInit {
     ];
   }
 
-  setCategories(cats){
+  setCategories(cats:Array<CategoryModel>){
     console.log('setting',cats)
+    this.purchase.categorie = cats
   }
 
   filter(ev) {
