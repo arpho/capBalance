@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let category of categoriesList">
-      <app-category [category]="category" [icon]="categoryIcon" (clicked)="addCategory(category)"></app-category>
+      <app-category [category]="category" [icon]="categoryIcon" (clicked)="addCategory(category)" [color]="colorSelectableCategory"></app-category>
     </ion-item>
   </ion-list>
 

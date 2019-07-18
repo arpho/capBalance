@@ -10,6 +10,7 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 export class CategoryComponent implements OnInit {
   @Input() category: CategoryModel
   @Input() icon: string
+  @Input() color:string
   @Output() clicked: EventEmitter<string> = new EventEmitter()
 
   constructor() { }

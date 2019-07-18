@@ -11,7 +11,9 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 })
 export class CategoriesSelectorPage implements OnInit {
   categoriesList: Array<CategoryModel>
-  categoryIcon = "add"
+  selectedCategoriesList: Array<CategoryModel>
+  categoryIcon = 'add'
+  colorSelectableCategory = 'green'
 
   constructor(public modalCtrl: ModalController, public categories: CategoriesService) { }
 
@@ -25,6 +27,7 @@ export class CategoriesSelectorPage implements OnInit {
   }
   addCategory(cat) {
     console.log('got ', cat)
+    this.selectedCategoriesList.push(cat)
   }
 
   dismiss(data?) {
