@@ -13,21 +13,28 @@ export class CategoriesSelectorPage implements OnInit {
   categoriesList: Array<CategoryModel>
   selectedCategoriesList: Array<CategoryModel>
   categoryIcon = 'add'
-  colorSelectableCategory = 'green'
+  selectedCategoryIcon = "remove"
+  colorSelectableCategory = 'green' // add category green 
+  colorSelectedCategory = 'orange'
 
   constructor(public modalCtrl: ModalController, public categories: CategoriesService) { }
 
   ngOnInit() {
-    this.categoriesList = []
+    this.selectedCategoriesList = []
     this.categories.getEntitiesList().on('value', snap => {
+      this.categoriesList = []
       snap.forEach(val => {
         this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
       })
     })
   }
+
+  removeCategory(category) {
+    this.selectedCategoriesList = this.selectedCategoriesList.filter((item: CategoryModel) => item.key !== category.key)
+  }
   addCategory(cat) {
     console.log('got ', cat)
-    this.selectedCategoriesList.push(cat)
+    this.selectedCategoriesList = [...this.selectedCategoriesList, cat]
   }
 
   dismiss(data?) {

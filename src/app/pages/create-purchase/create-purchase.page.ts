@@ -42,6 +42,10 @@ export class CreatePurchasePage implements OnInit {
     ];
   }
 
+  setCategories(cats){
+    console.log('setting',cats)
+  }
+
   filter(ev) {
   }
 
