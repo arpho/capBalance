@@ -18,32 +18,30 @@ export class CategoriesSelectorPage implements OnInit {
   colorSelectableCategory = 'green' // add category green 
   colorSelectedCategory = 'orange'
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
-  filterFuntion = (a: ItemModelInterface) => {
-    console.log('a', a.key)
-    console.log('map', this.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key))
+  filterFunction = (a: ItemModelInterface) => {
     return this.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
   }
   constructor(public modalCtrl: ModalController, public categories: CategoriesService) { }
 
   ngOnInit() {
     this.selectedCategoriesList = []
-    this.categories.getEntitiesList().on('value', snap => {
-      this.categoriesList = []
-      snap.forEach(val => {
-        this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
+    if (this.categories.getEntitiesList()) {
+      this.categories.getEntitiesList().on('value', snap => {
+        this.categoriesList = []
+        snap.forEach(val => {
+          this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
+        })
       })
-    })
+    }
   }
 
   removeCategory(category) {
     this.selectedCategoriesList = this.selectedCategoriesList.filter((item: CategoryModel) => item.key !== category.key)
-    this.filterFuntion = (a: ItemModelInterface) => this.selectedCategoriesList.map((item: ItemModelInterface) => item.key).includes(a.key)
+    this.filterFunction = (a: ItemModelInterface) => this.selectedCategoriesList.map((item: ItemModelInterface) => item.key).includes(a.key)
   }
   addCategory(cat) {
     this.selectedCategoriesList = [...this.selectedCategoriesList, cat]
-    this.filterFuntion = (a: ItemModelInterface) => {
-      console.log('a', a.key)
-      console.log('map', this.selectedCategoriesList.map((item: ItemModelInterface) => item.key))
+    this.filterFunction = (a: ItemModelInterface) => {
       return this.selectedCategoriesList.map((item: ItemModelInterface) => item.key).includes(a.key)
     }
 

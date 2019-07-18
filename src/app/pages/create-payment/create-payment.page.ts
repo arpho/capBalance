@@ -47,7 +47,7 @@ export class CreatePaymentPage implements OnInit {
     this.payment.build
   }
 
-  dismiss(payment) {
+  dismiss(payment?) {
     this.modalCtrl.dismiss(payment)
   }
 

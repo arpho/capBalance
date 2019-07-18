@@ -22,7 +22,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() service: ItemServiceInterface;
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
-  @Input() sorterFunction: any
+  @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
 
   constructor(public alertCtrl: AlertController, public router: Router, public modalController: ModalController) {

@@ -2,6 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategoriesSelectorPage } from './categories-selector.page';
+import { FilterItemsPipe } from 'src/app/modules/item/pipes/filter-items.pipe';
+import { SorterItemsPipe } from 'src/app/modules/item/pipes/sorter-items.pipe';
+import { ModalController, AngularDelegate } from '@ionic/angular';
 
 describe('CategoriesSelectorPage', () => {
   let component: CategoriesSelectorPage;
@@ -9,10 +12,11 @@ describe('CategoriesSelectorPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoriesSelectorPage ],
+      declarations: [CategoriesSelectorPage, FilterItemsPipe, SorterItemsPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [ModalController, AngularDelegate]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

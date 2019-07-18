@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CategoriesSelectorPage } from './categories-selector.page';
+import { ItemModule } from 'src/app/modules/item/item.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ItemModule,
     RouterModule.forChild(routes)
   ],
   // declarations: [CategoriesSelectorPage]

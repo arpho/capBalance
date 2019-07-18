@@ -15,11 +15,20 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   filterString: string;
   filterFields: any;
   filterFunction: (item: ItemModelInterface) => boolean;
+  sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number =
+    (a: ShoppingKartModel, b: ShoppingKartModel) => {
+      // tslint:disable: semicolon
+      console.log('sorting', a.purchaseDate, b.purchaseDate)
+      const dateA = new Date(a.purchaseDate.formatDate())
+      const dateB = new Date(b.purchaseDate.formatDate())
+      console.log(dateA > dateB ? -1 : dateA < dateB ? 1 : 0)
+      return dateA > dateB ? -1 : dateA < dateB ? 1 : 0
+    }
   filter() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   createItem() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   constructor(public service: ShoppingKartsService) {
@@ -31,7 +40,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.ItemsList = [];
         eventSuppliersListSnapshot.forEach(snap => {
-          this.ItemsList.push(new ShoppingKartModel({key:snap.key, service:this.service}));
+          this.ItemsList.push(new ShoppingKartModel({ key: snap.key, service: this.service }));
 
         });
       });

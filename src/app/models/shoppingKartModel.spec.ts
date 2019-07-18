@@ -19,7 +19,7 @@ describe('ShoppingKart should instantiate', () => {
         expect(kart.pagamentoId).toBe(kart.pagamentoId)
         expect(kart.archived).toBe(kartdata.archived)
         expect(kart.key).toBe(kart.key)
-        expect(kart.purchaseDate.formatDate()).toBe(new DateModel(new Date()).formatDate())
+        expect(kart.purchaseDate.formatDate()).toBe(new DateModel(new Date(kartdata.dataAcquisto)).formatDate())
     })
 })
 describe('serialize must not have undefined fields', () => {
