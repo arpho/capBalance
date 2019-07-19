@@ -18,7 +18,7 @@ import { OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailShoppingKartPage } from '../pages/detail-shopping-kart/detail-shopping-kart.page';
 
-export class ShoppingKartModel implements ItemModelInterface, OnInit {
+export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
     archived: boolean;
     dataAcquisto: string
@@ -52,11 +52,6 @@ export class ShoppingKartModel implements ItemModelInterface, OnInit {
             }
         }
         this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
-
-
-    }
-
-    ngOnInit() {
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
@@ -68,6 +63,8 @@ export class ShoppingKartModel implements ItemModelInterface, OnInit {
                 }
             })
         ]
+
+
     }
 
     getQuickActions() {
@@ -175,14 +172,13 @@ export class ShoppingKartModel implements ItemModelInterface, OnInit {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    async load(next: () => void) {
+    async load(next?: () => void) {
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori 
-                Object.keys(kart.val()).forEach(k => { this[k] = kart.val()[k] })
+                this.build(kart.val())
             }
         })
-        this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
         this.fornitore.load(next)

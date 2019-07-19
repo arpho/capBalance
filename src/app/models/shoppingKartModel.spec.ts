@@ -6,7 +6,7 @@ import { PurchaseModel } from './purchasesModel';
 describe('ShoppingKart should instantiate', () => {
     const kartdata = {
         archived: false,
-        dataAcquisto: new Date().toString(),
+        dataAcquisto: '1977-03-16',
         fornitoreId: 'qwerty',
         pagamentoId: 'asdfghj',
         key: 'zxcvbnm'

@@ -1,11 +1,12 @@
 {
-    "version": "0.9.5.0",
+    "version": "0.9.5.1",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "carrelli della spesa ordinati per data",
         "categoriesSelector",
         "added spinner",
         "bug fixed",
