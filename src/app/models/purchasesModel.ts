@@ -37,14 +37,16 @@ export class PurchaseModel {
         descrizione: string,
         moneta: string,
         note: string,
-        picture: string
+        picture: string,
+        categorie?: Array<CategoryModel>
     }) {
         this.barcode = item.barcode
         this.note = item.note
         this.moneta = item.moneta
         this.picture = item.picture
-        this.prezzo = parseInt(item.prezzo,10)
+        this.prezzo = parseInt(item.prezzo, 10)
         this.descrizione = item.descrizione
+        this.categorie = item.categorie
         return this
     }
 
@@ -58,6 +60,7 @@ export class PurchaseModel {
         this.key = item['key'] || ''
         this.note = item['note']
         this.prezzo = parseInt(item['prezzo'], 10)
+        this.categorie = item['categorie']
         this.key = item['key'] || String(new Date().getMilliseconds())
         return this
 
@@ -72,7 +75,8 @@ export class PurchaseModel {
             categorieId: this.categoriesKeys || [],
             key: this.key || '',
             note: this.note || '',
-            prezzo: this.prezzo || 0
+            prezzo: this.prezzo || 0,
+            categorie: this.categorie ? this.categorie.map(cat => cat.serialize()) : []
         }
     }
     async load() {

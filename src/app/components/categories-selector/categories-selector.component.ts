@@ -20,7 +20,6 @@ export class CategoriesSelectorComponent implements OnInit {
   ngOnInit() { }
 
   async showPopup() {
-    console.log('click')
     const modal = await this.modalCtrl.create({ component: CategoriesSelectorPage })
     modal.onDidDismiss().then(data => {
       console.log(data)

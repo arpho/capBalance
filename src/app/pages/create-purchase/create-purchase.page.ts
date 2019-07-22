@@ -43,8 +43,8 @@ export class CreatePurchasePage implements OnInit {
     ];
   }
 
-  setCategories(cats:Array<CategoryModel>){
-    console.log('setting',cats)
+  setCategories(cats: Array<CategoryModel>) {
+    console.log('setting categories', cats)
     this.purchase.categorie = cats
   }
 
@@ -53,6 +53,7 @@ export class CreatePurchasePage implements OnInit {
 
   submit(ev) {
     this.purchase.build(ev)
+    console.log('purchase created ', this.purchase)
     this.dismiss(this.purchase)
   }
 
