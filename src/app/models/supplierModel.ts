@@ -1,3 +1,6 @@
+
+// tslint:disable: semicolon
+// tslint:disable: no-string-literal
 import { FormControl } from '@angular/forms';
 import { ItemModelInterface, Genere } from '../modules/item/models/itemModelInterface';
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
@@ -22,9 +25,13 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     longitude: number;
     altitude: string;
     title: string;
+    // tslint:disable-next-line: variable-name
     fidelity_card: string;
     key: string;
     ecommerce: boolean;
+    // tslint:disable-next-line: semicolon
+    personaFisica: boolean
+    cliente: boolean
     onLine: boolean; // back compatibility
     // tslint:disable: semicolon
     service: SuppliersService
@@ -40,19 +47,22 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
             address: string,
             latitude: number,
-            longitude: number
+            longitude: number,
+            indirizzo?: string
         }
         altitude?: string,
         key: string,
         ecommerce: boolean,
 
 
-    }, key?: string, service?: SuppliersService) {
+    },
+        // tslint:disable-next-line: align
+        key?: string, service?: SuppliersService) {
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
                 title: 'visualiza',
-                description: "",
+                description: '',
                 action: async (args: { alertCtrl?: any, router: any, modal: ModalController }) => {
                     const modal = await args.modal.create({ component: ViewSupplierPage, componentProps: { supplier: this } })
                     return await modal.present()
@@ -60,15 +70,17 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
             })
         ]
         if (fornitore) {
-            Object.entries(fornitore).forEach(([key, value]) => {
-                this[key] = fornitore[key]
+            Object.entries(fornitore).forEach(([Key, value]) => {
+                this[Key] = fornitore[Key]
             })
+            // defisco i campi che possono essere cambiate per back compatibility
+            this.personaFisica = this.personaFisica || fornitore['personaFisica']
+            this.cliente = this.cliente || fornitore['cliente']
             this.title = this.title || this.nome
             if (this.address) {
                 this.address =
                     new Coordinates({ latitude: this.address.latitude, longitude: this.address.longitude, address: this.address.address })
-            }
-            else {
+            } else {
                 this.address
                     = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
             }
@@ -85,7 +97,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     getCountingText() {
-        return " fornitori"
+        return ' fornitori'
     }
 
     load(next?: () => void) {
@@ -114,8 +126,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                             longitude: this.address.longitude,
                             address: this.address.address
                         })
-                }
-                else {
+                } else {
                     this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
                 }
                 if (next) {
@@ -133,7 +144,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     getElement() {
         const genere: Genere = 'o';
-        return { element: 'fornitore', genere: genere };
+        return { element: 'fornitore', genere };
     }
     getTitle() {
         const value = new Value();
@@ -152,8 +163,15 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         // this.nome = item.nome || '';
         this.title = item.title || item.nome
         this.note = item.note || '';
+        this.cliente = item.cliente
+        this.personaFisica = item.personaFisica
         this.address = new Coordinates().clone(item.address)
         this.ecommerce = this.ecommerce;
+        return this
+    }
+    setKey(key: string) {
+        this.key = key
+        return this
     }
     buildFromActiveForm(fornitore: {
         nome: FormControl,
@@ -221,6 +239,8 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
             title: this.title || '',
             address: this.address.serialize(),
             ecommerce: Boolean(this.ecommerce),
+            cliente: Boolean(this.cliente),
+            personaFisica: Boolean(this.personaFisica),
 
             fidelity_card: this.fidelity_card || '',
             note: this.note || ''

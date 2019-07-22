@@ -56,11 +56,14 @@ export class SelectorItemsComponent implements OnInit, OnChanges {
       }
     });
     modal.onDidDismiss().then(data => {
-      this.item = this.service.getDummyItem()
-      this.item.key = data.data.key
-      this.item.service = this.service
-      this.item.build(data.data)
-      this.selectedItem.emit(this.item)
+      if (data.data) {
+        this.item = this.service.getDummyItem()
+        this.item.key = data.data.key
+        this.item.service = this.service
+        this.item.build(data.data)
+        this.selectedItem.emit(this.item)
+        
+      }
     })
     return await modal.present()
 

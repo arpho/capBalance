@@ -1,3 +1,4 @@
+// tslint:disable: semicolon
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
@@ -26,8 +27,10 @@ export class CreateSupplierPage implements OnInit {
   submit(supplier) {
     this.showSpinner = true
     this.supplier = new SupplierModel(supplier)
+    this.supplier.build(supplier)
     this.suppliers.createItem(this.supplier).then(sup => {
-      this.modalCtrl.dismiss(sup.key)
+      this.supplier.key = sup.key
+      this.modalCtrl.dismiss(this.supplier)
       this.showSpinner = false
     })
 

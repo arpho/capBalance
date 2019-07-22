@@ -30,7 +30,7 @@ export class Coordinates {
     }
 
     serialize() {
-        return { address: this.address, latitude: this.latitude || 0, longitude: this.longitude || 0 }
+        return { address: this.address||'', latitude: this.latitude || 0, longitude: this.longitude || 0 }
     }
     setLatitude(latitude: string | number) {
         this.latitude = Number(latitude);

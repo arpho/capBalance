@@ -21,7 +21,7 @@ export class CreatePaymentPage implements OnInit {
     this.paymentFields = [
       new TextboxQuestion({
         key: 'title',
-        label: 'Nome del Fornitore',
+        label: 'Nome del pagamento',
         value: this.payment.title,
         order: 1
       }),
@@ -39,12 +39,20 @@ export class CreatePaymentPage implements OnInit {
   }
 
   filter(ev) {
-    console.log(ev)
   }
 
   submit(ev) {
-    console.log(ev)
-    this.payment.build
+    this.showSpinner = true
+    this.payment.build(ev)
+    this.service.createItem(this.payment).then(item => {
+      this.service.getItem(item.key).on('value', (snap) => {
+        const payment = new PaymentsModel().build(snap.val())
+        this.showSpinner = false
+        payment.key = snap.key
+        this.dismiss(payment)
+
+      })
+    })
   }
 
   dismiss(payment?) {
