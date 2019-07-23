@@ -16,8 +16,6 @@ export class CategoriesViewerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    console.log('got categories', this.categorie)
   }
 
   viewCategory(){

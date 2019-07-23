@@ -23,7 +23,6 @@ export class CategoriesSelectorComponent implements OnInit {
   async showPopup() {
     const modal = await this.modalCtrl.create({ component: CategoriesSelectorPage, componentProps: { categories: this.categoriesList } })
     modal.onDidDismiss().then(data => {
-      console.log(data)
       this.selectedCategories.emit(data.data)
 
 

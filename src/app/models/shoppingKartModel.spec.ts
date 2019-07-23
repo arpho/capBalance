@@ -9,17 +9,21 @@ describe('ShoppingKart should instantiate', () => {
         dataAcquisto: '1977-03-16',
         fornitoreId: 'qwerty',
         pagamentoId: 'asdfghj',
+        totale:15,
+        title:'title',
         key: 'zxcvbnm'
     }
     const kart = new ShoppingKartModel(kartdata)
     kart.build(kartdata)
     it('shoppingKart data are ok', () => {
         expect(kart.dataAcquisto).toBe(kartdata.dataAcquisto)
-        expect(kart.fornitoreId).toBe(kart.fornitoreId)
-        expect(kart.pagamentoId).toBe(kart.pagamentoId)
+        expect(kart.fornitoreId).toBe(kartdata.fornitoreId)
+        expect(kart.pagamentoId).toBe(kartdata.pagamentoId)
         expect(kart.archived).toBe(kartdata.archived)
         expect(kart.key).toBe(kart.key)
         expect(kart.purchaseDate.formatDate()).toBe(new DateModel(new Date(kartdata.dataAcquisto)).formatDate())
+        expect(kart.title).toBe(kartdata.title)
+        expect(kart.totale).toBe(kartdata.totale)
     })
 })
 describe('serialize must not have undefined fields', () => {
@@ -29,6 +33,21 @@ describe('serialize must not have undefined fields', () => {
     kart.build(kartdata)
     it('checking pagamentoId', () => {
         expect(kart.serialize().pagamentoId).toBe('')
+    })
+    it('checking title', () => {
+        expect(kart.serialize().title).toBe('')
+    })
+
+    it('check fornitoreId', () => {
+        expect(kart.serialize().fornitoreId).toBe('')
+    })
+
+    it('check pagamentoId', () => {
+        expect(kart.serialize().pagamentoId).toBe('')
+    })
+
+    it('check total', () => {
+        expect(kart.serialize().totale).toBe(0)
     })
 
     it('checking fornitoreId', () => {

@@ -1,11 +1,12 @@
 {
-    "version": "0.9.5.3",
+    "version": "0.9.5.4",
     "features": [
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
     ],
     "newFeatures": [
+        "create shoppingkart",
         "fixed bug",
         "carrelli della spesa ordinati per data",
         "categoriesSelector",

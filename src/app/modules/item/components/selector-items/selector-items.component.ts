@@ -56,7 +56,6 @@ export class SelectorItemsComponent implements OnInit, OnChanges {
       }
     });
     modal.onDidDismiss().then(data => {
-      console.log('selected', data.data)
       this.item = data.data
       this.selectedItem.emit(data.data)
     })

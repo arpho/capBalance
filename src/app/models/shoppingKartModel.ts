@@ -146,7 +146,9 @@ export class ShoppingKartModel implements ItemModelInterface {
             key: this.key || '',
             archived: Boolean(this.archived),
             online: Boolean(this.online),
-            dataAcquisto: (this.purchaseDate) ? this.purchaseDate.formatDate() : ''
+            dataAcquisto: this.purchaseDate ? this.purchaseDate.formatDate() : '',
+            title: this.title || '',
+            totale: this.totale || 0
         }
     }
     getElement(): { element: string; genere: Genere } {
