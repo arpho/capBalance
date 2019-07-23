@@ -46,6 +46,7 @@ export class CreatePurchasePage implements OnInit {
   setCategories(cats: Array<CategoryModel>) {
     console.log('setting categories', cats)
     this.purchase.categorie = cats
+    console.log('categories set', this.purchase)
   }
 
   filter(ev) {

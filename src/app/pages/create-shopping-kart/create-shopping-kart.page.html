@@ -28,17 +28,18 @@
           </div>
         </div>
     </div>
-
-    <app-total [items]="kart?.items" (total)="setTotal($event)"></app-total>
     <div class='purchaseList'>
       <ion-list>
         <ion-item *ngFor="let purchase of kart.items">
           <article (click)="detailPurchase(purchase)">
             <h1>{{purchase.descrizione}}</h1>
             <h3 slot="end">{{purchase.moneta}}{{purchase.prezzo}}</h3>
+            <app-categories-viewer [categorie]="purchase.categorie"></app-categories-viewer>
           </article>
         </ion-item>
       </ion-list>
+
+    <app-total [items]="kart?.items" (total)="setTotal($event)"></app-total>
     </div>
 
 </ion-content>

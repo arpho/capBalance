@@ -1,0 +1,9 @@
+
+    <div class="selectedCategories">
+      <ul>
+        <li *ngFor="let category of categorie">
+          <app-category [category]="category" [icon]="categoryIcon" (clicked)="viewCategory()"
+            [color]="colorCategory"></app-category>
+        </li>
+      </ul>
+    </div>

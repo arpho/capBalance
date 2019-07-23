@@ -60,7 +60,7 @@ export class PurchaseModel {
         this.key = item['key'] || ''
         this.note = item['note']
         this.prezzo = parseInt(item['prezzo'], 10)
-        this.categorie = item['categorie']
+        this.categorie = this.categorie || item['categorie']
         this.key = item['key'] || String(new Date().getMilliseconds())
         return this
 

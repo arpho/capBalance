@@ -35,6 +35,7 @@ import { CreatePaymentPage } from './pages/create-payment/create-payment.page';
 import { CategoriesSelectorComponent } from './components/categories-selector/categories-selector.component';
 import { CategoriesSelectorPage } from './pages/categories-selector/categories-selector.page';
 import { CategoryComponent } from './components/category/category.component';
+import { CategoriesViewerComponent } from './components/categories-viewer/categories-viewer.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CategoryComponent } from './components/category/category.component';
      TotalComponent,
      CategoriesSelectorComponent,
      CategoriesSelectorPage,
-     CategoryComponent
+     CategoryComponent,
+     CategoriesViewerComponent
      
   ],
   imports: [
