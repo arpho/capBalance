@@ -19,6 +19,7 @@ export class PurchaseModel {
         if (item) {
             this.build(item)
         }
+        this.key = this.key || String(new Date().getUTCMilliseconds())
         if (categories) {
             // è presente categoriesService carico le categorie
             this.service = categories
@@ -46,7 +47,7 @@ export class PurchaseModel {
         this.picture = item.picture
         this.prezzo = parseInt(item.prezzo, 10)
         this.descrizione = item.descrizione
-        this.categorie = item.categorie
+        this.categorie = item.categorie? item.categorie:this.categorie
         return this
     }
 
@@ -61,7 +62,8 @@ export class PurchaseModel {
         this.note = item['note']
         this.prezzo = parseInt(item['prezzo'], 10)
         this.categorie = this.categorie || item['categorie']
-        this.key = item['key'] || String(new Date().getMilliseconds())
+        this.key = item['key'] || String(new Date().getUTCMilliseconds())
+        console.log()
         return this
 
     }

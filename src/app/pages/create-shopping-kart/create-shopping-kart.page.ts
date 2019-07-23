@@ -110,7 +110,7 @@ export class CreateShoppingKartPage implements OnInit {
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase: purchase } })
     modal.onDidDismiss().then(data => {
       console.log('got', data.data)
-      this.kart.updateItem(data.data)
+      this.kart.updateItem(new PurchaseModel( data.data))
     })
     return await modal.present()
   }

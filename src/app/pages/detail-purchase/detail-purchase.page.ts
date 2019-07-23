@@ -44,7 +44,6 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
 
   submit(purchase) {
     console.log('updating', this.purchase)
-
     console.log('new ', purchase)
     this.purchase.clone(purchase)
     console.log('purchase submitted', this.purchase)
