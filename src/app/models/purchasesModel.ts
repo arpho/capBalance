@@ -19,7 +19,7 @@ export class PurchaseModel {
         if (item) {
             this.build(item)
         }
-        this.key = this.key || String(new Date().getUTCMilliseconds())
+        this.key = this.key || String(new Date().getTime())
         if (categories) {
             // è presente categoriesService carico le categorie
             this.service = categories
@@ -62,7 +62,7 @@ export class PurchaseModel {
         this.note = item['note']
         this.prezzo = parseInt(item['prezzo'], 10)
         this.categorie = this.categorie || item['categorie']
-        this.key = item['key'] || String(new Date().getUTCMilliseconds())
+        this.key = item['key'] || String(new Date().getTime())
         console.log()
         return this
 

@@ -1,9 +1,10 @@
 // tslint:disable:semicolon
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { CategoriesService } from 'src/app/services/categories/categorie.service';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
+import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 
 @Component({
   selector: 'app-categories-selector-page',
@@ -21,16 +22,17 @@ export class CategoriesSelectorPage implements OnInit {
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
 
 
-  constructor(public modalCtrl: ModalController, public categories: CategoriesService) { }
+  constructor(public modalCtrl: ModalController, public Categories: CategoriesService, public navParams: NavParams) { }
   filterFactory(args: { selectedCategoriesList: Array<CategoryModel> }) {
     return (a: ItemModelInterface) => !args.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
   }
 
   ngOnInit() {
-    this.selectedCategoriesList = []
+    this.selectedCategoriesList = this.navParams.get('categories') || []
+    console.log('selected categories', this.selectedCategoriesList)
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
-    if (this.categories.getEntitiesList()) {
-      this.categories.getEntitiesList().on('value', snap => {
+    if (this.Categories.getEntitiesList()) {
+      this.Categories.getEntitiesList().on('value', snap => {
         this.categoriesList = []
         snap.forEach(val => {
           this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
