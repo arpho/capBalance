@@ -1,6 +1,7 @@
 {
-    "version": "0.9.5.4",
+    "version": "0.9.5.5",
     "features": [
+        "bug fixied",
         "manage suppliers",
         "manage payment's kind",
         "manage categories"
