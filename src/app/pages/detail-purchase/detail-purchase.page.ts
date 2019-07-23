@@ -1,3 +1,4 @@
+// tslint:disable:semicolon
 import { Component, OnInit } from '@angular/core';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { ModalController, NavParams } from '@ionic/angular';
@@ -17,7 +18,7 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
   ngOnInit() {
 
     this.purchase = this.navParams.get('purchase')
-    console.log('editing purchase',this.purchase)
+    console.log('editing purchase', this.purchase)
     this.title = this.purchase ? `modifica ${this.purchase.descrizione}` : 'modifica acquisto'
     this.purchaseFields = [
       new TextboxQuestion({

@@ -18,7 +18,6 @@ export class CategoriesSelectorComponent implements OnInit {
   constructor(public modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log('got categories', this.categoriesList)
   }
 
   async showPopup() {

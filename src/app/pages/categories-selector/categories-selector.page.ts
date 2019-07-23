@@ -29,7 +29,6 @@ export class CategoriesSelectorPage implements OnInit {
 
   ngOnInit() {
     this.selectedCategoriesList = this.navParams.get('categories') || []
-    console.log('selected categories', this.selectedCategoriesList)
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
     if (this.Categories.getEntitiesList()) {
       this.Categories.getEntitiesList().on('value', snap => {

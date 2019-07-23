@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ItemServiceInterface } from '../../modules/item/models/ItemServiceInterface';
 import { ItemModelInterface } from '../../modules/item/models/itemModelInterface';
-import { PaymentsModel } from '../../models/paymentModel';
+import { PaymentsModel } from 'src/app/models/paymentModel';
 import * as firebase from 'firebase';
 
 @Injectable({

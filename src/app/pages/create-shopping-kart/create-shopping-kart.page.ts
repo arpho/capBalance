@@ -15,6 +15,7 @@ import { GeoService } from 'src/app/modules/geo-location/services/geo-service';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
+import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 
 @Component({
   selector: 'app-create-shopping-kart',
@@ -35,7 +36,8 @@ export class CreateShoppingKartPage implements OnInit {
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
     public geo: GeoService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public service: ShoppingKartsService
   ) {
     this.kart = new ShoppingKartModel()
     this.kartFields = [
@@ -79,9 +81,9 @@ export class CreateShoppingKartPage implements OnInit {
   async addPurchase() {
     const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
     modal.onDidDismiss().then((purchase) => {
-      console.log('purchase to add',purchase.data)
+      console.log('purchase to add', purchase.data)
       const Purchase = new PurchaseModel(purchase.data)
-      console.log('adding purcvhase',Purchase)
+      console.log('adding purcvhase', Purchase)
       this.kart.addItem(Purchase)
     })
     return await modal.present()
@@ -110,15 +112,15 @@ export class CreateShoppingKartPage implements OnInit {
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase: purchase } })
     modal.onDidDismiss().then(data => {
       console.log('got', data.data)
-      this.kart.updateItem(new PurchaseModel( data.data))
+      this.kart.updateItem(new PurchaseModel(data.data))
     })
     return await modal.present()
   }
 
-  async selectedSupplier(supplier: string) {
+  async selectedSupplier(supplier: SupplierModel) {
     if (supplier) {
-      const Supplier = new SupplierModel(undefined, supplier, this.supplierService)
-      this.kart.setSupplier(Supplier.load())
+
+      this.kart.setSupplier(supplier)
     }
   }
 
@@ -130,13 +132,16 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   filter(ev) {
-    console.log(ev)
   }
   submit(ev) {
-    this.showSpinner = !this.showSpinner
+    this.showSpinner = true
     this.kart.title = ev.title || this.kart.fornitore.getTitle().value
     this.kart.purchaseDate = new DateModel(new Date(ev.dataAcquisto))
     console.log('kart', this.kart)
+    this.service.createItem(this.kart).then(res => {
+      console.log('created kart', res)
+      this.showSpinner = false
+    })
   }
 
   dismiss() {

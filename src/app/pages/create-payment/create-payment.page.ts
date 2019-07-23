@@ -5,6 +5,7 @@ import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-te
 import { PaymentsModel } from 'src/app/models/paymentModel';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
 
+
 @Component({
   selector: 'app-create-payment',
   templateUrl: './create-payment.page.html',
@@ -12,12 +13,12 @@ import { PaymentsService } from 'src/app/services/payments/payments.service';
 })
 export class CreatePaymentPage implements OnInit {
   showSpinner = false
-  payment: PaymentsModel
+  payment: any
   paymentFields: any
 
 
   constructor(public modalCtrl: ModalController, private service: PaymentsService) {
-    this.payment = new PaymentsModel()
+    this.payment = this.service.getDummyItem()
     this.paymentFields = [
       new TextboxQuestion({
         key: 'title',
@@ -46,7 +47,7 @@ export class CreatePaymentPage implements OnInit {
     this.payment.build(ev)
     this.service.createItem(this.payment).then(item => {
       this.service.getItem(item.key).on('value', (snap) => {
-        const payment = new PaymentsModel().build(snap.val())
+        const payment = this.service.getDummyItem().build(snap.val())
         this.showSpinner = false
         payment.key = snap.key
         this.dismiss(payment)
