@@ -166,7 +166,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         this.cliente = item.cliente
         this.personaFisica = item.personaFisica
         this.address = new Coordinates().clone(item.address)
-        this.ecommerce = this.ecommerce;
+        this.ecommerce = item.ecommerce;
         return this
     }
     setKey(key: string) {

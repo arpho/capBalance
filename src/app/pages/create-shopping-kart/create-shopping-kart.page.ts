@@ -132,6 +132,14 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   filter(ev) {
+    console.log(ev)
+    if (ev.ecommerce) {
+      this.supplierFilterFunction = (item: SupplierModel) => {
+        return item.ecommerce
+      }
+    } else {
+      this.supplierFilterFunction = (item) => true
+    }
   }
   submit(ev) {
     this.showSpinner = true
