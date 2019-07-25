@@ -71,18 +71,17 @@ export class ShoppingKartModel implements ItemModelInterface {
         return this.quickActions
     }
     build(item: {}) {
-        this.fornitore = new SupplierModel()
-        this.pagamento = new PaymentsModel()
         const loader = ([Key, value]) => {
             if (Key !== 'key') { // evito di sovrascrivere la chiave
                 this[Key] = value;
             }
         }
         Object.entries(item).forEach(loader)
+        this.fornitore = new SupplierModel()
+        this.pagamento = new PaymentsModel()
         this.fornitore.key = this.fornitore.key || this.fornitoreId
         this.pagamento.key = this.pagamento.key || this.pagamentoId
         this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
-        console.log('shoppingkart costruito', this, 'item', item)
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         return this
@@ -123,10 +122,13 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
-        return !this.title ? new Value({
-            value: ' ' + this.fornitore ? this.fornitore.title : '' ||
-                this.fornitore.nome, label: ' fornitore '
-        }) : new Value({ value: this.title, label: 'titolo' })
+        console.log('title', this.title)
+        const out = !this.title ? new Value({
+            value: ' ' + this.fornitore ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
+        }) :
+            new Value({ value: this.title, label: 'titolo' })
+        console.log('out', out)
+        return out
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error('Method not implemented.');
@@ -193,7 +195,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
             this.purchases.forEach(p => p.load()) // carica le categorie degli acqwuisti
         }
-        this.title = `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
+        this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
 
     }
 

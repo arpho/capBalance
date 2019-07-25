@@ -93,7 +93,7 @@ describe('serialize must not have undefined fields', () => {
     })
 })
 
-describe('getTitle should work', () => {
+describe('getTitle should work when no fornitore', () => {
     const kartdata = {
         archived: false,
         dataAcquisto: '1977-03-16',
@@ -102,11 +102,35 @@ describe('getTitle should work', () => {
         totale: 15,
         title: 'title',
         key: 'zxcvbnm',
-        fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', ecommerce: false })
+        // fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', 
+        ecommerce: false
+        // })
     }
     const kart = new ShoppingKartModel({ item: kartdata })
-    it('check getTitle returns the correct title', () => {
+    it('check getTitle returns the correct title when title is defined', () => {
         expect(kart.getTitle().value).toBe(kartdata.title)
+    })
+
+    it('check getTitle when title is not defined', () => {
+        const testdata = {
+            archived: false,
+            dataAcquisto: '1977-03-16',
+            fornitoreId: 'qwerty',
+            pagamentoId: 'asdfghj',
+            totale: 15,
+            //title: 'title',
+            key: 'zxcvbnm',
+            // fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', 
+            ecommerce: false
+            // })
+        }
+        const KartNoTitle = new ShoppingKartModel(testdata)
+        KartNoTitle.fornitore = new SupplierModel({
+            title: 'supplier title', note: 'just 4 test', nome: 'dummy', key: 'test',
+            ecommerce: false
+        })
+        expect(KartNoTitle.getTitle().value).toBe('supplier title')
+
     })
 
 })

@@ -1,10 +1,13 @@
+// tslint:disable:semicolon
 import {
   Component,
   OnInit,
   Input,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+// tslint:disable: quotemark
 } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { ItemModelInterface } from "../../models/itemModelInterface";
@@ -18,6 +21,7 @@ import { Router } from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageItemsListComponent implements OnInit, OnChanges {
+  // tslint:disable-next-line: variable-name
   @Input() items_list: ItemModelInterface[];
   @Input() service: ItemServiceInterface;
   public dummyItem: ItemModelInterface;
@@ -25,7 +29,10 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
 
-  constructor(public alertCtrl: AlertController, public router: Router, public modalController: ModalController) {
+  constructor(public alertCtrl: AlertController,
+              public router: Router,
+              public modalController: ModalController,
+              public ref: ChangeDetectorRef) {
     this.filterFunction = v => true;
   }
 
@@ -42,8 +49,11 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     if (this.service) {
       this.dummyItem = this.service.getDummyItem();
       if (this.items_list) {
+        const next = () => {
+          this.ref.markForCheck()
+        }
         this.items_list.forEach(item => {
-          item.load()
+          item.load(next)
         })
       }
     }
