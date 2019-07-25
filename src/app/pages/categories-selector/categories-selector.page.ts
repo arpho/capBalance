@@ -6,6 +6,8 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 import { ComponentsPageModule } from 'src/app/modules/item/components/components.module';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators'
 
 @Component({
   selector: 'app-categories-selector-page',
@@ -21,6 +23,8 @@ export class CategoriesSelectorPage implements OnInit {
   colorSelectedCategory = 'orange'
   filterString: any
   searchbar: any
+  searchControl: FormControl
+  baseFilter: (item: CategoryModel) => boolean
   filterFunction: (item: CategoryModel) => boolean
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
   handleInput(event) {
@@ -35,19 +39,23 @@ export class CategoriesSelectorPage implements OnInit {
   }
 
 
-  constructor(public modalCtrl: ModalController, public Categories: CategoriesService, public navParams: NavParams) { }
+  constructor(public modalCtrl: ModalController, public Categories: CategoriesService, public navParams: NavParams) {
+    this.searchControl = new FormControl()
+  }
   filterFactory(args: { selectedCategoriesList: Array<CategoryModel> }) {
     return (a: ItemModelInterface) => !args.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
   }
-  onInput(ev){
-    console.log('input',ev)
+  onInput(ev) {
+    this.filterFunction = this.makeFilter(ev.detail.value)
   }
 
   ngOnInit() {
-    this.searchbar = document.querySelector('ion-searchbar');
-    if(this.searchbar){ this.searchbar.addEventListener('IonInput', this.handleInput)}
+    this.searchControl.valueChanges.pipe(debounceTime(700)).subscribe(search => {
+      this.handleInput(search)
+    })
     this.selectedCategoriesList = this.navParams.get('categories') || []
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
+    this.baseFilter = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
     if (this.Categories.getEntitiesList()) {
       this.Categories.getEntitiesList().on('value', snap => {
         this.categoriesList = []
@@ -58,8 +66,10 @@ export class CategoriesSelectorPage implements OnInit {
     }
   }
 
-  makeFilter(ev) {
-    console.log(ev)
+  makeFilter(pattern: string) {
+    return (item: CategoryModel) => {
+      return this.baseFilter(item) && item.title.toLowerCase().includes(pattern.toLowerCase())
+    }
   }
 
   removeCategory(category) {
