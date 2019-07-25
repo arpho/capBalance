@@ -1,7 +1,8 @@
 {
-    "version": "0.9.5.6",
+    "version": "0.9.5.7",
     "features": [
-        "bug fixied",
+        "full text search in categoeies selectors'",
+        "bug fixed",
         "manage suppliers",
         "manage payment's kind",
         "manage categories"

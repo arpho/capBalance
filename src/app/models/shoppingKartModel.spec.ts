@@ -3,14 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingKartModel } from './shoppingKartModel'
 import { DateModel } from '../modules/user/models/birthDateModel';
 import { PurchaseModel } from './purchasesModel';
+import { SupplierModel } from './supplierModel';
 describe('ShoppingKart should instantiate', () => {
     const kartdata = {
         archived: false,
         dataAcquisto: '1977-03-16',
         fornitoreId: 'qwerty',
         pagamentoId: 'asdfghj',
-        totale:15,
-        title:'title',
+        totale: 15,
+        title: 'title',
         key: 'zxcvbnm'
     }
     const kart = new ShoppingKartModel(kartdata)
@@ -90,4 +91,22 @@ describe('serialize must not have undefined fields', () => {
         expect(kart.items.length).toBe(1)
         expect(kart.items[0].key).toBe('b')
     })
+})
+
+describe('getTitle should work', () => {
+    const kartdata = {
+        archived: false,
+        dataAcquisto: '1977-03-16',
+        fornitoreId: 'qwerty',
+        pagamentoId: 'asdfghj',
+        totale: 15,
+        title: 'title',
+        key: 'zxcvbnm',
+        fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', ecommerce: false })
+    }
+    const kart = new ShoppingKartModel({ item: kartdata })
+    it('check getTitle returns the correct title', () => {
+        expect(kart.getTitle().value).toBe(kartdata.title)
+    })
+
 })

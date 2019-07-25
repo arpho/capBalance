@@ -56,9 +56,9 @@ export class ShoppingKartModel implements ItemModelInterface {
             new QuickAction({
                 icon: 'eye',
                 title: 'visualiza',
-                description: "",
-                action: async (args: { alertCtrl?: any, router: any, modal: ModalController }) => {
-                    const modal = await args.modal.create({ component: DetailShoppingKartPage, componentProps: { kart: this } })
+                description: '',
+                action: async (Args: { alertCtrl?: any, router: any, modal: ModalController }) => {
+                    const modal = await Args.modal.create({ component: DetailShoppingKartPage, componentProps: { kart: this } })
                     return await modal.present()
                 }
             })
@@ -71,17 +71,18 @@ export class ShoppingKartModel implements ItemModelInterface {
         return this.quickActions
     }
     build(item: {}) {
+        this.fornitore = new SupplierModel()
+        this.pagamento = new PaymentsModel()
         const loader = ([Key, value]) => {
             if (Key !== 'key') { // evito di sovrascrivere la chiave
                 this[Key] = value;
             }
         }
         Object.entries(item).forEach(loader)
-        this.fornitore = new SupplierModel()
-        this.fornitore.key = this.fornitoreId
-        this.pagamento = new PaymentsModel()
-        this.pagamento.key = this.pagamentoId
+        this.fornitore.key = this.fornitore.key || this.fornitoreId
+        this.pagamento.key = this.pagamento.key || this.pagamentoId
         this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
+        console.log('shoppingkart costruito', this, 'item', item)
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         return this
@@ -90,7 +91,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return this.archived
     }
     archiveItem?(b: boolean) {
-        throw new Error("Method not implemented.");
+        this.archived = b
     }
     isArchivable?(): boolean {
         return true;
@@ -122,10 +123,13 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
-        return new Value({ value: ' ' + this.fornitore.title || this.fornitore.nome, label: ' fornitore ' })
+        return !this.title ? new Value({
+            value: ' ' + this.fornitore ? this.fornitore.title : '' ||
+                this.fornitore.nome, label: ' fornitore '
+        }) : new Value({ value: this.title, label: 'titolo' })
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     getCreatePopup() {
         return CreateShoppingKartPage
@@ -134,7 +138,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: undefined, label: 'aggregate to be defined' })
     }
     aggregateAction?() {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     hasQuickActions?(): boolean {
         return true
@@ -158,7 +162,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getTitle() {
         // tslint:disable: semicolon
-        return new Value({ value: `${this.getValue4().value}`, label: 'titolo' })
+        return new Value({ value: this.getValue4().value, label: 'titolo' })
 
     }
 
@@ -177,7 +181,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     async load(next?: () => void) {
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
-                // carico i valori 
+                // carico i valori
                 this.build(kart.val())
             }
         })
