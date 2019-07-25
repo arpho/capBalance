@@ -5,6 +5,7 @@ import { CategoriesService } from 'src/app/services/categories/categorie.service
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
+import { ComponentsPageModule } from 'src/app/modules/item/components/components.module';
 
 @Component({
   selector: 'app-categories-selector-page',
@@ -18,16 +19,33 @@ export class CategoriesSelectorPage implements OnInit {
   selectedCategoryIcon = 'remove'
   colorSelectableCategory = 'green' // add category green 
   colorSelectedCategory = 'orange'
+  filterString: any
+  searchbar: any
   filterFunction: (item: CategoryModel) => boolean
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
+  handleInput(event) {
+    console.log('input', event)
+    const query = event.target.value.toLowerCase();
+    /*requestAnimationFrame(() => {
+      items.forEach(item => {
+        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+        item.style.display = shouldShow ? 'block' : 'none';
+      });
+    });*/
+  }
 
 
   constructor(public modalCtrl: ModalController, public Categories: CategoriesService, public navParams: NavParams) { }
   filterFactory(args: { selectedCategoriesList: Array<CategoryModel> }) {
     return (a: ItemModelInterface) => !args.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
   }
+  onInput(ev){
+    console.log('input',ev)
+  }
 
   ngOnInit() {
+    this.searchbar = document.querySelector('ion-searchbar');
+    if(this.searchbar){ this.searchbar.addEventListener('IonInput', this.handleInput)}
     this.selectedCategoriesList = this.navParams.get('categories') || []
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
     if (this.Categories.getEntitiesList()) {
@@ -38,6 +56,10 @@ export class CategoriesSelectorPage implements OnInit {
         })
       })
     }
+  }
+
+  makeFilter(ev) {
+    console.log(ev)
   }
 
   removeCategory(category) {

@@ -5,7 +5,7 @@ import { PurchaseModel } from './purchasesModel';
 import { CategoryModel } from './CategoryModel';
 describe('testing purchaseModel', () => {
     const testdata = {
-        barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture',
+        barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture',prezzo:'125.5',
         categorie: [new CategoryModel().build({ title: 'a', key: 'a' }), new CategoryModel().build({ title: 'b', key: 'b' }),
         new CategoryModel().build({ title: 'c', key: 'c' })]
     }
@@ -26,6 +26,9 @@ describe('testing purchaseModel', () => {
     it('picture field is ok', () => {
         expect(purchase.picture).toBe(testdata.picture)
     })
+    it('prezzo should a float',()=>{
+        expect(purchase.prezzo).toBe(125.5)
+    })
 
     it('categorie should be ok', () => {
         expect(purchase.categorie).toBeTruthy()
@@ -36,7 +39,7 @@ describe('testing purchaseModel', () => {
     })
     it('clone should work', () => {
         const clonedata = {
-            barcode: '9632', prezzo: 123456, note: 'ìqwertyu', moneta: '$', descrizione: 'poiuytr',
+            barcode: '9632', prezzo: '123456.5', note: 'ìqwertyu', moneta: '$', descrizione: 'poiuytr',
             picture: 'asdfghj', categorie:
                 [new CategoryModel().build({ title: 'a', key: 'a' }), new CategoryModel().build({ title: 'b', key: 'b' }),
                 new CategoryModel().build({ title: 'c', key: 'c' })]
@@ -48,7 +51,7 @@ describe('testing purchaseModel', () => {
         expect(purchase.note).toBe(clonedata.note)
         expect(purchase.moneta).toBe(clonedata.moneta)
         expect(purchase.picture).toBe(clonedata.picture)
-        expect(purchase.prezzo).toBe(clonedata.prezzo)
+        expect(purchase.prezzo).toBe(123456.5)
         expect(purchase.categorie).toBeTruthy()
         expect(purchase.categorie.length).toBe(3)
         expect(purchase.serialize().barcode).toBe(clonedata.barcode)

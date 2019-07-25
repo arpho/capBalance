@@ -70,7 +70,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     getQuickActions() {
         return this.quickActions
     }
-    build?(item: {}) {
+    build(item: {}) {
         const loader = ([Key, value]) => {
             if (Key !== 'key') { // evito di sovrascrivere la chiave
                 this[Key] = value;
@@ -122,7 +122,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
     getValue4(): Value {
-        return new Value({ value: '  ' + this.fornitore.title || this.fornitore.nome, label: ' fornitore ' })
+        return new Value({ value: ' ' + this.fornitore.title || this.fornitore.nome, label: ' fornitore ' })
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error("Method not implemented.");

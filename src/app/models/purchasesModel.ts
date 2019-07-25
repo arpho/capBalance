@@ -45,7 +45,7 @@ export class PurchaseModel {
         this.note = item.note
         this.moneta = item.moneta
         this.picture = item.picture
-        this.prezzo = parseInt(item.prezzo, 10)
+        this.prezzo = parseFloat(item.prezzo)
         this.descrizione = item.descrizione
         this.categorie = item.categorie? item.categorie:this.categorie
         return this
@@ -60,7 +60,7 @@ export class PurchaseModel {
         this.categoriesKeys = item['categorieId']
         this.key = item['key'] || ''
         this.note = item['note']
-        this.prezzo = parseInt(item['prezzo'], 10)
+        this.prezzo = parseFloat(item['prezzo'])
         this.categorie = this.categorie || item['categorie']
         this.key = item['key'] || String(new Date().getTime())
         console.log()

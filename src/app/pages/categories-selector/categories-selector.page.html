@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>categoriesSelector</ion-title>
+    <ion-searchbar [ngmodel]="filterString" (ionInput)="onInput($event)"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss(selectedCategoriesList)">
         <ion-icon name="checkmark"></ion-icon>
