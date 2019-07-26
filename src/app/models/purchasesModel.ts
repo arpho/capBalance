@@ -28,6 +28,10 @@ export class PurchaseModel {
                     return new CategoryModel(key, categories);
                 })
             }
+            if (item['categorieId']) {
+                this.categorie = item['categorieId'].map(key => new CategoryModel(key, categories))
+
+            }
         }
 
     }
@@ -47,7 +51,7 @@ export class PurchaseModel {
         this.picture = item.picture
         this.prezzo = parseFloat(item.prezzo)
         this.descrizione = item.descrizione
-        this.categorie = item.categorie? item.categorie:this.categorie
+        this.categorie = item.categorie ? item.categorie : this.categorie
         return this
     }
 
@@ -61,7 +65,7 @@ export class PurchaseModel {
         this.key = item['key'] || ''
         this.note = item['note']
         this.prezzo = parseFloat(item['prezzo'])
-        this.categorie = this.categorie || item['categorie']
+        this.categorie = this.categoriesKeys ? this.categoriesKeys.map(key => new CategoryModel(key, this.service)) : []
         this.key = item['key'] || String(new Date().getTime())
         console.log()
         return this
