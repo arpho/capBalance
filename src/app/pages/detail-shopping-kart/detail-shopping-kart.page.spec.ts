@@ -2,6 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailShoppingKartPage } from './detail-shopping-kart.page';
+import { ModalController, AngularDelegate, NavParams } from '@ionic/angular';
+import { MockNavParams } from './mockNavParams';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DetailShoppingKartPage', () => {
   let component: DetailShoppingKartPage;
@@ -9,10 +12,16 @@ describe('DetailShoppingKartPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailShoppingKartPage ],
+      declarations: [DetailShoppingKartPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        ModalController,
+        AngularDelegate,
+        { provide: NavParams, useClass: MockNavParams },
+      ],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -32,7 +32,6 @@ export class CreateShoppingKartPage implements OnInit {
   textSelectPayment = 'Pagamento'
   localPosition: { latitude: number, longitude: number }
   constructor(
-    public viewCtrl: ModalController,
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
     public geo: GeoService,
@@ -109,7 +108,7 @@ export class CreateShoppingKartPage implements OnInit {
 
   async detailPurchase(purchase) {
 
-    const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase: purchase } })
+    const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
       console.log('got', data.data)
       this.kart.updateItem(new PurchaseModel(data.data))
@@ -154,7 +153,7 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss()
+    this.modalCtrl.dismiss()
   }
 
 }

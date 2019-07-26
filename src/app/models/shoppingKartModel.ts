@@ -121,30 +121,34 @@ export class ShoppingKartModel implements ItemModelInterface {
     getValue3(): Value {
         return new Value({ value: this.purchaseDate.formatDate(), label: ' data di acquisto' })
     }
+
     getValue4(): Value {
-        console.log('title', this.title)
         const out = !this.title ? new Value({
             value: ' ' + this.fornitore ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
         }) :
             new Value({ value: this.title, label: 'titolo' })
-        console.log('out', out)
         return out
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error('Method not implemented.');
     }
+
     getCreatePopup() {
         return CreateShoppingKartPage
     }
+
     getAggregate(): Value {
         return new Value({ value: undefined, label: 'aggregate to be defined' })
     }
+
     aggregateAction?() {
         throw new Error('Method not implemented.');
     }
+
     hasQuickActions?(): boolean {
         return true
     }
+
     serialize() {
         return {
             fornitoreId: this.fornitore.key || '',
@@ -154,7 +158,8 @@ export class ShoppingKartModel implements ItemModelInterface {
             online: Boolean(this.online),
             dataAcquisto: this.purchaseDate ? this.purchaseDate.formatFullDate() : '',
             title: this.title || '',
-            totale: this.totale || 0
+            totale: this.totale || 0,
+            items: this.items.map((item: PurchaseModel) => item.serialize())
         }
     }
     getElement(): { element: string; genere: Genere } {
