@@ -1,5 +1,5 @@
 {
-    "version": "0.9.5.7.1",
+    "version": "0.9.5.7.2",
     "features": [
         "full text search in categoeies selectors'",
         "bug fixed",
@@ -8,6 +8,7 @@
         "manage categories"
     ],
     "newFeatures": [
+        "refactored purchase date",
         "correct title in shopping karts",
         "create shoppingkart",
         "fixed bug",

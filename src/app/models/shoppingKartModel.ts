@@ -152,7 +152,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             key: this.key || '',
             archived: Boolean(this.archived),
             online: Boolean(this.online),
-            dataAcquisto: this.purchaseDate ? this.purchaseDate.formatDate() : '',
+            dataAcquisto: this.purchaseDate ? this.purchaseDate.formatFullDate() : '',
             title: this.title || '',
             totale: this.totale || 0
         }
@@ -195,7 +195,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
             this.purchases.forEach(p => p.load()) // carica le categorie degli acqwuisti
         }
-        this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
+        // this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
 
     }
 

@@ -18,8 +18,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number =
     (a: ShoppingKartModel, b: ShoppingKartModel) => {
       // tslint:disable: semicolon
-      const dateA = new Date(a.purchaseDate.formatDate())
-      const dateB = new Date(b.purchaseDate.formatDate())
+      const dateA = a.purchaseDate.getFullDate()
+      const dateB = b.purchaseDate.getFullDate()
       return this.compareDate(dateA, dateB)
     }
 

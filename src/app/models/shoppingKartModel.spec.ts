@@ -68,7 +68,7 @@ describe('serialize must not have undefined fields', () => {
     })
 
     it('checking dataAcquisto', () => {
-        expect(kart.serialize().dataAcquisto).toBe(new DateModel(new Date()).formatDate())
+        expect(kart.serialize().dataAcquisto).toBeTruthy()
     })
 
     it('adding items should work', () => {
@@ -118,11 +118,8 @@ describe('getTitle should work when no fornitore', () => {
             fornitoreId: 'qwerty',
             pagamentoId: 'asdfghj',
             totale: 15,
-            //title: 'title',
             key: 'zxcvbnm',
-            // fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', 
             ecommerce: false
-            // })
         }
         const KartNoTitle = new ShoppingKartModel(testdata)
         KartNoTitle.fornitore = new SupplierModel({

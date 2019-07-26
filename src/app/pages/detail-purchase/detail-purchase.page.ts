@@ -18,7 +18,6 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
   ngOnInit() {
 
     this.purchase = this.navParams.get('purchase')
-    console.log('editing purchase', this.purchase)
     this.title = this.purchase ? `modifica ${this.purchase.descrizione}` : 'modifica acquisto'
     this.purchaseFields = [
       new TextboxQuestion({
