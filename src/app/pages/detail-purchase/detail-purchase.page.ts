@@ -23,7 +23,7 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
     this.purchaseFields = [
       new TextboxQuestion({
         key: 'descrizione',
-        label: 'descrizione',
+        label: 'acquisto',
         value: this.purchase ? this.purchase.descrizione : '',
         order: 1
       }),
@@ -43,13 +43,13 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
   }
 
   setCategories(cats: Array<CategoryModel>) {
+    console.log('setting categories', cats)
     this.purchase.categorie = cats
   }
 
 
   submit(purchase) {
     console.log('updating', this.purchase)
-    console.log('new ', purchase)
     this.purchase.clone(purchase)
     console.log('purchase submitted', this.purchase)
     this.dismiss(this.purchase)

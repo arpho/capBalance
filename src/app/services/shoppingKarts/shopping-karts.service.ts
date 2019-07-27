@@ -1,3 +1,4 @@
+// tslint:disable:semicolon
 import { Injectable } from '@angular/core';
 import { ItemServiceInterface } from '../../modules/item/models/ItemServiceInterface'
 import { CategoriesService } from '../categories/categorie.service'

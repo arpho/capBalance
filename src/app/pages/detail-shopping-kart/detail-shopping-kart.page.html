@@ -31,6 +31,16 @@
       </div>
     </div>
   </div>
+  <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
+    <div class="loader">
+      <div class="face">
+        <div class="circle"></div>
+      </div>
+      <div class="face">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
   <div class='purchaseList'>
     <ion-list>
       <ion-item *ngFor="let purchase of kart?.items">

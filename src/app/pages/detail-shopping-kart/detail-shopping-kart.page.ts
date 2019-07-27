@@ -83,7 +83,22 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   submit(ev) {
+    console.log('items list', this.kart.items)
+    this.showSpinner = true
     console.log(ev)
+    this.kart.title = ev.title
+    this.kart.note = ev.note
+    this.kart.online = ev.ecommerce
+    this.kart.purchaseDate.updateDate(ev.dataAcquisto)
+
+    console.log('updated kart', this.kart)
+    console.log('serialized kart', this.kart.serialize())
+    this.service.updateItem(this.kart).then(() => {
+      this.showSpinner = false
+      console.log('updated', this.kart)
+      this.dismiss()
+    })
+
   }
 
   async addPurchase() {
@@ -101,8 +116,10 @@ export class DetailShoppingKartPage implements OnInit {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
-      console.log('got', data.data)
+      console.log('got updated purchase', data.data)
+      console.log('cloned purchase', new PurchaseModel().clone(data.data))
       this.kart.updateItem(new PurchaseModel().clone(data.data))
+      console.log('updated items list', this.kart.items)
     })
     return await modal.present()
   }
@@ -126,7 +143,6 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   filter(ev) {
-    console.log(ev)
     if (ev.ecommerce) {
       this.supplierFilterFunction = (item: SupplierModel) => {
         return item.ecommerce

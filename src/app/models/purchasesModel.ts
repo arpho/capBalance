@@ -49,7 +49,7 @@ export class PurchaseModel {
         this.note = item.note
         this.moneta = item.moneta
         this.picture = item.picture
-        this.prezzo = parseFloat(item.prezzo)
+        this.prezzo = parseFloat(item.prezzo) || 0
         this.descrizione = item.descrizione
         this.categorie = item.categorie ? item.categorie : this.categorie
         return this
@@ -84,11 +84,10 @@ export class PurchaseModel {
             descrizione: this.descrizione || '',
             moneta: this.moneta || '',
             picture: this.picture || '',
-            categorieId: this.categorieId || [],
+            categorieId: this.categorie ? this.categorie.map(cat => cat.serialize()) : [],
             key: this.key || '',
             note: this.note || '',
             prezzo: this.prezzo || 0,
-            categorie: this.categorie ? this.categorie.map(cat => cat.serialize()) : []
         }
     }
     async load() {

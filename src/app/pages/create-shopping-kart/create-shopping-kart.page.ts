@@ -146,8 +146,8 @@ export class CreateShoppingKartPage implements OnInit {
     this.kart.purchaseDate = new DateModel(new Date(ev.dataAcquisto))
     console.log('kart', this.kart)
     this.service.createItem(this.kart).then(res => {
-      console.log('created kart', this.kart)
       this.showSpinner = false
+      console.log('created kart', this.kart)
       this.dismiss()
     })
   }
