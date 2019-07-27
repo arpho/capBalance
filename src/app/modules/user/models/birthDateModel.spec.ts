@@ -18,9 +18,9 @@ describe('model should create from object', () => {
 describe('creating model from Date Object', () => {
     const modelDate = new DateModel(new Date())
     it('data are ok', () => {
-        expect(modelDate.day).toBe(26)
-        expect(modelDate.month).toBe(6)
-        expect(modelDate.year).toBe(2019)
+        expect(modelDate.day).toBe(new Date().getDate())
+        expect(modelDate.month).toBe(new Date().getMonth())
+        expect(modelDate.year).toBe(new Date().getFullYear())
         expect(modelDate.fullDate).toBeTruthy()
     })
 })

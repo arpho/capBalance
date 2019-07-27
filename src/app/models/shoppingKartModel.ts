@@ -198,7 +198,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento.load()
         if (this.purchases || this.items) { // ci sono carrelli senza acquisti
             this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
-            this.purchases.forEach(p => p.load()) // carica le categorie degli acqwuisti
+            this.purchases.forEach(p => p.load()) // carica le categorie degli acquisti
         }
         // this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
 

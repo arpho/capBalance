@@ -11,7 +11,7 @@ export class PurchaseModel {
     prezzo: number
     categorie: Array<CategoryModel>
     picture: string
-    categoriesKeys: Array<string>
+    categorieId: Array<string>
     service: ItemServiceInterface
 
     constructor(item?: {}, categories?: ItemServiceInterface) {
@@ -23,8 +23,8 @@ export class PurchaseModel {
         if (categories) {
             // è presente categoriesService carico le categorie
             this.service = categories
-            if (this.categoriesKeys) {
-                this.categorie = this.categoriesKeys.map(key => {
+            if (this.categorieId) {
+                this.categorie = this.categorieId.map(key => {
                     return new CategoryModel(key, categories);
                 })
             }
@@ -54,6 +54,14 @@ export class PurchaseModel {
         this.categorie = item.categorie ? item.categorie : this.categorie
         return this
     }
+    instatiateCategories(categorieId: Array<string>) {
+        if (categorieId) {
+            // console.log('got categorieId', categorieId)
+            const out = categorieId.map((key: string) => new CategoryModel(key, this.service))
+            // console.log('instatiated categorie', out)
+            return out
+        } else { return [] }
+    }
 
     build(item) {
         this.barcode = item['barcode']
@@ -61,13 +69,11 @@ export class PurchaseModel {
         this.moneta = item['moneta'] || '€'
         this.picture = item['picture']
         this.note = item['note']
-        this.categoriesKeys = item['categorieId']
         this.key = item['key'] || ''
         this.note = item['note']
         this.prezzo = parseFloat(item['prezzo'])
-        this.categorie = this.categoriesKeys ? this.categoriesKeys.map(key => new CategoryModel(key, this.service)) : []
+        this.categorie = this.instatiateCategories(item.categorieId)
         this.key = item['key'] || String(new Date().getTime())
-        console.log()
         return this
 
     }
@@ -78,7 +84,7 @@ export class PurchaseModel {
             descrizione: this.descrizione || '',
             moneta: this.moneta || '',
             picture: this.picture || '',
-            categorieId: this.categoriesKeys || [],
+            categorieId: this.categorieId || [],
             key: this.key || '',
             note: this.note || '',
             prezzo: this.prezzo || 0,
