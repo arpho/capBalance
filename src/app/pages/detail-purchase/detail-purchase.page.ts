@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { ModalController, NavParams } from '@ionic/angular';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
+import { CategoryModel } from 'src/app/models/CategoryModel';
 
 @Component({
   selector: 'app-detail-purchase',
@@ -39,6 +40,10 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
         value: this.purchase ? this.purchase.prezzo : 0
       })
     ];
+  }
+
+  setCategories(cats: Array<CategoryModel>) {
+    this.purchase.categorie = cats
   }
 
 
