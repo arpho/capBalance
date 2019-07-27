@@ -20,7 +20,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     }
     build(obj: { title: string, key: string }) {
         this.title = obj.title;
-        this.key = this.key||obj.key;
+        this.key = this.key || obj.key;
         return this
     }
 
@@ -117,7 +117,6 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                 {
                     text: 'Salva',
                     handler: data => {
-                        console.log('popup');
                         const filterFunction = (item: ItemModelInterface) => {
                             return this.title.toLowerCase().indexOf(data[0]) > -1;
                         };
