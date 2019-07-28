@@ -14,9 +14,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     note: string;
     constructor(key?: string, service?: ItemServiceInterface) {
         this.key = key
-        if (service && key) {
-            this.service = service
-        }
+        this.service = service
     }
     build(obj: { title: string, key: string }) {
         this.title = obj.title;
@@ -25,11 +23,18 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     }
 
     async load() {
-        this.service.getItem(this.key).on('value', cat => {
-            if (cat.val()) {
-                this.title = cat.val().title;
-            }
-        });
+        if (this.service) {
+            this.service.getItem(this.key).on('value', cat => {
+                if (cat.val()) {
+                    this.title = cat.val().title || 'deleted';
+                } else {
+                    this.title = 'deleted'
+                }
+            });
+        } else {
+            this.title = 'non trovata'
+            console.log('service non disponibile')
+        }
         return this
     }
     getCountingText() { return 'categorie'; }

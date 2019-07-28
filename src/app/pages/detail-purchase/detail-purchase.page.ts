@@ -43,15 +43,12 @@ export class DetailPurchasePage extends CreatePurchasePage implements OnInit {
   }
 
   setCategories(cats: Array<CategoryModel>) {
-    console.log('setting categories', cats)
     this.purchase.categorie = cats
   }
 
 
   submit(purchase) {
-    console.log('updating', this.purchase)
     this.purchase.clone(purchase)
-    console.log('purchase submitted', this.purchase)
     this.dismiss(this.purchase)
   }
 }

@@ -47,6 +47,8 @@ export class DetailShoppingKartPage implements OnInit {
   ngOnInit() {
     this.kart = this.navParams.get('kart')
     console.log('got', this.kart)
+    // this.kart.load()
+    console.log('loaded kart',this.kart)
     this.kartFields = [
       new TextboxQuestion({
         key: 'title',
@@ -116,10 +118,7 @@ export class DetailShoppingKartPage implements OnInit {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
-      console.log('got updated purchase', data.data)
-      console.log('cloned purchase', new PurchaseModel().clone(data.data))
       this.kart.updateItem(new PurchaseModel().clone(data.data))
-      console.log('updated items list', this.kart.items)
     })
     return await modal.present()
   }

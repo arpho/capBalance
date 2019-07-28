@@ -57,7 +57,6 @@ describe('testing purchaseModel', () => {
         expect(purchase.serialize().barcode).toBe(clonedata.barcode)
         expect(purchase.serialize().descrizione).toBe(clonedata.descrizione)
         expect(purchase.serialize().categorieId.length).toBe(3)
-
     })
     it('serialize should work', () => {
         purchase = new PurchaseModel(testdata)

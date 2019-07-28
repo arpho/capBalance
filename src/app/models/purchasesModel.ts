@@ -45,7 +45,7 @@ export class PurchaseModel {
         picture: string,
         categorie?: Array<CategoryModel>
     }) {
-        this.barcode = item.barcode
+        this.barcode = item.barcode || ''
         this.note = item.note
         this.moneta = item.moneta
         this.picture = item.picture
@@ -72,7 +72,7 @@ export class PurchaseModel {
         this.key = item['key'] || ''
         this.note = item['note']
         this.prezzo = parseFloat(item['prezzo'])
-        this.categorie = this.instatiateCategories(item.categorieId)
+        this.categorie = this.instatiateCategories(item.categorieId || item.categorie)
         this.key = item['key'] || String(new Date().getTime())
         return this
 

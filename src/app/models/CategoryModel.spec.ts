@@ -24,4 +24,9 @@ describe('testing CategoryModel', () => {
         expect(catB.title).toBe('b')
         expect(catB.serialize()).toBe('b')
     })
+    it('deleted category',()=>{
+        const deletedCat = new CategoryModel('d',service)
+        deletedCat.load()
+        expect(deletedCat.title).toBe('deleted')
+    })
 })

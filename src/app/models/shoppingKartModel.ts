@@ -196,16 +196,20 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
         this.fornitore.load(next)
         this.pagamento.load()
-        if (this.purchases || this.items) { // ci sono carrelli senza acquisti
-            this.purchases = this.loadPurchases(this.purchases || this.items, this.service.extraService0)
-            this.purchases.forEach(p => p.load()) // carica le categorie degli acquisti
+        if (this.items) { // ci sono carrelli senza acquisti
+            this.items = this.loadPurchases(this.items, this.service.extraService0)
+            this.items.forEach(p => p.load()) // carica le categorie degli acquisti
         }
         // this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
 
     }
 
     loadPurchases(items: {}[], categories?): PurchaseModel[] {
-        return items.map(value => new PurchaseModel(value, categories))
+        return items.map(value => {
+            const purchase = new PurchaseModel(value, categories)
+            purchase.load()
+            return purchase
+        })
 
     }
 
