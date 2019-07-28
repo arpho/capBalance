@@ -11,6 +11,7 @@ import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-te
 import { SwitchQuestion } from 'src/app/modules/dynamic-form/models/question-switch';
 import { GeoLocateQuestion } from 'src/app/modules/dynamic-form/models/question-geolocate';
 import { Coordinates } from 'src/app/modules/geo-location/models/coordinates';
+import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInterface';
 
 @Component({
   selector: 'app-view-supplier',
@@ -20,7 +21,7 @@ import { Coordinates } from 'src/app/modules/geo-location/models/coordinates';
 export class ViewSupplierPage implements OnInit {
   supplier: SupplierModel
   supplierFields: any
-  suppliers: SuppliersService
+  suppliers: ItemServiceInterface
   showSpinner = false
 
   constructor(

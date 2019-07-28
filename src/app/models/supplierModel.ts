@@ -34,7 +34,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     cliente: boolean
     onLine: boolean; // back compatibility
     // tslint:disable: semicolon
-    service: SuppliersService
+    service: ItemServiceInterface
     quickActions: Array<QuickAction>
 
 
@@ -57,7 +57,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     },
         // tslint:disable-next-line: align
-        key?: string, service?: SuppliersService) {
+        key?: string, service?: ItemServiceInterface) {
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
