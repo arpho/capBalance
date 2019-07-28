@@ -2,7 +2,7 @@
 // tslint:disable: semicolon
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CategoryModel } from './CategoryModel';
-import { MockCategoriesService } from './mockCategoriesService';
+import { MockCategoriesService } from './mockers/mockCategoriesService';
 
 describe('testing CategoryModel', () => {
     const service = new MockCategoriesService()
@@ -24,8 +24,8 @@ describe('testing CategoryModel', () => {
         expect(catB.title).toBe('b')
         expect(catB.serialize()).toBe('b')
     })
-    it('deleted category',()=>{
-        const deletedCat = new CategoryModel('d',service)
+    it('deleted category', () => {
+        const deletedCat = new CategoryModel('d', service)
         deletedCat.load()
         expect(deletedCat.title).toBe('deleted')
     })

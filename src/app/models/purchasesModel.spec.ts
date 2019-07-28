@@ -3,7 +3,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PurchaseModel } from './purchasesModel';
 import { CategoryModel } from './CategoryModel';
-import { MockCategoriesService } from './mockCategoriesService';
+import { MockCategoriesService } from './mockers/mockCategoriesService';
 describe('testing purchaseModel', () => {
     const testdata = {
         barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: '125.5',

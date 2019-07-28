@@ -4,6 +4,13 @@ import { ShoppingKartModel } from './shoppingKartModel'
 import { DateModel } from '../modules/user/models/birthDateModel';
 import { PurchaseModel } from './purchasesModel';
 import { SupplierModel } from './supplierModel';
+import { MockCategoriesService } from './mockers/mockCategoriesService';
+import { MockShoppingKartervice } from './mockers/mockShoppingKartService';
+import { SuppliersService } from '../services/suppliers/suppliers.service';
+import { PaymentsService } from '../services/payments/payments.service';
+import { MockSupplierService } from './mockers/mockSuppliersService';
+import { MockPaymentService } from './mockers/mockPaymentService';
+import { CategoryModel } from './CategoryModel';
 describe('ShoppingKart should instantiate', () => {
     const kartdata = {
         archived: false,
@@ -102,7 +109,7 @@ describe('getTitle should work when no fornitore', () => {
         totale: 15,
         title: 'title',
         key: 'zxcvbnm',
-        // fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test', 
+        // fornitore: new SupplierModel({ title: 'test title', note: 'just 4 test', nome: 'dummy', key: 'test',
         ecommerce: false
         // })
     }
@@ -128,6 +135,51 @@ describe('getTitle should work when no fornitore', () => {
         })
         expect(KartNoTitle.getTitle().value).toBe('supplier title')
 
+    })
+
+})
+
+describe('loading purchase', () => {
+    const purchaseData = {
+        barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: '125.5',
+        categorieId: ['a', 'b', 'c']
+    }
+    const testdata = {
+        archived: false,
+        dataAcquisto: '1977-03-16',
+        fornitoreId: 'qwerty',
+        pagamentoId: 'asdfghj',
+        totale: 15,
+        key: 'zxcvbnm',
+        ecommerce: false,
+        items: [purchaseData]
+    }
+    const categoriesService = new MockCategoriesService()
+    const TestSupplierService = new MockSupplierService()
+    const TestPaymentService = new MockPaymentService()
+    const kartService = new MockShoppingKartervice(testdata)
+
+    const kartdata = {
+        archived: false,
+        dataAcquisto: '1977-03-16',
+        fornitoreId: 'qwerty',
+        pagamentoId: 'asdfghj',
+        totale: 15,
+        title: 'title',
+        key: 'zxcvbnm',
+        items: [purchaseData]
+    }
+    const kart = new ShoppingKartModel({ item: kartdata, service: kartService })
+    it('kart should be created', () => {
+        expect(kart).toEqual(jasmine.any(ShoppingKartModel))
+    })
+    it('should load purchase and categories', () => {
+        kart.load()
+        expect(kart.items.length).toBe(1)
+        expect(kart.items[0]).toEqual(jasmine.any(PurchaseModel))
+        expect(kart.items[0].categorie.length).toBe(3)
+        expect(kart.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
+        expect(kart.items[0].categorie[0].title).toBe('a')
     })
 
 })

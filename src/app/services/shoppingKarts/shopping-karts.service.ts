@@ -14,8 +14,8 @@ import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
   extraService0?: ItemServiceInterface;
-  extraService1?: SuppliersService;
-  extraService2?: ItemServiceInterface;
+  extraService1?: SuppliersService | ItemServiceInterface;
+  extraService2?: ItemServiceInterface | ItemServiceInterface;
   getItem(key: string): firebase.database.Reference {
     return this.shoppingKartsListRef.child(key);
   }
@@ -35,9 +35,9 @@ export class ShoppingKartsService implements ItemServiceInterface {
     return this.shoppingKartsListRef
   }
 
-  constructor(categories: CategoriesService, payments: PaymentsService, suppòiers: SuppliersService) {
+  constructor(categories: CategoriesService, payments: PaymentsService, suppliers: SuppliersService) {
     this.extraService0 = categories
-    this.extraService1 = suppòiers
+    this.extraService1 = suppliers
     this.extraService2 = payments
 
     firebase.auth().onAuthStateChanged(user => {
