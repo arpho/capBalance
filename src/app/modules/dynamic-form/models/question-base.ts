@@ -16,12 +16,14 @@ export class QuestionBase<T> {
       required?: boolean;
       order?: number;
       controlType?: string;
-      labelTrue?: String;
-      labelFalse?: String;
-      iconTrue?: String;
-      iconFalse?: String;
+      labelTrue?: string;
+      labelFalse?: string;
+      iconTrue?: string;
+      iconFalse?: string;
     } = {}
   ) {
+    // tslint:disable: quotemark
+    // tslint:disable: no-string-literal
     this.value = options["value"];
     this.key = options.key || "";
     this.label = options.label || "";

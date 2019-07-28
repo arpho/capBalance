@@ -186,11 +186,9 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     async load(next?: () => void) {
-        console.log('loading', this.service.extraService1, this.service.extraService2)
 
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
-                console.log('kart', kart.val())
                 // carico i valori
                 this.build(kart.val())
             }
@@ -199,10 +197,8 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
         this.fornitore.load(next)
         this.pagamento.load()
-        console.log('loading items srvice', this.items)
         if (this.items) { // ci sono carrelli senza acquisti
             // this.items = this.loadPurchases(this.items, this.service.extraService0)
-            console.log('categories srvice', this.service.extraService0)
             this.items = this.items.map(pur => new PurchaseModel(pur, this.service.extraService0))// .map(p => p.load())
             this.items.forEach(p => p.load()) // carica le categorie degli acquisti
         }

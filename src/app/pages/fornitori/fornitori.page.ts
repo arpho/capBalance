@@ -17,7 +17,7 @@ import { DistanceSorterPipe } from 'src/app/modules/geo-location/pipes/distance-
 })
 export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface {
   public ItemsList: Array<SupplierModel>;
-  public filterLabel: string = 'Categorie';
+  public filterLabel = 'Categorie';
   public filterString: string;
   public filterFields: any;
   public filterFunction: (item: SupplierModel) => boolean;
@@ -54,9 +54,33 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
         label: 'venditore online',
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
+        iconnTrue: 'wifi',
+        iconFalse: 'cash',
         required: false,
         order: 4
-      })
+      }),
+      new SwitchQuestion({
+        key: 'cliente',
+        label: 'cliente/fornitore',
+        labelTrue: 'cliente',
+        labelFalse: ' fornitore',
+        // value: this.supplier.cliente,
+        iconTrue: 'happy',
+        iconFalse: 'hammer',
+        required: false,
+        order: 5
+      }),
+      new SwitchQuestion({
+        key: 'personaFisica',
+        label: 'persona',
+        labelTrue: 'fisica',
+        labelFalse: ' fiscale',
+        iconTrue: 'man',
+        iconFalse: 'business',
+        // value: this.supplier.personaFisica,
+        required: false,
+        order: 6
+      }),
     ];
 
   }

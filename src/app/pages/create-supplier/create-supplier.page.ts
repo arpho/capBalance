@@ -60,14 +60,39 @@ export class CreateSupplierPage implements OnInit {
         label: 'venditore online',
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
+        iconnTrue: 'wifi',
+        iconFalse: 'cash',
         value: this.supplier.onLine,
         required: false,
         order: 4
+      }),
+      new SwitchQuestion({
+        key: 'cliente',
+        label: 'cliente/fornitore',
+        labelTrue: 'cliente',
+        labelFalse: ' fornitore',
+        iconTrue: 'happy',
+        iconFalse: 'hammer',
+        value: this.supplier.cliente,
+        required: false,
+        order: 5
+      }),
+      new SwitchQuestion({
+        key: 'personaFisica',
+        label: 'persona',
+        labelTrue: 'fisica',
+        labelFalse: ' fiscale',
+        value: this.supplier.personaFisica,
+        iconTrue: 'man',
+        iconFalse: 'business',
+        required: false,
+        order: 6
       }),
       new GeoLocateQuestion({
         key: "address",
         label: "indirizzo",
         required: false,
+        order: 7
 
       })
     ];
