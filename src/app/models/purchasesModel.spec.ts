@@ -3,6 +3,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PurchaseModel } from './purchasesModel';
 import { CategoryModel } from './CategoryModel';
+import { MockCategoriesService } from './mockCategoriesService';
 describe('testing purchaseModel', () => {
     const testdata = {
         barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: '125.5',
@@ -71,5 +72,22 @@ describe('testing purchaseModel', () => {
         expect(purchase2.serialize().categorieId.length).toBe(0)
     })
 
+
+})
+describe('testing loading', () => {
+    const service = new MockCategoriesService()
+    const testdata = {
+        barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: '125.5',
+        categorieId: ['a', 'b', 'c']
+    }
+    it('purchase to be loaded', () => {
+        const purchase = new PurchaseModel(testdata, service)
+        expect(purchase).toBeTruthy()
+        purchase.load()
+        expect(purchase.categorie.length).toBe(testdata.categorieId.length)
+        expect(purchase.categorie[0]).toEqual(jasmine.any(CategoryModel))
+        expect(purchase.categorie[0].title).toBe('a')
+
+    })
 
 })
