@@ -17,7 +17,7 @@
         {{ getValue ? question.labelTrue : question.labelFalse }}
       </p>
       <ion-icon
-        name="{{ getValue ? question?.iconTrue : question?.iconFalse }}"
+        [name]="getValue ? question.iconTrue:question.iconFalse"
       ></ion-icon>
       <ion-toggle
         [formControlName]="question?.key"

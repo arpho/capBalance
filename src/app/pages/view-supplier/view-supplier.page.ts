@@ -52,14 +52,39 @@ export class ViewSupplierPage implements OnInit {
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
         value: (this.supplier) ? this.supplier.ecommerce : false,
+        iconnTrue: 'wifi',
+        iconFalse: 'cash',
         required: false,
         order: 4
       }),
-      new GeoLocateQuestion({
-        key: "address",
-        label: "indirizzo",
+      new SwitchQuestion({
+        key: 'cliente',
+        label: 'cliente/fornitore',
+        labelTrue: 'cliente',
+        labelFalse: ' fornitore',
+        iconTrue: 'happy',
+        iconFalse: 'hammer',
+        value: this.supplier ? this.supplier.cliente : false,
         required: false,
-        value: (this.supplier) ? this.supplier.address : new Coordinates()
+        order: 5
+      }),
+      new SwitchQuestion({
+        key: 'personaFisica',
+        label: 'persona',
+        labelTrue: 'fisica',
+        labelFalse: ' fiscale',
+        value: this.supplier ? this.supplier.personaFisica : false,
+        iconTrue: 'man',
+        iconFalse: 'business',
+        required: false,
+        order: 6
+      }),
+      new GeoLocateQuestion({
+        key: 'address',
+        label: 'indirizzo',
+        required: false,
+        value: (this.supplier) ? this.supplier.address : new Coordinates(),
+        order: 7
 
       })
     ]

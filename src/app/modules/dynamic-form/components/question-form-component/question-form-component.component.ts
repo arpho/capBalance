@@ -26,15 +26,19 @@ export class QuestionFormComponent implements OnInit {
     this.form = this.form
       ? this.form
       : new FormGroup({
-          // I need an instance of formgroup for run the tests
-          name: new FormControl("turiddu"),
-          age: new FormControl("20")
-        });
+        // I need an instance of formgroup for run the tests
+        name: new FormControl("turiddu"),
+        age: new FormControl("20")
+      });
   }
   get isValid() {
     return this.question ? this.form.controls[this.question.key].valid : false;
   }
   get getValue() {
-    return this.question.key ? this.form.get(this.question.key).value : "";
+    return this.question.key ? this.form.get(this.question.key).value : '';
+  }
+
+  getIcon() {
+    return this.form.get(this.question.key).value ? String(this.question.iconTrue) : String(this.question.iconFalse)
   }
 }
