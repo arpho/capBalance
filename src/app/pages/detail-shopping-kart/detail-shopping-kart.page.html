@@ -47,7 +47,7 @@
         <article (click)="detailPurchase(purchase)">
           <h1>{{purchase.descrizione}}</h1>
           <h3 slot="end">{{purchase.moneta}}{{purchase.prezzo}}</h3>
-          <app-categories-viewer [categorie]="purchase.categorie"></app-categories-viewer>
+          <app-categories-viewer [categorie]="purchase.categorie" [categoryColor]="categoryColor" [categoryIcon]="categoryIcon"></app-categories-viewer>
         </article>
       </ion-item>
     </ion-list>

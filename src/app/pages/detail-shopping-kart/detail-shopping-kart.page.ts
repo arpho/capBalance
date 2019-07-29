@@ -32,6 +32,8 @@ export class DetailShoppingKartPage implements OnInit {
   kartFields: any
   textSelectSupplier = 'Fornitore'
   textSelectPayment = 'Pagamento'
+  categoryIcon = "eye"
+  categoryColor = "blue"
   localPosition: { latitude: number, longitude: number }
 
   constructor(
@@ -46,9 +48,9 @@ export class DetailShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = this.navParams.get('kart')
-    console.log('got', this.kart)
-    // this.kart.load()
-    console.log('loaded kart',this.kart)
+    if (this.kart) {
+      // this.kart.load()
+    }
     this.kartFields = [
       new TextboxQuestion({
         key: 'title',

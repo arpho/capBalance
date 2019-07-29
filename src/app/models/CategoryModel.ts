@@ -32,8 +32,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                 }
             });
         } else {
-            this.title = 'non trovata'
-            console.log('service non disponibile')
+            this.title = 'non service'
         }
         return this
     }

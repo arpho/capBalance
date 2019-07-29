@@ -13,6 +13,8 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 export class CategoriesSelectorComponent implements OnInit {
   @Input() categoriesList: Array<CategoryModel>
   @Output() selectedCategories: EventEmitter<Array<CategoryModel>> = new EventEmitter()
+  iconColor = 'orange'
+  categoryIcon = 'pricetag'
 
 
   constructor(public modalCtrl: ModalController) { }
@@ -23,11 +25,17 @@ export class CategoriesSelectorComponent implements OnInit {
   async showPopup() {
     const modal = await this.modalCtrl.create({ component: CategoriesSelectorPage, componentProps: { categories: this.categoriesList } })
     modal.onDidDismiss().then(data => {
+      this.categoriesList = data.data
       this.selectedCategories.emit(data.data)
+
 
 
     })
     return await modal.present()
+  }
+
+  clickedCategory(cat: CategoryModel) {
+    console.log('clicked', cat)
   }
 
 }

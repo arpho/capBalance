@@ -36,13 +36,18 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   constructor(public service: ShoppingKartsService) {
     this.filterFields = []
   }
+  async loadKart(snap){
+    const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
+    await kart.load()
+    return kart
+  }
 
   async ngOnInit() {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.ItemsList = [];
         eventSuppliersListSnapshot.forEach(snap => {
-          const kart = new ShoppingKartModel({key:snap.key,service: this.service})
+          const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
           kart.load()
           this.ItemsList.push(kart);
 

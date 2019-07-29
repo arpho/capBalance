@@ -45,13 +45,15 @@ export class PurchaseModel {
         picture: string,
         categorie?: Array<CategoryModel>
     }) {
-        this.barcode = item.barcode || ''
-        this.note = item.note
-        this.moneta = item.moneta
-        this.picture = item.picture
-        this.prezzo = parseFloat(item.prezzo) || 0
-        this.descrizione = item.descrizione
-        this.categorie = item.categorie ? item.categorie : this.categorie
+        if (item) {
+            this.barcode = item.barcode || ''
+            this.note = item.note
+            this.moneta = item.moneta
+            this.picture = item.picture
+            this.prezzo = parseFloat(item.prezzo) || 0
+            this.descrizione = item.descrizione
+            this.categorie = item.categorie ? item.categorie : this.categorie
+        }
         return this
     }
     instatiateCategories(categorieId: Array<string>) {
@@ -93,7 +95,9 @@ export class PurchaseModel {
     }
     async load() {
         if (this.categorie) {
-            this.categorie.forEach(cat => cat.load()) // carico  le categorie da firebase}
+            this.categorie.forEach(cat => {
+                cat.load()
+            }) // carico  le categorie da firebase}
         }
     }
 }

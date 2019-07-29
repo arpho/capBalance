@@ -10,16 +10,20 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 export class CategoriesViewerComponent implements OnInit {
   @Input() categorie: Array<CategoryModel>
   @Output() updatedCategories: EventEmitter<Array<CategoryModel>> = new EventEmitter()
-  categoryIcon = 'eye'
-  colorCategory = 'blue'
+  @Output() clickedCategory: EventEmitter<CategoryModel> = new EventEmitter()
+  @Input() categoryIcon = 'pricetag'
+  @Input() categoryColor = 'blue'
 
   constructor() { }
 
   ngOnInit() {
+    this.categoryColor = this.categoryColor || 'blue'
+    this.categoryIcon = this.categoryIcon || 'pricetag'
   }
 
-  viewCategory(){
-    console.log('view')
+  clicked(cat) {
+    console.log('view', cat)
+    this.clickedCategory.emit(cat)
   }
 
 }

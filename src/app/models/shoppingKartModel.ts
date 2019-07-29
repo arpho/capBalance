@@ -51,7 +51,7 @@ export class ShoppingKartModel implements ItemModelInterface {
                 this.build(args.item)
             }
         }
-        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
+        // this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
@@ -82,6 +82,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.fornitore.key = this.fornitore.key || this.fornitoreId
         this.pagamento.key = this.pagamento.key || this.pagamentoId
         this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item, this.service.extraService0)) : []
+        // gli items sono stati tutti definiti non hanno ancora caricato le categorie
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         return this
@@ -186,20 +187,20 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     async load(next?: () => void) {
-
         this.service.getItem(this.key).on('value', (kart) => {
             if (kart.val()) {
                 // carico i valori
                 this.build(kart.val())
             }
         })
+        // items  loaded and categories instantiated but not loaded
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
         this.fornitore.load(next)
         this.pagamento.load()
         if (this.items) { // ci sono carrelli senza acquisti
             // this.items = this.loadPurchases(this.items, this.service.extraService0)
-            this.items = this.items.map(pur => new PurchaseModel(pur, this.service.extraService0))// .map(p => p.load())
+            // this.items = this.items.map(pur => new PurchaseModel(pur, this.service.extraService0))// .map(p => p.load())
             this.items.forEach(p => p.load()) // carica le categorie degli acquisti
         }
         // this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`

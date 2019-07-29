@@ -169,17 +169,27 @@ describe('loading purchase', () => {
         key: 'zxcvbnm',
         items: [purchaseData]
     }
-    const kart = new ShoppingKartModel({ item: kartdata, service: kartService })
-    it('kart should be created', () => {
-        expect(kart).toEqual(jasmine.any(ShoppingKartModel))
+    it('kart should be created and purchase and categories instantiated', () => {
+        const kartService1 = new MockShoppingKartervice(testdata)
+        console.log('passing', kartdata, kartService1)
+        const kart1 = new ShoppingKartModel({ item: kartdata, service: kartService1 })
+        expect(kart1).toEqual(jasmine.any(ShoppingKartModel))
+        expect(kart1.items[0]).toEqual(jasmine.any(PurchaseModel))
+        expect(kart1.service).toBeTruthy()
+        expect(kart1.service.extraService0).toBeTruthy()
+        expect(kart1.items[0].service).toBeTruthy()
+        expect(kart1.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
+        expect(kart1.items[0].categorie[0].service).toBeTruthy()
     })
     it('should load purchase and categories', () => {
+        const kart = new ShoppingKartModel({ item: kartdata, service: kartService })
         kart.load()
         expect(kart.items.length).toBe(1)
         expect(kart.items[0]).toEqual(jasmine.any(PurchaseModel))
         expect(kart.items[0].categorie.length).toBe(3)
         expect(kart.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
         expect(kart.items[0].categorie[0].title).toBe('a')
+        expect(kart.items[0].categorie[1].title).toBe('b')
     })
 
 })
