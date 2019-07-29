@@ -90,6 +90,7 @@ export class CreateShoppingKartPage implements OnInit {
 
 
   ngOnInit() {
+    this.kart = new ShoppingKartModel()
     this.geo.getPosition().then(coords => {
       this.localPosition = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
       this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {

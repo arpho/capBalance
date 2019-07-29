@@ -19,7 +19,7 @@ export class TotalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     const reducer: (acc: number, curr: PurchaseModel) => number = (acc: number, curr: PurchaseModel) => acc + curr.prezzo
-    const total = this.items.reduce<number>(reducer, 0)
+    const total = this.items ? this.items.reduce<number>(reducer, 0) : 0
     this.totalValue = total
     this.total.emit(total)
   }

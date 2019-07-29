@@ -22,7 +22,6 @@ export class CategoriesViewerComponent implements OnInit {
   }
 
   clicked(cat) {
-    console.log('view', cat)
     this.clickedCategory.emit(cat)
   }
 
