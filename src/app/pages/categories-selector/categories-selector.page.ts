@@ -73,7 +73,7 @@ export class CategoriesSelectorPage implements OnInit {
   }
 
   createCategory() {
-    console.log('creare', this.searchControl.value)
+    console.log('creare', this.searchControl.get('filterString').value)
   }
 
   removeCategory(category) {
@@ -82,7 +82,7 @@ export class CategoriesSelectorPage implements OnInit {
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
   }
   addCategory(cat) {
-    this.searchControl.reset()
+    // this.searchControl.reset()
     this.selectedCategoriesList = [...this.selectedCategoriesList, cat]
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
 

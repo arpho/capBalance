@@ -13,7 +13,7 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 export class CategoriesSelectorComponent implements OnInit {
   @Input() categoriesList: Array<CategoryModel>
   @Output() selectedCategories: EventEmitter<Array<CategoryModel>> = new EventEmitter()
-  iconColor = 'orange'
+  categoryColor = 'orange'
   categoryIcon = 'pricetag'
 
 

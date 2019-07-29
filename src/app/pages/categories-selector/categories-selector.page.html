@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>categoriesSelector</ion-title>
-    <ion-searchbar id='filterString' [(ngModel)]="filterString" (ionChange)="onInput($event)"></ion-searchbar>
+    <ion-searchbar id='filterString' [(ngModel)]="filterString" (ionChange)="onInput($event)" [formControl]="searchControl"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button>
         <ion-button (click)="createCategory()" ><ion-icon name="add"></ion-icon></ion-button>

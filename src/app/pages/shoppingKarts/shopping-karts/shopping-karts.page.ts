@@ -47,7 +47,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.ItemsList = [];
         eventSuppliersListSnapshot.forEach(snap => {
-          const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
+          const kart = new ShoppingKartModel({ item: snap.val(), service: this.service })
+          kart.key = snap.key
           kart.load()
           this.ItemsList.push(kart);
 
