@@ -50,7 +50,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     getTitle() {
         const value = new Value({ value: this.title, label: 'categoria' });
         value.label = 'categoria';
-        value.value = this.title;
+        value.value = this.title || '';
         return value;
     }
 

@@ -8,6 +8,7 @@ import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/compon
 import { ComponentsPageModule } from 'src/app/modules/item/components/components.module';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators'
+import { iterateListLike } from '@angular/core/src/change_detection/change_detection_util';
 
 @Component({
   selector: 'app-categories-selector-page',
@@ -39,13 +40,15 @@ export class CategoriesSelectorPage implements OnInit {
   }
 
 
-  constructor(public modalCtrl: ModalController, public Categories: CategoriesService, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public service: CategoriesService, public navParams: NavParams) {
     this.searchControl = new FormControl()
   }
   filterFactory(args: { selectedCategoriesList: Array<CategoryModel> }) {
     return (a: ItemModelInterface) => !args.selectedCategoriesList.map((cat: ItemModelInterface) => cat.key).includes(a.key)
   }
+
   onInput(ev) {
+
     this.filterFunction = this.makeFilter(ev.detail.value)
     this.filterString = ev.detail.value // spaghetti code waiting to be refactored
   }
@@ -57,8 +60,8 @@ export class CategoriesSelectorPage implements OnInit {
     this.selectedCategoriesList = this.navParams.get('categories') || []
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
     this.baseFilter = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
-    if (this.Categories.getEntitiesList()) {
-      this.Categories.getEntitiesList().on('value', snap => {
+    if (this.service.getEntitiesList()) {
+      this.service.getEntitiesList().on('value', snap => {
         this.categoriesList = []
         snap.forEach(val => {
           this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
@@ -68,14 +71,21 @@ export class CategoriesSelectorPage implements OnInit {
   }
 
   makeFilter(pattern: string) {
-    return (item: CategoryModel) => {
-      return this.baseFilter(item) && item.title.toLowerCase().includes(pattern.toLowerCase())
-    }
+    return (item: CategoryModel) => this.baseFilter(item) && String(item.getTitle().value).toLowerCase().includes(pattern.toLowerCase())
+
   }
 
   createCategory() {
 
     console.log('creare', this.searchControl.get('filterString'), this.filterString)
+    const newCategory = new CategoryModel().build({ title: this.filterString, key: 'not ready' })
+
+
+    this.service.createItem(newCategory).then(category => {
+      console.log('created', category.key)
+      newCategory.key = category.key
+      this.selectedCategoriesList = [...this.selectedCategoriesList, newCategory]
+    })
   }
 
   removeCategory(category) {

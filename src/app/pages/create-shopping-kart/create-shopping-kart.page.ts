@@ -28,6 +28,8 @@ export class CreateShoppingKartPage implements OnInit {
   supplierSorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   kart: ShoppingKartModel
   kartFields: any
+  categoryColor = 'blue'
+  categoryIcon = 'pricetag'
   textSelectSupplier = 'Fornitore'
   textSelectPayment = 'Pagamento'
   localPosition: { latitude: number, longitude: number }
@@ -132,7 +134,6 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   filter(ev) {
-    console.log(ev)
     if (ev.ecommerce) {
       this.supplierFilterFunction = (item: SupplierModel) => {
         return item.ecommerce
@@ -145,10 +146,8 @@ export class CreateShoppingKartPage implements OnInit {
     this.showSpinner = true
     this.kart.title = ev.title || this.kart.fornitore.getTitle().value
     this.kart.purchaseDate = new DateModel(new Date(ev.dataAcquisto))
-    console.log('kart', this.kart)
     this.service.createItem(this.kart).then(res => {
       this.showSpinner = false
-      console.log('created kart', this.kart)
       this.dismiss()
     })
   }

@@ -42,6 +42,8 @@ export class ShoppingKartModel implements ItemModelInterface {
 
 
     constructor(args?: { key?: string, service?: ShoppingKartsService, item?: {} }) {
+        this.items = []
+        this.purchaseDate = new DateModel(new Date())
         this.purchaseDate = new DateModel(new Date())
         if (args) {
 
@@ -49,9 +51,9 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.service = (args.service) ? args.service : undefined
             if (args.item) {
                 this.build(args.item)
+            } else {
             }
         }
-        // this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
@@ -187,12 +189,12 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     async load(next?: () => void) {
-     /*   this.service.getItem(this.key).on('value', (kart) => {
-            if (kart.val()) {
-                // carico i valori
-                this.build(kart.val())
-            }
-        })*/
+        /*   this.service.getItem(this.key).on('value', (kart) => {
+               if (kart.val()) {
+                   // carico i valori
+                   this.build(kart.val())
+               }
+           })*/
         // items  loaded and categories instantiated but not loaded
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)

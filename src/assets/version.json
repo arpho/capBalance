@@ -1,6 +1,9 @@
 {
-    "version": "0.9.5.7.6",
+    "version": "0.9.5.7.8",
+    "name":"CapBalance",
     "features": [
+        "can create new categories",
+        "bug fixed",
         "full text search in categoeies selectors'",
         "bug fixed",
         "manage suppliers",
