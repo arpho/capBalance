@@ -44,7 +44,6 @@ export class ShoppingKartModel implements ItemModelInterface {
     constructor(args?: { key?: string, service?: ShoppingKartsService, item?: {} }) {
         this.items = []
         this.purchaseDate = new DateModel(new Date())
-        this.purchaseDate = new DateModel(new Date())
         if (args) {
 
             this.key = (args.key) ? args.key : ''

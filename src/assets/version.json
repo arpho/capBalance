@@ -1,5 +1,5 @@
 {
-    "version": "0.9.5.7.8",
+    "version": "0.9.9",
     "name":"CapBalance",
     "features": [
         "can create new categories",
