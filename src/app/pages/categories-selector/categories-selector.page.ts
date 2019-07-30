@@ -21,7 +21,7 @@ export class CategoriesSelectorPage implements OnInit {
   selectedCategoryIcon = 'remove'
   colorSelectableCategory = 'green' // add category green 
   colorSelectedCategory = 'orange'
-  filterString: any
+  filterString: string
   searchbar: any
   searchControl: FormControl
   baseFilter: (item: CategoryModel) => boolean
@@ -47,6 +47,7 @@ export class CategoriesSelectorPage implements OnInit {
   }
   onInput(ev) {
     this.filterFunction = this.makeFilter(ev.detail.value)
+    this.filterString = ev.detail.value // spaghetti code waiting to be refactored
   }
 
   ngOnInit() {
@@ -73,7 +74,8 @@ export class CategoriesSelectorPage implements OnInit {
   }
 
   createCategory() {
-    console.log('creare', this.searchControl.get('filterString').value)
+
+    console.log('creare', this.searchControl.get('filterString'), this.filterString)
   }
 
   removeCategory(category) {

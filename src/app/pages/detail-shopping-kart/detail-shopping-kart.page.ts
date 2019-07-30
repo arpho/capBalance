@@ -94,12 +94,8 @@ export class DetailShoppingKartPage implements OnInit {
     this.kart.note = ev.note
     this.kart.online = ev.ecommerce
     this.kart.purchaseDate.updateDate(ev.dataAcquisto)
-
-    console.log('updated kart', this.kart)
-    console.log('serialized kart', this.kart.serialize())
     this.service.updateItem(this.kart).then(() => {
       this.showSpinner = false
-      console.log('updated', this.kart)
       this.dismiss()
     })
 
