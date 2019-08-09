@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
-import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner'
 import { CategoryModel } from 'src/app/models/CategoryModel';
 
 @Component({
@@ -16,9 +15,8 @@ export class CreatePurchasePage implements OnInit {
   scannedData: {}
   encodedData: any
   message: string
-  title = "inserimento acquisto"
+  title = 'inserimento acquisto'
   purchaseFields: any
-  barcodeScannerOption: BarcodeScannerOptions
 
   constructor(public modalCtrl: ModalController) {
     this.purchaseFields = [
@@ -51,7 +49,7 @@ export class CreatePurchasePage implements OnInit {
   }
 
   submit(ev) {
-    console.log('data',ev)
+    console.log('data', ev)
     this.purchase.build(ev)
     console.log('submitting purchase', this.purchase)
     this.dismiss(this.purchase)

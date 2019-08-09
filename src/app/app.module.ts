@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ItemModule } from './modules/item/item.module';
-import { UserModule } from './modules/user/user.module'
+import { UserModule } from './modules/user/user.module';
 import { DynamicFormModule } from './modules/dynamic-form/dynamic-form.module';
 import { GeoLocationModule } from './modules/geo-location/geo-location.module';
 import { Storage, IonicStorageModule } from '@ionic/storage';
@@ -36,25 +36,26 @@ import { CategoriesSelectorComponent } from './components/categories-selector/ca
 import { CategoriesSelectorPage } from './pages/categories-selector/categories-selector.page';
 import { CategoryComponent } from './components/category/category.component';
 import { CategoriesViewerComponent } from './components/categories-viewer/categories-viewer.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
-     CreateSupplierPage,
-     CreateShoppingKartPage,
-     ViewSupplierPage,
-     FilterPopupPage,
-     SelectorItemsPage,
-     CreatePurchasePage,
-     DetailPurchasePage,
-     DetailShoppingKartPage,
-     CreatePaymentPage,
-     TotalComponent,
-     CategoriesSelectorComponent,
-     CategoriesSelectorPage,
-     CategoryComponent,
-     CategoriesViewerComponent
-     
+    CreateSupplierPage,
+    CreateShoppingKartPage,
+    ViewSupplierPage,
+    FilterPopupPage,
+    SelectorItemsPage,
+    CreatePurchasePage,
+    DetailPurchasePage,
+    DetailShoppingKartPage,
+    CreatePaymentPage,
+    TotalComponent,
+    CategoriesSelectorComponent,
+    CategoriesSelectorPage,
+    CategoryComponent,
+    CategoriesViewerComponent
+
   ],
   imports: [
     BrowserModule,
@@ -66,6 +67,7 @@ import { CategoriesViewerComponent } from './components/categories-viewer/catego
     OnlineStatusModule,
     GeoLocationModule,
     IonicStorageModule.forRoot(),
+    GoogleChartsModule.forRoot(),
     AppRoutingModule,
     OnlineStatusModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
