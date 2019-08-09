@@ -68,6 +68,14 @@ export class ShoppingKartModel implements ItemModelInterface {
 
     }
 
+    getSupplier() {
+        return this.fornitore
+    }
+
+    getPayment() {
+        return this.pagamento
+    }
+
     getQuickActions() {
         return this.quickActions
     }
@@ -96,6 +104,11 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     isArchivable?(): boolean {
         return true;
+    }
+
+    setKey(key: string) {
+        this.key = key
+        return this
     }
 
     setSupplier(supplier: SupplierModel) {
@@ -186,6 +199,10 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: Math.round(this.totale * (this.tassoConversione || 1) * 100) / 100, label: 'totale' })
     }
 
+    getRoundedTotal() {
+        return Math.round(this.totale * 100) / 100
+    }
+
     getNote() {
         return new Value({ value: this.note, label: 'nota' })
     }
@@ -208,7 +225,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             this.items.forEach(p => p.load()) // carica le categorie degli acquisti
         }
         // this.title = this.title || `${this.fornitore.getTitle().value}  ${new DateModel(new Date(this.dataAcquisto)).formatDate()}`
-
+        return this
     }
 
     loadPurchases(items: {}[], categories?): PurchaseModel[] {

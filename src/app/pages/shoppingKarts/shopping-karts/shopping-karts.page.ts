@@ -36,7 +36,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   constructor(public service: ShoppingKartsService) {
     this.filterFields = []
   }
-  async loadKart(snap){
+  async loadKart(snap) {
     const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
     await kart.load()
     return kart
@@ -55,6 +55,10 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         });
       });
     }
+  }
+
+  viewGraps() {
+
   }
 
 }

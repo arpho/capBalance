@@ -38,11 +38,11 @@ export class AppComponent {
       url: '/shopping-karts',
       icon: 'cart'
     },
-    {
+   /* {
       title: 'Grafici',
       url: '/graphs',
       icon: 'stats'
-    },
+    }, */
     {
       title: 'info',
       url: '/info/release',
