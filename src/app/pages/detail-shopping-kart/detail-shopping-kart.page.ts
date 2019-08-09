@@ -1,6 +1,5 @@
 // tslint:disable: semicolon
 import { Component, OnInit } from '@angular/core';
-import { CreateShoppingKartPage } from '../create-shopping-kart/create-shopping-kart.page';
 import { ModalController, NavParams } from '@ionic/angular';
 import { GeoService } from 'src/app/modules/geo-location/services/geo-service';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
@@ -32,8 +31,8 @@ export class DetailShoppingKartPage implements OnInit {
   kartFields: any
   textSelectSupplier = 'Fornitore'
   textSelectPayment = 'Pagamento'
-  categoryIcon = "eye"
-  categoryColor = "blue"
+  categoryIcon = 'eye'
+  categoryColor = 'blue'
   localPosition: { latitude: number, longitude: number }
 
   constructor(
@@ -86,7 +85,7 @@ export class DetailShoppingKartPage implements OnInit {
 
   }
 
-  submit(ev: any) {
+  async submit(ev: any) {
     // TODO: sostituire any con un tipo definito
     this.showSpinner = true
     this.kart.title = ev.title

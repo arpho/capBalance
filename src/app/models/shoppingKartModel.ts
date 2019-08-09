@@ -166,6 +166,7 @@ export class ShoppingKartModel implements ItemModelInterface {
             items: this.items.map((item: PurchaseModel) => item.serialize())
         }
     }
+
     getElement(): { element: string; genere: Genere } {
 
         const genere: Genere = 'a';

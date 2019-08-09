@@ -38,7 +38,7 @@ export class CreateShoppingKartPage implements OnInit {
     public paymentsService: PaymentsService,
     public geo: GeoService,
     public modalCtrl: ModalController,
-    public service: ShoppingKartsService
+    public service: ShoppingKartsService,
   ) {
     this.kart = new ShoppingKartModel()
     this.kartFields = [

@@ -40,7 +40,7 @@ export class AppComponent {
     },
     {
       title: 'Grafici',
-      url: '/grafici',
+      url: '/graphs',
       icon: 'stats'
     },
     {
