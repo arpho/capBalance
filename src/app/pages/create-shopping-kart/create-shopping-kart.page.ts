@@ -106,13 +106,19 @@ export class CreateShoppingKartPage implements OnInit {
     this.supplierFilterFunction = (item: SupplierModel) => true
 
   }
+  removeItem(item) {
+    console.log('removing ', item)
+    this.kart.removeItem(item)
+  }
 
   async detailPurchase(purchase) {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
-      console.log('got', data.data)
-      this.kart.updateItem(data.data)
+      console.log('got', data)
+      if (data.data) {
+        this.kart.updateItem(data.data)
+      }
     })
     return await modal.present()
   }

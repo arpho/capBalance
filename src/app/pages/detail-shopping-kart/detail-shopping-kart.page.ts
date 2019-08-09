@@ -86,10 +86,9 @@ export class DetailShoppingKartPage implements OnInit {
 
   }
 
-  submit(ev) {
-    console.log('items list', this.kart.items)
+  submit(ev: any) {
+    // TODO: sostituire any con un tipo definito
     this.showSpinner = true
-    console.log(ev)
     this.kart.title = ev.title
     this.kart.note = ev.note
     this.kart.online = ev.ecommerce
@@ -99,6 +98,12 @@ export class DetailShoppingKartPage implements OnInit {
       this.dismiss()
     })
 
+  }
+
+
+  removeItem(item: PurchaseModel) {
+    console.log('removing ', item)
+    this.kart.removeItem(item)
   }
 
   async addPurchase() {

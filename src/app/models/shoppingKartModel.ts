@@ -117,7 +117,9 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     updateItem(purchase: PurchaseModel) {
-        this.items = this.items.map((item: PurchaseModel) => (item.key === purchase.key) ? purchase : item)
+        if (purchase) {
+            this.items = this.items.map((item: PurchaseModel) => (item.key === purchase.key) ? purchase : item)
+        }
     }
 
     getValue3(): Value {
@@ -180,7 +182,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     getValue2() {
-        return new Value({ value: this.totale * (this.tassoConversione || 1), label: 'totale' })
+        return new Value({ value: Math.round(this.totale * (this.tassoConversione || 1) * 100) / 100, label: 'totale' })
     }
 
     getNote() {
