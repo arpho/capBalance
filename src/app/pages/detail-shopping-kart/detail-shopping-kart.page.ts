@@ -105,7 +105,7 @@ export class DetailShoppingKartPage implements OnInit {
     const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
     modal.onDidDismiss().then((purchase) => {
       console.log('purchase to add', purchase.data)
-      const Purchase = new PurchaseModel(purchase.data)
+      const Purchase = purchase.data
       console.log('adding purcvhase', Purchase)
       this.kart.addItem(Purchase)
     })
@@ -116,7 +116,7 @@ export class DetailShoppingKartPage implements OnInit {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
-      this.kart.updateItem(new PurchaseModel().clone(data.data))
+      this.kart.updateItem(data.data)
     })
     return await modal.present()
   }

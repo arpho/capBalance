@@ -82,9 +82,7 @@ export class CreateShoppingKartPage implements OnInit {
   async addPurchase() {
     const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
     modal.onDidDismiss().then((purchase) => {
-      console.log('purchase to add', purchase.data)
-      const Purchase = new PurchaseModel(purchase.data)
-      console.log('adding purcvhase', Purchase)
+      const Purchase = purchase.data
       this.kart.addItem(Purchase)
     })
     return await modal.present()
@@ -114,7 +112,7 @@ export class CreateShoppingKartPage implements OnInit {
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
       console.log('got', data.data)
-      this.kart.updateItem(new PurchaseModel(data.data))
+      this.kart.updateItem(data.data)
     })
     return await modal.present()
   }

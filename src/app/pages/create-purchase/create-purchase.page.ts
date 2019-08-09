@@ -51,7 +51,9 @@ export class CreatePurchasePage implements OnInit {
   }
 
   submit(ev) {
+    console.log('data',ev)
     this.purchase.build(ev)
+    console.log('submitting purchase', this.purchase)
     this.dismiss(this.purchase)
   }
 
