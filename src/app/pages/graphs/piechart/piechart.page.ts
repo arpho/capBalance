@@ -43,12 +43,19 @@ export class PiechartPage implements OnInit {
   karts: Array<ShoppingKartModel>
   mappingFunctions = {
     suppliers: (item: ShoppingKartModel) => {
-      const out = { title: item.getSupplier().title, total: Math.round(item.totale * 100) / 100 }
-      return out
+      return { title: item.getSupplier().title, total: Math.round(item.totale * 100) / 100 }
+
+    },
+    payments: (item: ShoppingKartModel) => {
+      return { title: item.getPayment().title, total: Math.round(item.totale * 100) / 100 }
     }
   }
   reducerFunctions = {
     suppliers: (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
+      acc[cv.title] = acc[cv.title] + cv.total || cv.total
+      return acc
+    },
+    payments: (acc: { pagamento: string, totale: number }, cv: { title, total: number }) => {
       acc[cv.title] = acc[cv.title] + cv.total || cv.total
       return acc
     }
