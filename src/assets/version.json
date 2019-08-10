@@ -1,5 +1,5 @@
 {
-    "version": "0.9.9.5",
+    "version": "0.9.9.6",
     "name":"CapBalance",
     "features": [
         "can create new categories",
@@ -11,6 +11,7 @@
         "manage categories"
     ],
     "newFeatures": [
+        "statistic's page",
         "bug fixed",
         "loading shopping karts",
         "bugs fixed",

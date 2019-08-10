@@ -5,7 +5,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
@@ -54,13 +54,12 @@ describe('AppComponent', () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(7);
+    expect(menuItems.length).toEqual(6);
     expect(menuItems[0].textContent).toContain('Home');
     expect(menuItems[1].textContent).toContain('Categorie');
     expect(menuItems[2].textContent).toContain('Pagamenti');
     expect(menuItems[3].textContent).toContain('Fornitori');
     expect(menuItems[4].textContent).toContain('Carrelli della spesa');
-    expect(menuItems[5].textContent).toContain('Grafici');
   });
 
   it('should have urls', async () => {
@@ -68,7 +67,7 @@ describe('AppComponent', () => {
     await fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(7);
+    expect(menuItems.length).toEqual(6);
     expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/home');
     expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/categorie');
   });
