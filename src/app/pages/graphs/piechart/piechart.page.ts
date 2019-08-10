@@ -2,16 +2,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { filter } from 'rxjs/operators';
-import { stringify } from '@angular/compiler/src/util';
 
 @Component({
-  selector: 'app-graphs',
-  templateUrl: './graphs.page.html',
-  styleUrls: ['./graphs.page.scss'],
+  selector: 'app-piechart',
+  templateUrl: './piechart.page.html',
+  styleUrls: ['./piechart.page.scss'],
 })
-export class GraphsPage implements OnInit {
+export class PiechartPage implements OnInit {
   chart
   karts: Array<ShoppingKartModel>
   mappingFunctions = {
@@ -27,10 +24,8 @@ export class GraphsPage implements OnInit {
     }
   }
 
-  constructor(public service: ShoppingKartsService) {
 
-
-  }
+  constructor(public service: ShoppingKartsService) { }
 
   ngOnInit() {
     this.chart = {

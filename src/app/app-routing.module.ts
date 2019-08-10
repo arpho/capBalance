@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule' },
   { path: 'shopping-karts', loadChildren: './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule' },
   { path: 'graphs', loadChildren: './pages/graphs/graphs.module#GraphsPageModule' },
+  { path: 'graphs/piechart', loadChildren: './pages/graphs/piechart/piechart.module#PiechartPageModule' },
  // { path: 'selector-items', loadChildren: './modules/item/pages/selector-items/selector-items.module#SelectorItemsPageModule' },
   // { path: 'detail-purchase', loadChildren: './pages/detail-purchase/detail-purchase.module#DetailPurchasePageModule' },
  // { path: 'detail-shopping-kart', loadChildren: './pages/detail-shopping-kart/detail-shopping-kart.module#DetailShoppingKartPageModule' },
