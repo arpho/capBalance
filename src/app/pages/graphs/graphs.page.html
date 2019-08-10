@@ -1,18 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Andamento</ion-title>
+    <ion-title>Statistiche</ion-title>
+    <ion-buttons slot="start">
+
+      <ion-back-button
+      class="button-clear ion-chevron-left"
+      defaultHref="/home"
+    ></ion-back-button>
+  </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <google-chart
-    [title]="chart.title"
-    [type]="chart.type"
-    [data]="chart.data"
-    [columnNames]="chart.columnNames"
-    [options]="chart.options">
-  </google-chart>
-
 
   <ion-tabs>
     <ion-tab-bar slot="bottom">

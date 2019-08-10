@@ -2,23 +2,48 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
+import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';
+import { DropdownQuestion } from 'src/app/modules/item/models/question-dropdown';
+import { ComboValue } from '../../../modules/dynamic-form/models/ComboValueinterface'
+import { Entities } from 'src/app/modules/user/models/EntitiesModel';
+import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
 
 @Component({
   selector: 'app-piechart',
   templateUrl: './piechart.page.html',
   styleUrls: ['./piechart.page.scss'],
 })
+// tslint:disable-next-line: component-class-suffix
+
 export class PiechartPage implements OnInit {
+  entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
+  new Entities({ key: 'Pagamenti', value: 'payments' })]
+  options = [new DateQuestion({
+    key: 'startDate',
+    label: 'inizio periodo'
+
+  }),
+  new DateQuestion({
+    key: 'endDate',
+    label: 'fine periodo'
+  }),
+  new DropdownQuestion({
+    key: 'entity',
+    label: 'cosa vedere',
+    options: this.entities
+  })
+  ]
+  submitText = ' Opzioni grafico'
   chart
   karts: Array<ShoppingKartModel>
   mappingFunctions = {
-    suppliersMapper: (item: ShoppingKartModel) => {
+    suppliers: (item: ShoppingKartModel) => {
       const out = { title: item.getSupplier().title, total: Math.round(item.totale * 100) / 100 }
       return out
     }
   }
   reducerFunctions = {
-    suppliersReducer: (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
+    suppliers: (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
       acc[cv.title] = acc[cv.title] + cv.total || cv.total
       return acc
     }
@@ -51,14 +76,22 @@ export class PiechartPage implements OnInit {
           this.karts.push(kart)
         })
         const extractedData = this.extractData(
-          this.mappingFunctions.suppliersMapper,
+          this.mappingFunctions.suppliers,
           this.filterFactory(7),
-          this.reducerFunctions.suppliersReducer
+          this.reducerFunctions.suppliers
         )
         this.chart.data = extractedData.data2Graph
         this.chart.title = this.makeTitle(extractedData.totaleSpesa, 7)
       })
     }
+  }
+
+  filter(ev) {
+    console.log(ev)
+  }
+
+  submit(ev) {
+    console.log('submitted', ev)
   }
 
   makeTitle(tot: number, days: number) {
@@ -72,9 +105,11 @@ export class PiechartPage implements OnInit {
 
   }
 
-  extractData(mapFunction: (item: ShoppingKartModel) => { title: string, total: number },
-              filterFunction: (item: ShoppingKartModel) => boolean,
-              reducer: any) {
+  extractData(
+    mapFunction: (
+      item: ShoppingKartModel) => { title: string, total: number },
+    filterFunction: (item: ShoppingKartModel) => boolean,
+    reducer: any) {
     const data = Object.entries(this.karts.filter(filterFunction).map(mapFunction).reduce(reducer, {}))
     const sommatore = (acc, cv: [string, number]) => acc[cv[0]] = acc[cv[0]] + cv[1] || cv[1]
     const calcolaTotale = (acc: number, cv: [string, number]) => acc += cv[1]

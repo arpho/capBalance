@@ -1,4 +1,5 @@
-export interface ComboValue{
-    key:string
-    value:string|number
+// tslint:disable:semicolon
+export interface ComboValue {
+    key: string
+    value: string | number
 }

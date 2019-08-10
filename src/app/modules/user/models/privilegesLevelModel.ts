@@ -1,3 +1,4 @@
+// tslint:disable-next-line: quotemark
 import { ComboValue } from "../../dynamic-form/models/ComboValueinterface";
 export class RoleModel implements ComboValue {
   public value: number;

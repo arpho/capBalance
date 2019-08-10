@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { PiechartPage } from './piechart.page';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { DynamicFormModule } from 'src/app/modules/dynamic-form/dynamic-form.module';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    DynamicFormModule,
     GoogleChartsModule.forRoot(),
     RouterModule.forChild(routes)
   ],
