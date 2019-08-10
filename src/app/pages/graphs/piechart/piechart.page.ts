@@ -7,6 +7,7 @@ import { DropdownQuestion } from 'src/app/modules/item/models/question-dropdown'
 import { ComboValue } from '../../../modules/dynamic-form/models/ComboValueinterface'
 import { Entities } from 'src/app/modules/user/models/EntitiesModel';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-piechart',
@@ -19,18 +20,22 @@ export class PiechartPage implements OnInit {
   entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
   new Entities({ key: 'Pagamenti', value: 'payments' })]
   options = [new DateQuestion({
-    key: 'startDate',
-    label: 'inizio periodo'
+    key: 'dataInizio',
+    label: 'inizio periodo',
+    required: true
 
   }),
   new DateQuestion({
-    key: 'endDate',
-    label: 'fine periodo'
+    key: 'dataFine',
+    label: 'fine periodo',
+    required: true
   }),
   new DropdownQuestion({
     key: 'entity',
     label: 'cosa vedere',
-    options: this.entities
+    options: this.entities,
+    value: 'suppliers',
+    required: true
   })
   ]
   submitText = ' Opzioni grafico'
@@ -50,7 +55,8 @@ export class PiechartPage implements OnInit {
   }
 
 
-  constructor(public service: ShoppingKartsService) { }
+  constructor(public service: ShoppingKartsService,
+              public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.chart = {
@@ -80,27 +86,54 @@ export class PiechartPage implements OnInit {
           this.filterFactory(7),
           this.reducerFunctions.suppliers
         )
-        this.chart.data = extractedData.data2Graph
-        this.chart.title = this.makeTitle(extractedData.totaleSpesa, 7)
+        this.setData({ data: extractedData.data2Graph, title: this.makeTitle(extractedData.totaleSpesa, 7) })
       })
     }
+  }
+  setData(args: { data, title }) {
+    this.chart.data = args.data
+    this.chart.title = args.title
   }
 
   filter(ev) {
     console.log(ev)
   }
 
-  submit(ev) {
+  submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
     console.log('submitted', ev)
+    const extractedData = this.extractData(this.mappingFunctions[ev.entity],
+      this.dateFilterFactory({ dataInizio: new Date(ev.dataInizio), dataFine: new Date(ev.dataFine) }),
+      this.reducerFunctions[ev.entity])
+    console.log('extracted data', extractedData)
+    this.setData({
+      data: extractedData.data2Graph,
+      title: this.makeDataTitle({
+        tot: extractedData.totaleSpesa,
+        dataInizio: new Date(ev.dataInizio),
+        dataFine: new Date(ev.dataFine)
+      })
+    })
+
+
+  }
+  makeDataTitle(args: { tot: number, dataInizio: Date, dataFine: Date }) {
+    return `tra ${this.datepipe.transform(args.dataInizio, 'dd/MM/yyyy')} e ${this.datepipe.transform(args.dataFine, 'dd/MM/yyyyy')}
+    spesi ${args.tot}`
   }
 
   makeTitle(tot: number, days: number) {
     return `${tot} di  spesa negli  ultimi ${days} giorni`
   }
 
+  dateFilterFactory(args: { dataInizio: Date, dataFine: Date }) {
+    return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) >= args.dataInizio &&
+      new Date(item.purchaseDate.formatDate()) <= args.dataFine
+
+  }
+
   filterFactory(day: number) {
     const today = new Date()
-    const since = new Date(new Date().setDate(today.getDate() - 7))
+    const since = new Date(new Date().setDate(today.getDate() - day))
     return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
 
   }

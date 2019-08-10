@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -25,6 +25,7 @@ const routes: Routes = [
     GoogleChartsModule.forRoot(),
     RouterModule.forChild(routes)
   ],
-  declarations: [PiechartPage]
+  declarations: [PiechartPage],
+  providers: [DatePipe]
 })
-export class PiechartPageModule {}
+export class PiechartPageModule { }
