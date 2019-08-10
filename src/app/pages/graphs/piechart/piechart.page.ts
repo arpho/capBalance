@@ -55,8 +55,9 @@ export class PiechartPage implements OnInit {
   }
 
 
-  constructor(public service: ShoppingKartsService,
-              public datepipe: DatePipe) { }
+  constructor(
+    public service: ShoppingKartsService,
+    public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.chart = {
@@ -96,15 +97,12 @@ export class PiechartPage implements OnInit {
   }
 
   filter(ev) {
-    console.log(ev)
   }
 
   submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
-    console.log('submitted', ev)
     const extractedData = this.extractData(this.mappingFunctions[ev.entity],
       this.dateFilterFactory({ dataInizio: new Date(ev.dataInizio), dataFine: new Date(ev.dataFine) }),
       this.reducerFunctions[ev.entity])
-    console.log('extracted data', extractedData)
     this.setData({
       data: extractedData.data2Graph,
       title: this.makeDataTitle({
@@ -118,7 +116,7 @@ export class PiechartPage implements OnInit {
   }
   makeDataTitle(args: { tot: number, dataInizio: Date, dataFine: Date }) {
     return `tra ${this.datepipe.transform(args.dataInizio, 'dd/MM/yyyy')} e ${this.datepipe.transform(args.dataFine, 'dd/MM/yyyyy')}
-    spesi ${args.tot}`
+    spesi ${Math.round(args.tot * 100) / 100}`
   }
 
   makeTitle(tot: number, days: number) {
