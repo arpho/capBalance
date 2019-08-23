@@ -1,4 +1,4 @@
-// tslint:disable: semicolon
+
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
@@ -16,7 +16,7 @@ import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
-
+// tslint:disable: semicolon
 @Component({
   selector: 'app-create-shopping-kart',
   templateUrl: './create-shopping-kart.page.html',
