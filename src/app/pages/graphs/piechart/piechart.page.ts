@@ -8,6 +8,9 @@ import { ComboValue } from '../../../modules/dynamic-form/models/ComboValueinter
 import { Entities } from 'src/app/modules/user/models/EntitiesModel';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
 import { DatePipe } from '@angular/common';
+import { PurchaseModel } from 'src/app/models/purchasesModel';
+import { CategoryModel } from 'src/app/models/CategoryModel';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-piechart',
@@ -18,7 +21,8 @@ import { DatePipe } from '@angular/common';
 
 export class PiechartPage implements OnInit {
   entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
-  new Entities({ key: 'Pagamenti', value: 'payments' })]
+  new Entities({ key: 'Pagamenti', value: 'payments' }),
+  new Entities({ key: 'Categorie', value: 'categories' })]
   options = [new DateQuestion({
     key: 'dataInizio',
     label: 'inizio periodo',
@@ -48,6 +52,9 @@ export class PiechartPage implements OnInit {
     },
     payments: (item: ShoppingKartModel) => {
       return { title: item.getPayment().title, total: Math.round(item.totale * 100) / 100 }
+    },
+    categories: (item: ShoppingKartModel) => {
+      item.items.reduce(this.expandPurchases, [])
     }
   }
   reducerFunctions = {
@@ -60,6 +67,28 @@ export class PiechartPage implements OnInit {
       return acc
     }
   }
+
+  expandPurchases = (acc: any[], cv: any) => {
+    /**
+     * trasforma ogni acquisto in una lista di categorie
+     */
+    return [...acc, ...cv.categorie].
+    map(this.mapCategoriesFactory(cv.prezzo));
+    // .map(this.mapCategoriesFactory(cv.prezzo)) { cats: [...acc, ...cv.categorie], prezzo: cv.prezzo }
+  }
+  mapCategoriesFactory(total: number) {
+    /**
+     * mappa la lista di categorie prodotta da expandPurchase  in una lista di oggetti {title:string,total:number}
+     */
+    const mapper = (cat: CategoryModel) => {
+      return { title: cat.title,  total }
+
+    }
+    return mapper
+
+  }
+
+
 
 
   constructor(

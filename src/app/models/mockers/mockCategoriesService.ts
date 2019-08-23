@@ -6,7 +6,7 @@ export class MockCategoriesService implements ItemServiceInterface {
     extraService2?: ItemServiceInterface;
     public categoriesListRef: firebase.database.Reference;
     getItem(key: string): any {
-        const data = { a: 'a', b: 'b', c: 'c' };
+        const data = { a: 'a', b: 'b', c: 'c', D: 'd', e: 'e' };
         // tslint:disable: label-position
         // tslint:disable: no-unused-expression
         // tslint:disable:semicolon
