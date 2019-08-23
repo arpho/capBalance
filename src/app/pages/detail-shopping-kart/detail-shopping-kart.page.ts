@@ -91,6 +91,7 @@ export class DetailShoppingKartPage implements OnInit {
     this.kart.title = ev.title
     this.kart.note = ev.note
     this.kart.online = ev.ecommerce
+
     this.kart.purchaseDate.updateDate(ev.dataAcquisto)
     this.service.updateItem(this.kart).then(() => {
       this.showSpinner = false
