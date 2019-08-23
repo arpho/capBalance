@@ -1,3 +1,5 @@
+
+  // tslint:disable: quotemark
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { RoleModel } from "./privilegesLevelModel";
 import { UserModel } from "./userModel";
@@ -12,7 +14,7 @@ const val = {
   enabled: true
 };
 describe("test build function", () => {
-  const val = {
+  const Val = {
     email: "a@b.c",
     firstName: "joe",
     lastName: "friend",
@@ -20,7 +22,7 @@ describe("test build function", () => {
     birthDate: { day: 16, month: 2, year: 1977 },
     enabled: true
   };
-  user.build(val);
+  user.build(Val);
   it("the user is build correctly", () => {
     expect(user.firstName).toBe(val.firstName);
     expect(user.lastName).toBe(val.lastName);

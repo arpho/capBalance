@@ -87,7 +87,7 @@ export class PurchaseModel {
             descrizione: this.descrizione || '',
             moneta: this.moneta || '',
             picture: this.picture || '',
-            categorieId: this.categorie ? this.categorie.map(cat => cat.serialize()) : [],
+            categorieId: this.categorie ? this.categorie.map(cat => cat.getKey()) : [],
             key: this.key || '',
             note: this.note || '',
             prezzo: this.prezzo || 0,

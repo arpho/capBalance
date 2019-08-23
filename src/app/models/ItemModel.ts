@@ -9,7 +9,7 @@ export class ItemModel implements FirebaseObject {
     categorieId: string[];
     tassoConversione: number;
     moneta: string;
-    key: String;
+    key: string;
     quantita: string;
     constructor(item?: any) {
         this.prezzo = 0;

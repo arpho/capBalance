@@ -34,9 +34,9 @@ describe('testing purchaseModel', () => {
         const Purchase = new PurchaseModel(testdata)
         expect(Purchase.categorie).toBeTruthy()
         expect(Purchase.categorie.length).toBe(3)
-        expect(Purchase.categorie[0].serialize()).toBe('a')
-        expect(Purchase.categorie[1].serialize()).toBe('b')
-        expect(Purchase.categorie[2].serialize()).toBe('c')
+        expect(Purchase.categorie[0].getKey()).toBe('a')
+        expect(Purchase.categorie[1].getKey()).toBe('b')
+        expect(Purchase.categorie[2].getKey()).toBe('c')
     })
     it('clone should work', () => {
         const clonedata = {

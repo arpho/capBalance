@@ -1,3 +1,4 @@
+// tslint:disable: quotemark
 import { Injectable } from "@angular/core";
 import * as firebase from "firebase";
 import { ItemServiceInterface } from "../../item/models/ItemServiceInterface";
@@ -27,7 +28,7 @@ export class UsersService implements ItemServiceInterface {
   }
 
   setLoggedUser(key: string) {
-    this.loggedUser = new UserModel(undefined,key,this);
+    this.loggedUser = new UserModel(undefined, key, this);
     this.loggedUser.load().then(v => {
       this.loggedUser.build(v);
     });

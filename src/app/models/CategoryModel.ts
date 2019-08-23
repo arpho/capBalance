@@ -7,6 +7,7 @@ import { Value } from '../modules/item/models/value';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { GeneratedFile } from '@angular/compiler';
+import { CategoriesService } from '../services/categories/categorie.service';
 export class CategoryModel implements FirebaseObject, ItemModelInterface {
     key: string;
     title: string;
@@ -16,9 +17,11 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         this.key = key
         this.service = service
     }
-    build(obj: { title: string, key: string }) {
+    build(obj: { title: string, key: string, service?: CategoriesService }) {
         this.title = obj.title;
         this.key = this.key || obj.key;
+        this.service = this.service || obj.service
+
         return this
     }
 
@@ -168,8 +171,15 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     }
 
 
-    serialize() {
+    getKey() {
         return this.key;
+    }
+
+    serialize() {
+        return {
+            title: this.title || '',
+            key: this.key || ''
+        }
     }
 
 }

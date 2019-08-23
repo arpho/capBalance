@@ -42,7 +42,7 @@ export class CategoriesService implements ItemServiceInterface {
 
 
   createItem(item: CategoryModel) {
-    return this.categoriesListRef.push(item.serialize());
+    return this.categoriesListRef.push({ title: item.title });
 
   }
 

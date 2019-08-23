@@ -15,14 +15,14 @@ describe('testing CategoryModel', () => {
     it('cat should load title', () => {
         cat.load()
         expect(cat.title).toBe('a')
-        expect(cat.serialize()).toBe('a')
+        expect(cat.getKey()).toBe('a')
     })
 
     it('cat should load category b', () => {
         const catB = new CategoryModel('b', service)
         catB.load()
         expect(catB.title).toBe('b')
-        expect(catB.serialize()).toBe('b')
+        expect(catB.getKey()).toBe('b')
     })
     it('deleted category', () => {
         const deletedCat = new CategoryModel('d', service)

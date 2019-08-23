@@ -20,7 +20,7 @@ export class CategoriesSelectorPage implements OnInit {
   selectedCategoriesList: Array<CategoryModel>
   categoryIcon = 'add'
   selectedCategoryIcon = 'remove'
-  colorSelectableCategory = 'green' // add category green 
+  colorSelectableCategory = 'green' // add category green
   colorSelectedCategory = 'orange'
   filterString: string
   searchbar: any
@@ -77,12 +77,16 @@ export class CategoriesSelectorPage implements OnInit {
 
   createCategory() {
 
-    console.log('creare', this.searchControl.get('filterString'), this.filterString)
-    const newCategory = new CategoryModel().build({ title: this.filterString, key: 'not ready' })
+    console.log('creare', this.filterString)
+    const newCategory = new CategoryModel().build({ title: this.filterString, key: '', service: this.service })
+    console.log('new category', newCategory)
 
 
     this.service.createItem(newCategory).then(category => {
-      console.log('created', category.key)
+      console.log('created', category)
+      category.on('value', cat => {
+        console.log('created', cat)
+      })
       newCategory.key = category.key
       this.selectedCategoriesList = [...this.selectedCategoriesList, newCategory]
     })

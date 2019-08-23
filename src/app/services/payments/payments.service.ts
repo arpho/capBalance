@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentsService  implements ItemServiceInterface{
+export class PaymentsService implements ItemServiceInterface {
 
   public paymentsListRef: firebase.database.Reference;
   getDummyItem() {
@@ -22,7 +22,7 @@ export class PaymentsService  implements ItemServiceInterface{
       }
     });
   }
-  
+
   getEntitiesList(): firebase.database.Reference {
     return this.paymentsListRef;
   }
