@@ -19,28 +19,30 @@ describe('testing Payment model', () => {
         expect(payment.addebito).toBe(testdata.addebito)
     })
     describe('testing serialize with all data', () => {
-        const testdata = { key: '123', title: 'qwertyu', note: 'asdfghj', addebito: '12/05/2019', nome: 'cash' }
-        const payment = new PaymentsModel(testdata)
+        const TestData = { key: '123', title: 'qwertyu', note: 'asdfghj', addebito: '12/05/2019', nome: 'cash' }
+        const Payment = new PaymentsModel(TestData)
         it('title should be title', () => {
-            expect(payment.serialize().title).toBe(testdata.title)
+            expect(Payment.serialize().title).toBe(TestData.title)
         })
         it('key should be correct', () => {
-            expect(payment.serialize()['key']).toBeFalsy()
+            // tslint:disable-next-line: no-string-literal
+            expect(Payment.serialize()['key']).toBe('123')
         })
 
         it('note should be correct', () => {
-            expect(payment.serialize().note).toBe(testdata.note)
+            expect(Payment.serialize().note).toBe(TestData.note)
         })
 
         it('addebito should be correct', () => {
-            expect(payment.serialize().addebito).toBe(testdata.addebito)
+            expect(Payment.serialize().addebito).toBe(TestData.addebito)
         })
         it('nome should be falsy', () => {
             // tslint:disable-next-line: no-string-literal
-            expect(payment.serialize()['nome']).toBeFalsy()
+            expect(Payment.serialize()['nome']).toBeFalsy()
         })
     })
     describe('serialize should not have undefined fields', () => {
+        // tslint:disable: no-shadowed-variable
         const testdata = {
             key: undefined,
             title: undefined,
@@ -48,6 +50,7 @@ describe('testing Payment model', () => {
             addebito: undefined
         }
         const payment = new PaymentsModel(testdata)
+        // tslint:disable: quotemark
         it("note should be ''", () => {
             expect(payment.serialize().note).toBe('')
         })
