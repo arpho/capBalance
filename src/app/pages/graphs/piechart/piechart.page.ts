@@ -68,20 +68,29 @@ export class PiechartPage implements OnInit {
     }
   }
 
+  flatten = (arr) => {
+    return arr.reduce((flat: any, toFlatten: any) => {
+      return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
+    }, []);
+  }
+
   expandPurchases = (acc: any[], cv: any) => {
     /**
      * trasforma ogni acquisto in una lista di categorie
      */
+    console.log('expanding purchase', cv, 'acc', acc)
     return [...acc, ...cv.categorie].
-    map(this.mapCategoriesFactory(cv.prezzo));
+      map(this.categoriesMapperFactory(cv.prezzo));
     // .map(this.mapCategoriesFactory(cv.prezzo)) { cats: [...acc, ...cv.categorie], prezzo: cv.prezzo }
   }
-  mapCategoriesFactory(total: number) {
+
+  categoriesMapper = (item: PurchaseModel) => ({ categorie: item.categorie, prezzo: item.prezzo })
+  categoriesMapperFactory(prezzo: number) {
     /**
      * mappa la lista di categorie prodotta da expandPurchase  in una lista di oggetti {title:string,total:number}
      */
     const mapper = (cat: CategoryModel) => {
-      return { title: cat.title,  total }
+      return { title: cat.title, prezzo }
 
     }
     return mapper
