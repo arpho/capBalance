@@ -46,15 +46,28 @@ export class PiechartPage implements OnInit {
   chart
   karts: Array<ShoppingKartModel>
   mappingFunctions = {
-    suppliers: (item: ShoppingKartModel) => {
-      return { title: item.getSupplier().title, total: Math.round(item.totale * 100) / 100 }
+    suppliers: (kart: ShoppingKartModel) => {
+      return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
 
     },
-    payments: (item: ShoppingKartModel) => {
-      return { title: item.getPayment().title, total: Math.round(item.totale * 100) / 100 }
+    payments: (kart: ShoppingKartModel) => {
+      return { title: kart.getPayment().title, total: Math.round(kart.totale * 100) / 100 }
     },
-    categories: (item: ShoppingKartModel) => {
-      item.items.reduce(this.expandPurchases, [])
+    categories: (kart: ShoppingKartModel) => {
+
+      const flattener = (acc: any, el: any) => {
+        acc = [...acc, ...el]
+        return acc
+
+      }
+
+      const mapper = (obj: { categorie: [CategoryModel], prezzo: number }) => {
+        return obj.categorie.map((cat: CategoryModel) => [cat.title, obj.prezzo])
+      }
+
+      return kart.items.map(this.categoriesMapper).map(mapper) // lista delle liste di categorie di ogni acquisto
+        .reduce(flattener) //  lista delle  categorie di ogni carrello
+      // .reduce(flattener) // lista delle categorie di tutti i carrelli
     }
   }
   reducerFunctions = {
@@ -65,20 +78,24 @@ export class PiechartPage implements OnInit {
     payments: (acc: { pagamento: string, totale: number }, cv: { title, total: number }) => {
       acc[cv.title] = acc[cv.title] + cv.total || cv.total
       return acc
+    },
+    categories: (acc: any, cv: any) => {
+      acc = cv.reduce((innerAcc: {}, currentValue: [string, number]) => {
+        innerAcc[currentValue[0]] = innerAcc[currentValue[0]] + currentValue[1] || currentValue[1]
+        return innerAcc
+      }, acc)
+      // acc[cv[0]] = acc[cv[0]] + cv[1] || cv[1]
+      return acc
     }
   }
 
-  flatten = (arr) => {
-    return arr.reduce((flat: any, toFlatten: any) => {
-      return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
-    }, []);
-  }
+
 
   expandPurchases = (acc: any[], cv: any) => {
     /**
      * trasforma ogni acquisto in una lista di categorie
      */
-    console.log('expanding purchase', cv, 'acc', acc)
+    // console.log('expanding purchase', cv, 'acc', acc)
     return [...acc, ...cv.categorie].
       map(this.categoriesMapperFactory(cv.prezzo));
     // .map(this.mapCategoriesFactory(cv.prezzo)) { cats: [...acc, ...cv.categorie], prezzo: cv.prezzo }
@@ -187,7 +204,6 @@ export class PiechartPage implements OnInit {
     filterFunction: (item: ShoppingKartModel) => boolean,
     reducer: any) {
     const data = Object.entries(this.karts.filter(filterFunction).map(mapFunction).reduce(reducer, {}))
-    const sommatore = (acc, cv: [string, number]) => acc[cv[0]] = acc[cv[0]] + cv[1] || cv[1]
     const calcolaTotale = (acc: number, cv: [string, number]) => acc += cv[1]
     const totaleSpesa = data.reduce(calcolaTotale, 0)
     const data2Graph = data.map((item: [string, number]) => [item[0], Math.round(item[1] / totaleSpesa * 100)])
