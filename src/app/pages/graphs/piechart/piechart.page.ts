@@ -45,6 +45,51 @@ export class PiechartPage implements OnInit {
   submitText = ' Opzioni grafico'
   chart
   karts: Array<ShoppingKartModel>
+  transformers = {
+    categories: (karts: Array<ShoppingKartModel>) => {
+      const flattener = (acc: any, el: any) => {
+        acc = [...acc, ...el]
+        return acc
+      }
+      const expandCategoriesList2categoryPriceObject = (element: { categorie: Array<CategoryModel>, prezzo: number }) =>
+        element.categorie.reduce((acc, cv) => {
+          acc.push({ categoria: cv, prezzo: element.prezzo })
+          return acc
+        }, [])
+      const categoryPriceReducer = (acc: {}, currentValue: { categoria: CategoryModel, prezzo: number }) => {
+        acc[currentValue.categoria.title] = acc[currentValue.categoria.title] + currentValue.prezzo || currentValue.prezzo
+        return acc
+      }
+      const purchaseModel2CategoriesListMapper = (purchase: PurchaseModel) => ({ categorie: purchase.categorie, prezzo: purchase.prezzo })
+      const karts2PurchaseListMapper = (Kart: ShoppingKartModel) => Kart.items
+      return karts.map(karts2PurchaseListMapper).reduce(flattener, []).
+        map(purchaseModel2CategoriesListMapper).
+        map(expandCategoriesList2categoryPriceObject).reduce(flattener, []).reduce(categoryPriceReducer, {})
+    },
+    suppliers: (karts: Array<ShoppingKartModel>) => {
+      const reducer = (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
+        acc[cv.title] = acc[cv.title] + cv.total || cv.total
+        return acc
+      }
+      const mapper = (kart: ShoppingKartModel) => {
+        return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
+      }
+      console.log('mapped data', karts.map(mapper))
+      console.log('reduced data', karts.map(mapper).reduce(reducer, {}))
+      console.log('data2graph', karts.map(mapper).reduce(reducer, {}))
+      return karts.map(mapper).reduce(reducer, {})
+    },
+    payments: (karts: Array<ShoppingKartModel>) => {
+      const mapper = (kart: ShoppingKartModel) => {
+        return { title: kart.getPayment().title, total: Math.round(kart.totale * 100) / 100 }
+      }
+      const reducer = (acc: { pagamento: string, totale: number }, cv: { title, total: number }) => {
+        acc[cv.title] = acc[cv.title] + cv.total || cv.total
+        return acc
+      }
+      return karts.map(mapper).reduce(reducer, {})
+    }
+  }
   mappingFunctions = {
     suppliers: (kart: ShoppingKartModel) => {
       return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
@@ -162,9 +207,8 @@ export class PiechartPage implements OnInit {
   }
 
   submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
-    const extractedData = this.extractData(this.mappingFunctions[ev.entity],
-      this.dateFilterFactory({ dataInizio: new Date(ev.dataInizio), dataFine: new Date(ev.dataFine) }),
-      this.reducerFunctions[ev.entity])
+    const extractedData = this.newExtractData(this.transformers[ev.entity],
+      this.dateFilterFactory({ dataInizio: new Date(ev.dataInizio), dataFine: new Date(ev.dataFine) }))
     this.setData({
       data: extractedData.data2Graph,
       title: this.makeDataTitle({
@@ -196,6 +240,23 @@ export class PiechartPage implements OnInit {
     const since = new Date(new Date().setDate(today.getDate() - day))
     return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
 
+  }
+  newExtractData(trasformer, filterFunction) {
+    const trasformed = trasformer(this.karts.filter(filterFunction))
+    const data = Object.entries(trasformed)
+    const calcolaTotale = (acc: number, currentKart: ShoppingKartModel) => {
+      acc += currentKart.totale
+      return acc
+    }
+    const totaleSpesa = this.karts.filter(filterFunction).reduce(calcolaTotale, 0)
+    const data2Graph = data
+    const rounder = (Data: number) => Math.round(Data * 100) / 100
+    const dataFormatter = (Data: [string, number]) => {
+      return [Data[0], Math.round(Data[1] / totaleSpesa * 100)]
+    }
+    const formatted = data2Graph.map(dataFormatter)
+    console.log('formatted data', formatted)
+    return { data2Graph: formatted, totaleSpesa }
   }
 
   extractData(
