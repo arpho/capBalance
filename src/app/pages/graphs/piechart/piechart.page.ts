@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { Title } from '@angular/platform-browser';
+import { DateModel } from '../../../modules/user/models/birthDateModel'
 
 @Component({
   selector: 'app-piechart',
@@ -23,15 +24,18 @@ export class PiechartPage implements OnInit {
   entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
   new Entities({ key: 'Pagamenti', value: 'payments' }),
   new Entities({ key: 'Categorie', value: 'categories' })]
+  tempDate = new Date(Date.now());
   options = [new DateQuestion({
     key: 'dataInizio',
     label: 'inizio periodo',
+    value: new DateModel(new Date()).formatDate(),
     required: true
 
   }),
   new DateQuestion({
     key: 'dataFine',
     label: 'fine periodo',
+    value: new DateModel(new Date(this.tempDate).setDate(this.tempDate.getDate() - 7)).formatDate(),
     required: true
   }),
   new DropdownQuestion({
@@ -90,61 +94,6 @@ export class PiechartPage implements OnInit {
       return karts.map(mapper).reduce(reducer, {})
     }
   }
-  mappingFunctions = {
-    suppliers: (kart: ShoppingKartModel) => {
-      return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
-
-    },
-    payments: (kart: ShoppingKartModel) => {
-      return { title: kart.getPayment().title, total: Math.round(kart.totale * 100) / 100 }
-    },
-    categories: (kart: ShoppingKartModel) => {
-
-      const flattener = (acc: any, el: any) => {
-        acc = [...acc, ...el]
-        return acc
-
-      }
-
-      const mapper = (obj: { categorie: [CategoryModel], prezzo: number }) => {
-        return obj.categorie.map((cat: CategoryModel) => [cat.title, obj.prezzo])
-      }
-
-      return kart.items.map(this.categoriesMapper).map(mapper) // lista delle liste di categorie di ogni acquisto
-        .reduce(flattener) //  lista delle  categorie di ogni carrello
-      // .reduce(flattener) // lista delle categorie di tutti i carrelli
-    }
-  }
-  reducerFunctions = {
-    suppliers: (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
-      acc[cv.title] = acc[cv.title] + cv.total || cv.total
-      return acc
-    },
-    payments: (acc: { pagamento: string, totale: number }, cv: { title, total: number }) => {
-      acc[cv.title] = acc[cv.title] + cv.total || cv.total
-      return acc
-    },
-    categories: (acc: any, cv: any) => {
-      acc = cv.reduce((innerAcc: {}, currentValue: [string, number]) => {
-        innerAcc[currentValue[0]] = innerAcc[currentValue[0]] + currentValue[1] || currentValue[1]
-        return innerAcc
-      }, acc)
-      // acc[cv[0]] = acc[cv[0]] + cv[1] || cv[1]
-      return acc
-    }
-  }
-
-
-
-  expandPurchases = (acc: any[], cv: any) => {
-    /**
-     * trasforma ogni acquisto in una lista di categorie
-     */
-    // console.log('expanding purchase', cv, 'acc', acc)
-    return [...acc, ...cv.categorie].
-      map(this.categoriesMapperFactory(cv.prezzo));
-    // .map(this.mapCategoriesFactory(cv.prezzo)) { cats: [...acc, ...cv.categorie], prezzo: cv.prezzo }
-  }
 
   categoriesMapper = (item: PurchaseModel) => ({ categorie: item.categorie, prezzo: item.prezzo })
   categoriesMapperFactory(prezzo: number) {
@@ -189,10 +138,9 @@ export class PiechartPage implements OnInit {
 
           this.karts.push(kart)
         })
-        const extractedData = this.extractData(
-          this.mappingFunctions.suppliers,
-          this.filterFactory(7),
-          this.reducerFunctions.suppliers
+        const extractedData = this.newExtractData(
+          this.transformers.categories,
+          this.filterFactory(7)
         )
         this.setData({ data: extractedData.data2Graph, title: this.makeTitle(extractedData.totaleSpesa, 7) })
       })
@@ -259,17 +207,5 @@ export class PiechartPage implements OnInit {
     return { data2Graph: formatted, totaleSpesa }
   }
 
-  extractData(
-    mapFunction: (
-      item: ShoppingKartModel) => { title: string, total: number },
-    filterFunction: (item: ShoppingKartModel) => boolean,
-    reducer: any) {
-    const data = Object.entries(this.karts.filter(filterFunction).map(mapFunction).reduce(reducer, {}))
-    const calcolaTotale = (acc: number, cv: [string, number]) => acc += cv[1]
-    const totaleSpesa = data.reduce(calcolaTotale, 0)
-    const data2Graph = data.map((item: [string, number]) => [item[0], Math.round(item[1] / totaleSpesa * 100)])
-    return { data2Graph, totaleSpesa }
-
-  }
 
 }

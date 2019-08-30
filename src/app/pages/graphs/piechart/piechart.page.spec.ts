@@ -53,7 +53,7 @@ describe('PiechartPage', () => {
     const purchaseA = new PurchaseModel(testPurchase, new MockCategoriesService());
     purchaseA.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
-    const categoriesList = kart.items.reduce(component.expandPurchases, []);
+    // const categoriesList = kart.items.reduce(component.expandPurchases, []);
   });
 
 
