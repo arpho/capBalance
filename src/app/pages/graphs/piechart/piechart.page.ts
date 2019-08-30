@@ -28,14 +28,14 @@ export class PiechartPage implements OnInit {
   options = [new DateQuestion({
     key: 'dataInizio',
     label: 'inizio periodo',
-    value: new DateModel(new Date()).formatDate(),
+    value: new DateModel(new Date(this.tempDate).setDate(this.tempDate.getDate() - 7)).formatDate(),
     required: true
 
   }),
   new DateQuestion({
     key: 'dataFine',
     label: 'fine periodo',
-    value: new DateModel(new Date(this.tempDate).setDate(this.tempDate.getDate() - 7)).formatDate(),
+    value: new DateModel(new Date()).formatDate(),
     required: true
   }),
   new DropdownQuestion({
@@ -78,9 +78,6 @@ export class PiechartPage implements OnInit {
       const mapper = (kart: ShoppingKartModel) => {
         return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
       }
-      console.log('mapped data', karts.map(mapper))
-      console.log('reduced data', karts.map(mapper).reduce(reducer, {}))
-      console.log('data2graph', karts.map(mapper).reduce(reducer, {}))
       return karts.map(mapper).reduce(reducer, {})
     },
     payments: (karts: Array<ShoppingKartModel>) => {
@@ -200,10 +197,9 @@ export class PiechartPage implements OnInit {
     const data2Graph = data
     const rounder = (Data: number) => Math.round(Data * 100) / 100
     const dataFormatter = (Data: [string, number]) => {
-      return [Data[0], Math.round(Data[1] / totaleSpesa * 100)]
+      return [`${Data[0]}- ${Data[1]}`, Math.round(Data[1] / totaleSpesa * 100)]
     }
     const formatted = data2Graph.map(dataFormatter)
-    console.log('formatted data', formatted)
     return { data2Graph: formatted, totaleSpesa }
   }
 
