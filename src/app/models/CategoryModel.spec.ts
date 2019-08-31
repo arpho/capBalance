@@ -5,9 +5,12 @@ import { CategoryModel } from './CategoryModel';
 import { MockCategoriesService } from './mockers/mockCategoriesService';
 
 describe('testing CategoryModel', () => {
+    beforeEach(() => {
+
+    })
     const service = new MockCategoriesService()
     const cat = new CategoryModel('a', service)
-    it('CategoryModel ashould be instantiated', () => {
+    it('CategoryModel should be instantiated', () => {
 
         expect(cat.key).toBe('a')
     })
@@ -29,4 +32,35 @@ describe('testing CategoryModel', () => {
         deletedCat.load()
         expect(deletedCat.title).toBe('deleted')
     })
+    it('father is undefined', () => {
+        expect(cat.fatherKey).toBeFalsy()
+        expect(cat.father).toBeFalsy()
+        expect(cat.serialize().fatherKey).toBe('')
+        expect(cat.afferTo()).toBe('total')
+
+    })
+})
+describe('testing father fields', () => {
+    const service = new MockCategoriesService()
+    const cat = new CategoryModel('a', service)
+    it('should load father only one level', () => {
+        const vegetali = new CategoryModel('vegetali', service)
+        vegetali.load()
+        expect(vegetali.fatherKey).toBe('alimenti')
+        expect(vegetali.father).toEqual(jasmine.any(CategoryModel))
+        expect(vegetali.serialize().fatherKey).toBe('alimenti')
+        expect(vegetali.addCategory().length).toBe(2)
+        expect(vegetali.afferTo()).toBe('alimenti')
+
+    })
+    it('should load all level', () => {
+        const seerice = new MockCategoriesService()
+        const frutta = new CategoryModel('frutta', service)
+        frutta.load()
+        expect(frutta.fatherKey).toBe('vegetali')
+        expect(frutta.addCategory().length).toBe(3)
+        expect(frutta.father.key).toBe('vegetali')
+        expect(frutta.father.father.title).toBe('alimenti')
+    })
+
 })

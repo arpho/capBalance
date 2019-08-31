@@ -13,6 +13,8 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     title: string;
     service: ItemServiceInterface;
     note: string;
+    fatherKey: string;
+    father: CategoryModel;
     constructor(key?: string, service?: ItemServiceInterface) {
         this.key = key
         this.service = service
@@ -29,8 +31,14 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         if (this.service) {
             this.service.getItem(this.key).on('value', cat => {
                 if (cat.val()) {
-                    this.title = cat.val().title || 'deleted';
+                    this.title = cat.val().title;
+                    this.fatherKey = cat.val().fatherKey
+                    if (this.fatherKey) {
+                        this.father = new CategoryModel(this.fatherKey, this.service)
+                        this.father.load()
+                    }
                 } else {
+                    console.log('category deleted', this.key, cat.val())
                     this.title = 'deleted'
                 }
             });
@@ -178,8 +186,24 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     serialize() {
         return {
             title: this.title || '',
-            key: this.key || ''
+            key: this.key || '',
+            fatherKey: this.father ? this.father.getKey() : ''
         }
+    }
+    addCategory() {
+        let out: Array<CategoryModel> = [this]
+        if (this.father) {
+            out = [this, ... this.father.addCategory()]
+        }
+        return out
+    }
+
+    afferTo() {
+        /**
+         *   used for sankey diagram
+         *  @return string father.title if father is defined, 'total' if fater is not defined
+         */
+        return this.father ? this.father.title : 'total'
     }
 
 }
