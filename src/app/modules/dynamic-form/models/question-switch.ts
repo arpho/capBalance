@@ -1,4 +1,16 @@
+
+// tslint:disable: quotemark
+    // tslint:disable: no-string-literal
 import { QuestionBase } from "./question-base";
+import { QuestionProperties } from './questionproperties';
+
+export interface SwitchQuestionProperties extends QuestionProperties<boolean> {
+  labelTrue?: string;
+  labelFalse?: string;
+  iconTrue?: string;
+  iconFalse?: string;
+
+}
 
 export class SwitchQuestion<T> extends QuestionBase<boolean> {
   controlType = "switchBox";
@@ -8,7 +20,7 @@ export class SwitchQuestion<T> extends QuestionBase<boolean> {
   iconTrue: string;
   type: boolean;
 
-  constructor(options: {} = {}) {
+  constructor(options: SwitchQuestionProperties = {}) {
     super(options);
     this.labelFalse = options["labelFalse"] || "";
     this.labelTrue = options["labelTrue"] || "";

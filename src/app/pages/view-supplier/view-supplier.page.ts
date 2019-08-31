@@ -52,7 +52,7 @@ export class ViewSupplierPage implements OnInit {
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
         value: (this.supplier) ? this.supplier.ecommerce : false,
-        iconnTrue: 'wifi',
+        iconTrue: 'wifi',
         iconFalse: 'cash',
         required: false,
         order: 4

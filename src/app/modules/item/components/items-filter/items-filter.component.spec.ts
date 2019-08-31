@@ -10,11 +10,11 @@ describe('ItemsFilterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemsFilterComponent ],
+      declarations: [ItemsFilterComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers:[ModalController,AngularDelegate],
+      providers: [ModalController, AngularDelegate],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

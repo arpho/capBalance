@@ -60,7 +60,7 @@ export class CreateSupplierPage implements OnInit {
         label: 'venditore online',
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
-        iconnTrue: 'wifi',
+        iconTrue: 'wifi',
         iconFalse: 'cash',
         value: this.supplier.onLine,
         required: false,
@@ -89,6 +89,7 @@ export class CreateSupplierPage implements OnInit {
         order: 6
       }),
       new GeoLocateQuestion({
+        // tslint:disable: quotemark
         key: "address",
         label: "indirizzo",
         required: false,

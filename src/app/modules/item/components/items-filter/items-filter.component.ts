@@ -1,6 +1,9 @@
+// tslint:disable:semicolon
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
+import { QuestionBase } from '../../models/question-base';
+import { ItemModelInterface } from '../../models/itemModelInterface';
 
 @Component({
   selector: 'app-items-filter',
@@ -8,21 +11,27 @@ import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
   styleUrls: ['./items-filter.component.scss'],
 })
 export class ItemsFilterComponent implements OnInit {
-  @Input() filterFields: any
+  @Input() filterFields: Array<QuestionBase<any>>
   @Output() filterSet: EventEmitter<{}> = new EventEmitter()
 
-  constructor(public modal:ModalController) { }
+  constructor(public modal: ModalController) { }
 
   ngOnInit() {
   }
-  async showPopup(){
-    const modal =  await this.modal.create({component:FilterPopupPage,componentProps:{filterFields:this.filterFields}})
-    modal.onDidDismiss().then(data=>{
+  async showPopup() {
+    const modal = await this.modal.create({ component: FilterPopupPage, componentProps: { filterFields: this.filterFields } })
+    modal.onDidDismiss().then(data => {
       this.filterSet.emit(data.data)
     })
     return await modal.present()
   }
+  filterFactory = (settings: {}, fields: Array<QuestionBase<any>>) => {
+    const filter = (item: ItemModelInterface) => {
+    // fields.reduce((acc, currentValue: QuestionBase<any>) => acc && currentValue(settings)(item), true)
+    }
 
-  
-  
+  }
+
+
+
 }
