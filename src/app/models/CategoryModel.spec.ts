@@ -37,6 +37,9 @@ describe('testing CategoryModel', () => {
         expect(cat.father).toBeFalsy()
         expect(cat.serialize().fatherKey).toBe('')
         expect(cat.afferTo()).toBe('total')
+        expect(cat.addCategory().length).toBe(1)
+        expect(cat.addCategory()[0]).toEqual(jasmine.any(CategoryModel))
+        expect(cat.addCategory()[0].title).toBe(cat.title)
 
     })
 })
