@@ -1,6 +1,7 @@
+// tslint:disable:semicolon
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { SuppliersService } from '../../services/suppliers/suppliers.service';
-import { CategoryModel } from 'src/app/models/CategoryModel';
+// import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { SupplierModel } from 'src/app/models/supplierModel';
 import { Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { GeoService } from '../../modules/geo-location/services/geo-service';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 import { ItemControllerInterface } from '../../modules/item/models/ItemControllerInterface'
-import { DistanceSorterPipe } from 'src/app/modules/geo-location/pipes/distance-sorter.pipe';
+// import { DistanceSorterPipe } from 'src/app/modules/geo-location/pipes/distance-sorter.pipe';
 
 @Component({
   selector: 'app-fornitori',
@@ -29,10 +30,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
     public geo: GeoService,
     public router: Router, ) {
     this.sorterFunction = (a: SupplierModel, b: SupplierModel) => {
-
-      // console.log('distanza con a', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude))
-      // console.log('distanza con b',this.distance(b.latitude, b.longitude, this.position.latitude, this.position.longitude))
-      // console.log('distance', this.distance(a.latitude, a.longitude, this.position.latitude, this.position.longitude) -
       return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
         this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
     }
@@ -86,16 +83,18 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
   }
 
 
-  filter(filterParams) { // è possibile filtrare per titolo, nota  e ecommerce
-    const filterTitle: (item: ItemModelInterface) => boolean = (!filterParams.title) ? (item: ItemModelInterface) => true :
-      (item: ItemModelInterface) => item.title.toLocaleLowerCase().indexOf(filterParams.title.toLowerCase()) > -1;
-    const filterNote = (!filterParams.note) ? (item: ItemModelInterface) => true :
-      (item: ItemModelInterface) => item.note.toLocaleLowerCase().indexOf(filterParams.note.toLowerCase()) > -1;
-    this.filterFunction = (item: ItemModelInterface) => filterNote(item) && filterTitle(item);
-    const filterEcommerce: (item: ItemModelInterface) => boolean = (!filterParams.ecommerce) ? (item: ItemModelInterface) => true :
-      (item: SupplierModel) => item.ecommerce;
-    // combina le funzioni filtro elemewntari
-    this.filterFunction = (item: ItemModelInterface) => filterEcommerce(item) && filterNote(item) && filterTitle(item);
+  filter(filterParams: any) { // è possibile filtrare per titolo, nota  e ecommerce
+    if (filterParams) {
+      const filterTitle: (item: ItemModelInterface) => boolean = (!filterParams.title) ? (item: ItemModelInterface) => true :
+        (item: ItemModelInterface) => item.title.toLocaleLowerCase().indexOf(filterParams.title.toLowerCase()) > -1;
+      const filterNote = (!filterParams.note) ? (item: ItemModelInterface) => true :
+        (item: ItemModelInterface) => item.note.toLocaleLowerCase().indexOf(filterParams.note.toLowerCase()) > -1;
+      this.filterFunction = (item: ItemModelInterface) => filterNote(item) && filterTitle(item);
+      const filterEcommerce: (item: ItemModelInterface) => boolean = (!filterParams.ecommerce) ? (item: ItemModelInterface) => true :
+        (item: SupplierModel) => item.ecommerce;
+      // combina le funzioni filtro elementari
+      this.filterFunction = (item: ItemModelInterface) => filterEcommerce(item) && filterNote(item) && filterTitle(item);
+    }
 
   }
 

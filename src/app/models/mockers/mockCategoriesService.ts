@@ -6,14 +6,25 @@ export class MockCategoriesService implements ItemServiceInterface {
     extraService2?: ItemServiceInterface;
     public categoriesListRef: firebase.database.Reference;
     getItem(key: string): any {
-        const data = { a: 'a', b: 'b', c: 'c', D: 'D', e: 'e', alimenti: 'alimenti', vegetali: 'vegetali', frutta: 'frutta' };
+        const data = {
+            a: { title: 'a' },
+            b: { title: 'b' },
+            c: { title: 'c' },
+            D: { title: 'D' },
+            e: { title: 'e' },
+            alimenti: { title: 'alimenti' },
+            vegetali: { title: 'vegetali', fatherKey: 'alimenti' },
+            frutta: { title: 'frutta', fatherKey: 'vegetali' }
+        };
         // tslint:disable: label-position
         // tslint:disable: no-unused-expression
         // tslint:disable:semicolon
         // return { val: () => { title: this.data[key] } }
-        // tslint:disable-next-line: only-arrow-functions
+        // tslint:disable: only-arrow-functions
+        // tslint:disable-next-line: space-before-function-paren
         const val = function () {
-            return { title: data[key] }
+
+            return data[key] ? { title: data[key].title, fatherKey: data[key].fatherKey } : undefined
         }
         const cat = { val }
         const on = (label: string, next) => next(cat)
