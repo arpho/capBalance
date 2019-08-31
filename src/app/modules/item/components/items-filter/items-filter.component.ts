@@ -27,8 +27,10 @@ export class ItemsFilterComponent implements OnInit {
   }
   filterFactory = (settings: {}, fields: Array<QuestionBase<any>>) => {
     const filter = (item: ItemModelInterface) => {
-    // fields.reduce((acc, currentValue: QuestionBase<any>) => acc && currentValue(settings)(item), true)
+      // apply all the filter's functions
+    fields.reduce((acc, currentValue: any) => acc && currentValue.filterFactory(settings)(item), true)
     }
+    return filter
 
   }
 
