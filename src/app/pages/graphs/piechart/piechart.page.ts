@@ -92,22 +92,6 @@ export class PiechartPage implements OnInit {
     }
   }
 
-  categoriesMapper = (item: PurchaseModel) => ({ categorie: item.categorie, prezzo: item.prezzo })
-  categoriesMapperFactory(prezzo: number) {
-    /**
-     * mappa la lista di categorie prodotta da expandPurchase  in una lista di oggetti {title:string,total:number}
-     */
-    const mapper = (cat: CategoryModel) => {
-      return { title: cat.title, prezzo }
-
-    }
-    return mapper
-
-  }
-
-
-
-
   constructor(
     public service: ShoppingKartsService,
     public datepipe: DatePipe) { }

@@ -171,7 +171,6 @@ describe('loading purchase', () => {
     }
     it('kart should be created and purchase and categories instantiated', () => {
         const kartService1 = new MockShoppingKartervice(testdata)
-        console.log('passing', kartdata, kartService1)
         const kart1 = new ShoppingKartModel({ item: kartdata, service: kartService1 })
         expect(kart1).toEqual(jasmine.any(ShoppingKartModel))
         expect(kart1.items[0]).toEqual(jasmine.any(PurchaseModel))
@@ -191,5 +190,4 @@ describe('loading purchase', () => {
         expect(kart.items[0].categorie[0].title).toBe('a')
         expect(kart.items[0].categorie[1].title).toBe('b')
     })
-
 })
