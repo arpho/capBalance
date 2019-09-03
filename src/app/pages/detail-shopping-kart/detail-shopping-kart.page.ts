@@ -117,11 +117,12 @@ export class DetailShoppingKartPage implements OnInit {
     return await modal.present()
   }
 
-  async detailPurchase(purchase) {
+  async detailPurchase(purchase,slidingitem) {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
       this.kart.updateItem(data.data)
+      slidingitem.close()
     })
     return await modal.present()
   }

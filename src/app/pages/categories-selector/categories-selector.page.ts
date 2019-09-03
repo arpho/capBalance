@@ -92,14 +92,14 @@ export class CategoriesSelectorPage implements OnInit {
     })
   }
 
-  removeCategory(category) {
+  removeCategory(category: CategoryModel) {
     this.selectedCategoriesList = this.selectedCategoriesList.filter((item: CategoryModel) => item.key !== category.key)
     this.filterFunction = (a: ItemModelInterface) => this.selectedCategoriesList.map((item: ItemModelInterface) => item.key).includes(a.key)
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
   }
-  addCategory(cat) {
+  addCategory(cat: CategoryModel) {
     // this.searchControl.reset()
-    this.selectedCategoriesList = [...this.selectedCategoriesList, cat]
+    this.selectedCategoriesList = [...this.selectedCategoriesList, ...cat.addCategory()]
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
 
   }

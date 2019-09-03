@@ -43,7 +43,7 @@
   </div>
   <div class='purchaseList'>
     <ion-list>
-      <ion-item-sliding *ngFor="let purchase of kart?.items">
+      <ion-item-sliding *ngFor="let purchase of kart?.items" #slidingItem>
         <ion-item>
           <article>
             <h1>{{purchase.descrizione}}</h1>
@@ -59,7 +59,7 @@
         </ion-item-options>
         <ion-item-options>
           <ion-item-option>
-            <ion-icon name="eye" (click)="detailPurchase(purchase)"></ion-icon>
+            <ion-icon name="eye" (click)="detailPurchase(purchase,slidingItem)"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

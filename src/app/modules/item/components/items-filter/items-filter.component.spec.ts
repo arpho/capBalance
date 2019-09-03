@@ -76,8 +76,100 @@ describe('ItemsFilterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('filter one only kart with one only parameter', () => {
-   /*  const filterFunction = (item: ShoppingKartModel) => item.title.includes('test')
-    const question = new QuestionBase<string>({ order: 0, key: 'title', label: 'test', value: 'text to be tested', filterFunction }) */
+  it('filtering shoppingKart only by title', () => {
+    const options = { Test: 'no filter' }
+    const filterFunctionTitle = (value: string, item: ShoppingKartModel) => {
+      return item.title.includes(value)
+    }
+    const questionTitle = new QuestionBase<string>({
+      order: 0,
+      key: 'title',
+      label: 'title',
+      value: 'titleFilter',
+      filterFunction: filterFunctionTitle
+    })
+    const filterFunctionNote = (value: string, item: ShoppingKartModel) => item.note.includes(value)
+    const questionNote = new QuestionBase<string>({
+      order: 1,
+      key: 'note',
+      filterFunction: filterFunctionNote
+    })
+    const fields = [questionNote, questionTitle]
+    const kartdata0 = {
+      archived: false,
+      dataAcquisto: '1977-03-16',
+      fornitoreId: 'qwerty',
+      pagamentoId: 'asdfghj',
+      totale: 15,
+      note: ' kart uno',
+      title: 'primo kart',
+      key: 'zxcvbnm'
+    }
+    const kart0 = new ShoppingKartModel().build(kartdata0)
+    const kartdata1 = {
+      archived: false,
+      dataAcquisto: '1977-03-16',
+      fornitoreId: 'qwerty',
+      pagamentoId: 'asdfghj',
+      totale: 15,
+      title: 'secondo kart',
+      note: ' secondo carrello',
+      key: 'zxcvbnm'
+    }
+    const kart1 = new ShoppingKartModel().build(kartdata1)
+    const kartsList = [kart0, kart1]
+    const filterSettings = { title: 'kart' }
+    const filterFunctionKartTitle = component.filterFactory(filterSettings, fields)
+    expect(kartsList.filter(filterFunctionKartTitle).length).toBe(2)
+    filterSettings.title = 'primo'
+    const filterFunctionPrimoTitle = component.filterFactory(filterSettings, fields)
+    expect(kartsList.filter(filterFunctionPrimoTitle).length).toBe(1)
+
+
+  })
+  it('filtering shoppingKart by title and note', () => {
+    const filterFunctionTitle = (value: string, item: ShoppingKartModel) => item.title.includes(value)
+    const questionTitle = new QuestionBase<string>({
+      order: 0,
+      key: 'title',
+      label: 'title',
+      value: 'titleFilter',
+      filterFunction: filterFunctionTitle
+    })
+    const filterFunctionNote = (value: string, item: ShoppingKartModel) => item.note.includes(value)
+    const questionNote = new QuestionBase<string>({
+      order: 1,
+      key: 'note',
+      filterFunction: filterFunctionNote
+    })
+    const fields = [questionNote, questionTitle]
+    const kartdata0 = {
+      archived: false,
+      dataAcquisto: '1977-03-16',
+      fornitoreId: 'qwerty',
+      pagamentoId: 'asdfghj',
+      totale: 15,
+      note: ' kart uno',
+      title: 'primo kart',
+      key: 'zxcvbnm0'
+    }
+    const kart0 = new ShoppingKartModel().build(kartdata0)
+    const kartdata1 = {
+      archived: false,
+      dataAcquisto: '1977-03-16',
+      fornitoreId: 'qwerty',
+      pagamentoId: 'asdfghj',
+      totale: 15,
+      title: 'secondo kart',
+      note: ' secondo carrello',
+      key: 'zxcvbnm'
+    }
+    const kart1 = new ShoppingKartModel().build(kartdata1)
+    const kartsList = [kart0, kart1]
+    const filterSettings = { title: 'kart', note: 'secondo' }
+    const filterFunctionKartTitleNote = component.filterFactory(filterSettings, fields)
+    expect(kartsList.filter(filterFunctionKartTitleNote).length).toBe(1)
+    console.log('filtered kart', kartsList.filter(filterFunctionKartTitleNote))
+    expect(kartsList.filter(filterFunctionKartTitleNote)[0].title).toBe(kartdata1.title)
   })
 });

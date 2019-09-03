@@ -42,7 +42,7 @@ export class PiechartPage implements OnInit {
     key: 'entity',
     label: 'cosa vedere',
     options: this.entities,
-    value: 'suppliers',
+    value: 'categories',
     required: true
   })
   ]
@@ -179,9 +179,9 @@ export class PiechartPage implements OnInit {
     }
     const totaleSpesa = this.karts.filter(filterFunction).reduce(calcolaTotale, 0)
     const data2Graph = data
-    const rounder = (Data: number) => Math.round(Data * 100) / 100
+    // const rounder = (Data: number) => Math.round(Data * 100) / 100
     const dataFormatter = (Data: [string, number]) => {
-      return [`${Data[0]}- ${Data[1]}`, Math.round(Data[1] / totaleSpesa * 100)]
+      return [`${Data[0]}`, Math.round(Data[1] * 100) / 100]
     }
     const formatted = data2Graph.map(dataFormatter)
     return { data2Graph: formatted, totaleSpesa }

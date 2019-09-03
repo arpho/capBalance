@@ -19,9 +19,10 @@ describe('ShoppingKart should instantiate', () => {
         pagamentoId: 'asdfghj',
         totale: 15,
         title: 'title',
+        note: 'note',
         key: 'zxcvbnm'
     }
-    const kart = new ShoppingKartModel(kartdata)
+    const kart = new ShoppingKartModel()
     kart.build(kartdata)
     it('shoppingKart data are ok', () => {
         expect(kart.dataAcquisto).toBe(kartdata.dataAcquisto)
@@ -29,6 +30,7 @@ describe('ShoppingKart should instantiate', () => {
         expect(kart.pagamentoId).toBe(kartdata.pagamentoId)
         expect(kart.archived).toBe(kartdata.archived)
         expect(kart.key).toBe(kart.key)
+        expect(kart.note).toBe(kartdata.note)
         expect(kart.purchaseDate.formatDate()).toBe(new DateModel(new Date(kartdata.dataAcquisto)).formatDate())
         expect(kart.title).toBe(kartdata.title)
         expect(kart.totale).toBe(kartdata.totale)

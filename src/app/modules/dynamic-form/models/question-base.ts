@@ -16,45 +16,31 @@ export class QuestionBase<T> {
   labelTrue: string;
   labelFalse: string;
   neutralFilter: (item: ItemModelInterface) => boolean
-  filterFunction: (item: ItemModelInterface | any) => boolean
   // any solo per testing TOBE refactored
+  filterFunction: (value: any, item: ItemModelInterface | any) => boolean
   filterFactory: (Options: {}) => (item: ItemModelInterface | any) => boolean = (Options: {}) =>
-    !Options[this.key] ? this.neutralFilter : this.filterFunction
-  constructor(
-    options: QuestionProperties<T> /* {
-      value?: T;
-      key?: string;
-      label?: string;
-      required?: boolean;
-      order?: number;
-      controlType?: string;
-      labelTrue?: string;
-      labelFalse?: string;
-      iconTrue?: string;
-      iconFalse?: string;
-      filterFunction?: (item: ItemModelInterface | any) => boolean
-    }  */= {}
-  ) {
-    this.value = options["value"];
-    this.key = options.key || "";
-    this.label = options.label || "";
-    this.required = !!options.required;
-    this.filterFunction = options.filterFunction
-    this.order = options.order === undefined ? 1 : options.order;
-    this.controlType = options.controlType || "";
-    /* this.labelTrue = options.labelTrue
-    this.labelFalse = options.labelFalse
-    this.iconTrue = options.iconTrue || ""
-    this.iconFalse = options.iconFalse || ""; */
-    this.filterFunction = options.filterFunction;
-    for (const key in options) {
-      if (options[key]) {
-        this[key] = options[key]
+    Options[this.key] ? (item: ItemModelInterface) => this.filterFunction(Options[this.key], item) :
+      this.neutralFilter
+
+      constructor(
+        options: QuestionProperties<T> = {}
+      ) {
+      this.value = options["value"];
+      this.key = options.key || "";
+      this.label = options.label || "";
+      this.required = !!options.required;
+      this.filterFunction = options.filterFunction
+      this.order = options.order === undefined ? 1 : options.order;
+      this.controlType = options.controlType || "";
+      this.filterFunction = options.filterFunction;
+      for (const key in options) {
+        if (options[key]) {
+          this[key] = options[key]
+        }
       }
+      this.neutralFilter = (item: ItemModelInterface) => true
     }
-    this.neutralFilter = (item: ItemModelInterface) => true
-    this.filterFactory = (Options: {}) =>
-      !Options[this.key] ? this.neutralFilter : this.filterFunction
-  }
+
+
 
 }

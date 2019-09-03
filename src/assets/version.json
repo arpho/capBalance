@@ -1,7 +1,9 @@
 {
-    "version": "1.1.2",
+    "version": "1.1.4",
     "name":"CapBalance",
     "features": [
+        "close sliding item",
+        "refactoring piechart",
         "can create new categories",
         "bug fixed",
         "full text search in categoeies selectors'",

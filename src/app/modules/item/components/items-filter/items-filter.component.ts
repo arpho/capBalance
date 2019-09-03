@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
 import { QuestionBase } from '../../models/question-base';
 import { ItemModelInterface } from '../../models/itemModelInterface';
+import { access } from 'fs';
 
 @Component({
   selector: 'app-items-filter',
@@ -25,13 +26,12 @@ export class ItemsFilterComponent implements OnInit {
     })
     return await modal.present()
   }
-  filterFactory = (settings: {}, fields: Array<QuestionBase<any>>) => {
-    const filter = (item: ItemModelInterface) => {
-      // apply all the filter's functions
-    fields.reduce((acc, currentValue: any) => acc && currentValue.filterFactory(settings)(item), true)
-    }
-    return filter
+  filterFactory = (filterSettings: {}, fields: Array<QuestionBase<any>>) => {
+    const questionMapper = (question: any) => question.filterFactory(filterSettings)
+    const filterFunctionReducer = (acc: (item: ItemModelInterface) => boolean, currentFunction: (item: ItemModelInterface) => boolean) =>
+      (item: ItemModelInterface) => acc(item) && currentFunction(item)
 
+    return fields.map(questionMapper).reduce(filterFunctionReducer, (item: ItemModelInterface) => true)
   }
 
 

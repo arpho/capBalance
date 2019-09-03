@@ -8,5 +8,5 @@ export interface QuestionProperties<T> {
     required?: boolean;
     order?: number;
     controlType?: string;
-    filterFunction?: (item: ItemModelInterface | any) => boolean
+    filterFunction?: (value: any, item: ItemModelInterface | any) => boolean
 }

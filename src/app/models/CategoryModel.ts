@@ -38,7 +38,6 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                         this.father.load()
                     }
                 } else {
-                    console.log('category deleted', this.key, cat.val())
                     this.title = 'deleted'
                 }
             });
