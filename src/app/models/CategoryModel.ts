@@ -27,6 +27,10 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         return this
     }
 
+    hasQuickActions() {
+        return false
+    }
+
     async load() {
         if (this.service) {
             this.service.getItem(this.key).on('value', cat => {
@@ -46,7 +50,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         }
         return this
     }
-    getCountingText() { return 'categorie'; }
+    getCountingText() { return ' categorie'; }
 
     getFilterParams() {
         const out: ItemFilterOPtions = new ItemFilterOPtions('categoria', 'text');
