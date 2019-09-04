@@ -22,24 +22,24 @@ export class QuestionBase<T> {
     Options[this.key] ? (item: ItemModelInterface) => this.filterFunction(Options[this.key], item) :
       this.neutralFilter
 
-      constructor(
-        options: QuestionProperties<T> = {}
-      ) {
-      this.value = options["value"];
-      this.key = options.key || "";
-      this.label = options.label || "";
-      this.required = !!options.required;
-      this.filterFunction = options.filterFunction
-      this.order = options.order === undefined ? 1 : options.order;
-      this.controlType = options.controlType || "";
-      this.filterFunction = options.filterFunction;
-      for (const key in options) {
-        if (options[key]) {
-          this[key] = options[key]
-        }
+  constructor(
+    options: QuestionProperties<T> = {}
+  ) {
+    this.value = options["value"];
+    this.key = options.key || "";
+    this.label = options.label || "";
+    this.required = !!options.required;
+    this.filterFunction = options.filterFunction
+    this.order = options.order === undefined ? 1 : options.order;
+    this.controlType = options.controlType || "";
+    for (const key in options) {
+      if (options[key]) {
+        this[key] = options[key]
       }
-      this.neutralFilter = (item: ItemModelInterface) => true
     }
+    this.neutralFilter = (item: ItemModelInterface) => true
+    this.filterFunction = options.filterFunction || this.neutralFilter;
+  }
 
 
 

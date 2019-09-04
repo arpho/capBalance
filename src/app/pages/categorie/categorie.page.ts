@@ -11,15 +11,21 @@ import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-te
 })
 export class CategoriePage implements OnInit {
   public CategoriesList: Array<CategoryModel>;
-  public filterLabel: String = 'Categorie';
+  public filterLabel = 'Categorie';
   public filterString: string;
   filterFields: any;
-  public filterFunction: (item: ItemModelInterface) => Boolean;
+  public filterFunction: (item: ItemModelInterface) => boolean;
 
   constructor(public categories: CategoriesService) {
     this.filterFields = [
       new TextboxQuestion({
         key: 'title',
+        label: 'Filtra per categoria',
+        filterFunction: (value: string, category: CategoryModel) => category.title.toUpperCase().includes(value.toLocaleUpperCase()),
+        order: 1
+      }),
+      new TextboxQuestion({
+        key: 'father',
         label: 'Filtra per categoria',
         // value: 'Bombasto',
         order: 1
@@ -38,7 +44,7 @@ export class CategoriePage implements OnInit {
     return out;
   }
 
-  searchFunctionFactory(v): (item: ItemModelInterface) => Boolean {
+  searchFunctionFactory(v): (item: ItemModelInterface) => boolean {
     const out = (item: ItemModelInterface) => item.title.toLowerCase().indexOf(v.data.toLowerCase()) !== -1;
     return out;
   }

@@ -1,7 +1,8 @@
 {
   "name": "capBalance",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
