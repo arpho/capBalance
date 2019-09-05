@@ -62,8 +62,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   async updateItem(item: ItemModelInterface, slide: {}) {
-    console.log('updating', item, typeof slide)
-    console.log(item.getDetailPage())
     const modal = await this.modalController.create({ component: item.getDetailPage(), componentProps: {  item } })
     // tslint:disable-next-line: no-string-literal
     slide['close']()

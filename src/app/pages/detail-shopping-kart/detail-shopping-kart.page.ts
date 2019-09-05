@@ -17,6 +17,7 @@ import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DateModel } from 'src/app/modules/user/models/birthDateModel';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
+import { QuestionBase } from 'src/app/modules/item/models/question-base';
 
 @Component({
   selector: 'app-detail-shopping-kart',
@@ -28,7 +29,7 @@ export class DetailShoppingKartPage implements OnInit {
   supplierFilterFunction: (item: ItemModelInterface) => boolean
   supplierSorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   kart: ShoppingKartModel
-  kartFields: any
+  kartFields: Array<QuestionBase<any>>
   textSelectSupplier = 'Fornitore'
   textSelectPayment = 'Pagamento'
   categoryIcon = 'eye'

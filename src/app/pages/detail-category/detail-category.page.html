@@ -6,4 +6,7 @@
 
 <ion-content>
 
+    <app-dynamic-form [questions]="categoryFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)">
+      </app-dynamic-form>
+
 </ion-content>
