@@ -92,6 +92,10 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     }
 
+    getDetailPage() {
+        return ViewSupplierPage
+    }
+
     getQuickActions() {
         return this.quickActions
     }

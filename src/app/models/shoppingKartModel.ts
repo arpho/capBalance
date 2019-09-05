@@ -99,6 +99,10 @@ export class ShoppingKartModel implements ItemModelInterface {
     isArchived(): boolean {
         return this.archived
     }
+    getDetailPage() {
+        return DetailShoppingKartPage
+    }
+
     archiveItem?(b: boolean) {
         this.archived = b
     }

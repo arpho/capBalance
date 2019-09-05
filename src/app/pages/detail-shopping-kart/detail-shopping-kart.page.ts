@@ -46,7 +46,7 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   ngOnInit() {
-    this.kart = this.navParams.get('kart')
+    this.kart = this.navParams.get('item')
     if (this.kart) {
       // this.kart.load()
     }
@@ -117,7 +117,7 @@ export class DetailShoppingKartPage implements OnInit {
     return await modal.present()
   }
 
-  async detailPurchase(purchase,slidingitem) {
+  async detailPurchase(purchase, slidingitem) {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {

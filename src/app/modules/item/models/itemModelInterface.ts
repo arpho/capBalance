@@ -1,9 +1,10 @@
 // tslint: disable:semicolon
 import { Value } from './value';
 import { ItemServiceInterface } from './ItemServiceInterface';
-import { AlertOptions } from '@ionic/core';
+import { AlertOptions, Page } from '@ionic/core';
 import { ItemFilterOPtions } from './ItemFIlterOptions';
 import { QuickAction } from './QuickAction';
+import { Component } from '@angular/compiler/src/core';
 
 export type Genere = 'o' | 'a';
 
@@ -33,6 +34,7 @@ export interface ItemModelInterface {
   getAggregate(): Value;
   aggregateAction?(): any | void;
   hasQuickActions?(): boolean;
+  getDetailPage(): Page;
   serialize /*
   serialize the model for storing in firebase
   */();

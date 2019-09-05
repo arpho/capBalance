@@ -2,7 +2,7 @@
 import { CategoryModel } from './CategoryModel';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 
-export class PurchaseModel {
+export class PurchaseModel  {
     barcode: string
     descrizione: string
     key: string
@@ -56,6 +56,7 @@ export class PurchaseModel {
         }
         return this
     }
+
     instatiateCategories(categorieId: Array<string>) {
         if (categorieId) {
             // console.log('got categorieId', categorieId)

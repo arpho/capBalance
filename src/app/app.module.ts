@@ -37,6 +37,7 @@ import { CategoriesSelectorPage } from './pages/categories-selector/categories-s
 import { CategoryComponent } from './components/category/category.component';
 import { CategoriesViewerComponent } from './components/categories-viewer/categories-viewer.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { DetailCategoryPage } from './pages/detail-category/detail-category.page';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     SelectorItemsPage,
     CreatePurchasePage,
     DetailPurchasePage,
+    DetailCategoryPage,
     DetailShoppingKartPage,
     CreatePaymentPage,
     TotalComponent,
@@ -83,6 +85,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     CreatePurchasePage,
     DetailPurchasePage,
     DetailShoppingKartPage,
+    DetailCategoryPage,
     CreatePaymentPage,
     CategoriesSelectorPage
   ],

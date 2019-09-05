@@ -63,8 +63,11 @@ export class PageItemsListComponent implements OnInit, OnChanges {
 
   async updateItem(item: ItemModelInterface, slide: {}) {
     console.log('updating', item, typeof slide)
+    console.log(item.getDetailPage())
+    const modal = await this.modalController.create({ component: item.getDetailPage(), componentProps: {  item } })
     // tslint:disable-next-line: no-string-literal
     slide['close']()
+    return await modal.present()
   }
 
   async deleteItem(item: ItemModelInterface, slide: {}) {
@@ -72,7 +75,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     slide['close']();
     const element = this.service.getDummyItem().getElement();
     const alert = await this.alertCtrl.create({
-      message: ` vuoi deavero cancellare quest${element.genere} ${
+      message: ` vuoi davvero cancellare quest${element.genere} ${
         element.element
         }?(${item.title})`,
       buttons: [

@@ -29,7 +29,7 @@ export class ViewSupplierPage implements OnInit {
     navParams: NavParams
   ) {
     // super(suppliers, geo, router, modalCtrl)
-    this.supplier = navParams.get('supplier')
+    this.supplier = navParams.get('item')
     if (this.supplier) {
       this.suppliers = this.supplier.service
     }

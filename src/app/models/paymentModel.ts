@@ -194,6 +194,9 @@ export class PaymentsModel implements ItemModelInterface {
         return value;
     }
 
+    getDetailPage(){
+        return Detail
+    }
 
     serialize() {
         return {

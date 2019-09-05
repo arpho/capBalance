@@ -8,6 +8,7 @@ import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterfac
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { GeneratedFile } from '@angular/compiler';
 import { CategoriesService } from '../services/categories/categorie.service';
+import { DetailCategoryPage } from '../pages/detail-category/detail-category.page';
 export class CategoryModel implements FirebaseObject, ItemModelInterface {
     key: string;
     title: string;
@@ -116,6 +117,10 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                 },
             ],
         };
+    }
+
+    getDetailPage() {
+        return DetailCategoryPage
     }
 
     getFilterPopup(next) {
