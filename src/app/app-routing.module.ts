@@ -18,6 +18,7 @@ const routes: Routes = [
   },
   { path: 'graphs', loadChildren: './pages/graphs/graphs.module#GraphsPageModule', canActivate: [AuthGuard] },
   { path: 'graphs/piechart', loadChildren: './pages/graphs/piechart/piechart.module#PiechartPageModule', canActivate: [AuthGuard] },
+  { path: 'detail-payment', loadChildren: './pages/detail-payment/detail-payment.module#DetailPaymentPageModule' },
 ];
 
 @NgModule({
