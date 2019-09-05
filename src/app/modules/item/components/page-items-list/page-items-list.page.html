@@ -13,15 +13,23 @@
     <app-page-item [Item]="item" [Service]="service"></app-page-item>
 
     <ion-item-options side="start">
-      <button
-        ion-button
+      <ion-button
         danger
-        class="danger"
         (click)="deleteItem(item, sliding_item)"
       >
         <ion-icon name="trash"></ion-icon>
         Elimina
-      </button>
+      </ion-button>
+    </ion-item-options>
+    <ion-item-options side='end'>
+      <ion-button
+      ion-button
+      calm
+      (click)="updateItem(item,sliding_item)"
+      >
+      <ion-icon name='eye'></ion-icon>
+      Modifica
+      </ion-button>
     </ion-item-options>
   </ion-item-sliding>
 </ion-list>

@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ChangeDetectionStrategy,
   ChangeDetectorRef
-// tslint:disable: quotemark
+  // tslint:disable: quotemark
 } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { ItemModelInterface } from "../../models/itemModelInterface";
@@ -29,10 +29,12 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
 
-  constructor(public alertCtrl: AlertController,
-              public router: Router,
-              public modalController: ModalController,
-              public ref: ChangeDetectorRef) {
+  constructor(
+    public alertCtrl: AlertController,
+    public router: Router,
+    public modalController: ModalController,
+    public ref: ChangeDetectorRef
+              ) {
     this.filterFunction = v => true;
   }
 
@@ -59,8 +61,15 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     }
   }
 
-  async deleteItem(item: ItemModelInterface, slide) {
-    slide.close();
+  async updateItem(item: ItemModelInterface, slide: {}) {
+    console.log('updating', item, typeof slide)
+    // tslint:disable-next-line: no-string-literal
+    slide['close']()
+  }
+
+  async deleteItem(item: ItemModelInterface, slide: {}) {
+    // tslint:disable-next-line: no-string-literal
+    slide['close']();
     const element = this.service.getDummyItem().getElement();
     const alert = await this.alertCtrl.create({
       message: ` vuoi deavero cancellare quest${element.genere} ${
