@@ -24,6 +24,12 @@
         [id]="question?.key"
       ></ion-toggle>
     </div>
+    <div *ngSwitchCase="'itemSelector'">
+        <app-selector-items [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
+          [sorterFunction]="supplierSorterFunction" [filterFunction]="supplierFilterFunction"
+          (selectedItem)="question.selectedItem($event)"></app-selector-items>
+      
+    </div>
     <select
       [id]="question?.key"
       *ngSwitchCase="'dropdown'"

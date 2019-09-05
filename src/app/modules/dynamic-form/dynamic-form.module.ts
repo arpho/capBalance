@@ -6,6 +6,7 @@ import { QuestionFormComponent } from './components/question-form-component/ques
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { QuestionControlService } from './services/question-control.service';
 import { GeoLocationModule } from '../geo-location/geo-location.module'
+import { ItemModule } from '../item/item.module';
 
 @NgModule({
   declarations: [QuestionFormComponent, DynamicFormComponent],
@@ -13,7 +14,8 @@ import { GeoLocationModule } from '../geo-location/geo-location.module'
     CommonModule,
     IonicModule.forRoot(),
     ReactiveFormsModule,
-    GeoLocationModule
+    GeoLocationModule,
+    ItemModule
   ],
   exports: [QuestionFormComponent, DynamicFormComponent],
   providers: [QuestionControlService]

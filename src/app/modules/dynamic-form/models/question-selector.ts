@@ -1,0 +1,19 @@
+import { QuestionBase } from '../../item/models/question-base';
+import { CategoryModel } from 'src/app/models/CategoryModel';
+import { SelectorProperties } from '../../item/models/selectorItemsProperties';
+import { ItemModule } from '../../item/item.module';
+import { ItemModelInterface } from '../../item/models/itemModelInterface';
+
+
+
+export class SelectorQuestion extends QuestionBase<CategoryModel> {
+    controlType = 'itemSelector';
+    type: CategoryModel;
+    constructor(options: SelectorProperties) {
+        super(options);
+        console.log('question selector ', this);
+    }
+    selectedItem(item: ItemModelInterface) {
+        console.log('selected', item);
+    }
+}

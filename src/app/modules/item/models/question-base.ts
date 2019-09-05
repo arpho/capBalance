@@ -13,8 +13,8 @@ export class QuestionBase<T> {
         required?: boolean,
         order?: number,
         controlType?: string,
-        labelTrue?: String,
-        labelFalse?: String,
+        labelTrue?: string,
+        labelFalse?: string,
     } = {}) {
         this.value = options.value;
         this.key = options.key || '';
@@ -22,5 +22,10 @@ export class QuestionBase<T> {
         this.required = !!options.required;
         this.order = options.order === undefined ? 1 : options.order;
         this.controlType = options.controlType || '';
+        for (let key in options) {
+            if (options[key]) {
+                this[key] = options[key];
+            }
+        }
     }
 }

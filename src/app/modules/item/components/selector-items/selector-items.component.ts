@@ -14,6 +14,8 @@ import { SelectorItemsPage } from '../../pages/selector-items/selector-items.pag
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { ItemServiceInterface } from '../../models/ItemServiceInterface';
 import { ControlValueAccessor } from '@angular/forms';
+import { QuestionProperties } from 'src/app/modules/dynamic-form/models/questionproperties';
+import { CategoryModel } from 'src/app/models/CategoryModel';
 
 @Component({
   selector: 'app-selector-items',
@@ -21,6 +23,7 @@ import { ControlValueAccessor } from '@angular/forms';
   styleUrls: ['./selector-items.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() text: string
   @Input() item: ItemModelInterface
