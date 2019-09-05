@@ -11,10 +11,13 @@ const routes: Routes = [
   { path: 'list', loadChildren: './list/list.module#ListPageModule' },
   { path: 'categorie', loadChildren: './pages/categorie/categorie.module#CategoriePageModule', canActivate: [AuthGuard] },
   { path: 'pagamenti', loadChildren: './pages/pagamenti/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
-  { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule' },
-  { path: 'shopping-karts', loadChildren: './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule' },
-  { path: 'graphs', loadChildren: './pages/graphs/graphs.module#GraphsPageModule' },
-  { path: 'graphs/piechart', loadChildren: './pages/graphs/piechart/piechart.module#PiechartPageModule' },
+  { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule', canActivate: [AuthGuard] },
+  {
+    path: 'shopping-karts', loadChildren:
+      './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule', canActivate: [AuthGuard]
+  },
+  { path: 'graphs', loadChildren: './pages/graphs/graphs.module#GraphsPageModule', canActivate: [AuthGuard] },
+  { path: 'graphs/piechart', loadChildren: './pages/graphs/piechart/piechart.module#PiechartPageModule', canActivate: [AuthGuard] },
 ];
 
 @NgModule({
