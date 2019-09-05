@@ -14,11 +14,13 @@ import { CategoriesService } from 'src/app/services/categories/categorie.service
 })
 export class DetailCategoryPage implements OnInit {
   category: CategoryModel;
-  categoryFields; // :  Array<QuestionBase<any>>;
+  categoryFields: Array<any>;
 
-  constructor(public navParams: NavParams,
+  constructor(
+              public navParams: NavParams,
               public modalCtrl: ModalController,
-              public service: CategoriesService) {
+              public service: CategoriesService
+              ) {
     this.category = this.navParams.get('item');
   }
   filter(ev: {}) {

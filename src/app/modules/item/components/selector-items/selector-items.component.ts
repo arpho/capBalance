@@ -7,13 +7,14 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  forwardRef
 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SelectorItemsPage } from '../../pages/selector-items/selector-items.page';
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { ItemServiceInterface } from '../../models/ItemServiceInterface';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { QuestionProperties } from 'src/app/modules/dynamic-form/models/questionproperties';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 
@@ -21,7 +22,13 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
   selector: 'app-selector-items',
   templateUrl: './selector-items.component.html',
   styleUrls: ['./selector-items.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    multi: true,
+    useExisting: forwardRef(() => SelectorItemsComponent)
+  }]
+
 })
 
 export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAccessor {
@@ -34,6 +41,7 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
   private disabled = false
   writeValue(value: any): void {
     this.item = value
+    console.log('writing ', value)
     this.onChange(value)
   }
   // tslint:disable-next-line: ban-types
@@ -80,6 +88,7 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
     modal.onDidDismiss().then(data => {
       this.item = data.data
       this.selectedItem.emit(data.data)
+      this.writeValue(this.item)
     })
     return await modal.present()
 

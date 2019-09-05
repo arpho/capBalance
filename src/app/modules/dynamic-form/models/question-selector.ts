@@ -11,7 +11,6 @@ export class SelectorQuestion extends QuestionBase<CategoryModel> {
     type: CategoryModel;
     constructor(options: SelectorProperties) {
         super(options);
-        console.log('question selector ', this);
     }
     selectedItem(item: ItemModelInterface) {
         console.log('selected', item);

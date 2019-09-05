@@ -22,6 +22,7 @@ export class QuestionBase<T> {
         this.required = !!options.required;
         this.order = options.order === undefined ? 1 : options.order;
         this.controlType = options.controlType || '';
+        // tslint:disable-next-line: prefer-const
         for (let key in options) {
             if (options[key]) {
                 this[key] = options[key];

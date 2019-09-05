@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { QuestionFormComponent } from '../question-form-component/question-form-component.component';
 import { IonicModule } from '@ionic/angular';
 import { GeoLocationModule } from 'src/app/modules/geo-location/geo-location.module';
+import { ItemModule } from 'src/app/modules/item/item.module';
 
 describe('DynamicFormComponent', () => {
   let component: DynamicFormComponent;
@@ -13,7 +14,7 @@ describe('DynamicFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DynamicFormComponent, QuestionFormComponent],
-      imports: [ReactiveFormsModule, IonicModule, GeoLocationModule]
+      imports: [ReactiveFormsModule, IonicModule, GeoLocationModule, ItemModule]
     })
       .compileComponents();
   }));
