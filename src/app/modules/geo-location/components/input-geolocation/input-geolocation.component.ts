@@ -26,7 +26,9 @@ export class InputGeolocationComponent implements OnInit, ControlValueAccessor {
   @Input() address: string;
   selectedAddress: any;
   testRadioOpen = false;
+  // tslint:disable-next-line: ban-types
   private onChange: Function = (location: Coordinates) => { };
+  // tslint:disable-next-line: ban-types
   private onTouch: Function = () => { };
 
 
@@ -80,9 +82,10 @@ export class InputGeolocationComponent implements OnInit, ControlValueAccessor {
 
     const coordinates = await Geolocation.getCurrentPosition(options);
     this.service.inverseGeoLocation(coordinates.coords.latitude, coordinates.coords.longitude).subscribe((v: {}) => {
+      // tslint:disable-next-line: no-string-literal
       const address = v['results'].map(item => item['formatted_address']);
       const out = this.promptAddress(address, coordinates);
-    })
+    });
 
 
     const myCoordinates = new Coordinates({

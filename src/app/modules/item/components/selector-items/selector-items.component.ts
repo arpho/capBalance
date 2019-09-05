@@ -13,6 +13,7 @@ import { ModalController } from '@ionic/angular';
 import { SelectorItemsPage } from '../../pages/selector-items/selector-items.page';
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { ItemServiceInterface } from '../../models/ItemServiceInterface';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-selector-items',
@@ -20,13 +21,31 @@ import { ItemServiceInterface } from '../../models/ItemServiceInterface';
   styleUrls: ['./selector-items.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorItemsComponent implements OnInit, OnChanges {
+export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() text: string
   @Input() item: ItemModelInterface
   @Input() service: ItemServiceInterface
   @Output() selectedItem: EventEmitter<ItemModelInterface> = new EventEmitter()
   @Input() filterFunction: (item: ItemModelInterface) => boolean
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
+  private disabled = false
+  writeValue(value: any): void {
+    this.item = value
+    this.onChange(value)
+  }
+  // tslint:disable-next-line: ban-types
+  private onChange: Function = (location: Coordinates) => { };
+  // tslint:disable-next-line: ban-types
+  private onTouch: Function = () => { };
+  registerOnChange(fn: any): void {
+    this.onChange = fn
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn
+  }
+  setDisabledState?(disabled: boolean): void {
+    this.disabled = disabled
+  }
 
 
   constructor(public modalCtrl: ModalController) { }
