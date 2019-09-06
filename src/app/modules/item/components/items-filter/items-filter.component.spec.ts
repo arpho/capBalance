@@ -169,7 +169,6 @@ describe('ItemsFilterComponent', () => {
     const filterSettings = { title: 'kart', note: 'secondo' }
     const filterFunctionKartTitleNote = component.filterFactory(filterSettings, fields)
     expect(kartsList.filter(filterFunctionKartTitleNote).length).toBe(1)
-    console.log('filtered kart', kartsList.filter(filterFunctionKartTitleNote))
     expect(kartsList.filter(filterFunctionKartTitleNote)[0].title).toBe(kartdata1.title)
   })
 });

@@ -42,7 +42,8 @@ export class DetailShoppingKartPage implements OnInit {
     public geo: GeoService,
     public modalCtrl: ModalController,
     public navParams: NavParams,
-    public service: ShoppingKartsService) {
+    public service: ShoppingKartsService
+    ) {
 
   }
 

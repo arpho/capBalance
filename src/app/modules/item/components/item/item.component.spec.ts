@@ -1,3 +1,4 @@
+// tslint:disable: quotemark
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { IonicModule, NavController, ModalController } from "@ionic/angular";
 import { FilterItemsPipe } from "../../pipes/filter-items.pipe";

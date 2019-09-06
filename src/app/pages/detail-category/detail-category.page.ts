@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, NavController } from '@ionic/angular';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { QuestionBase } from 'src/app/modules/dynamic-form/models/question-base';
@@ -17,10 +17,10 @@ export class DetailCategoryPage implements OnInit {
   categoryFields: Array<any>;
 
   constructor(
-              public navParams: NavParams,
-              public modalCtrl: ModalController,
-              public service: CategoriesService
-              ) {
+    public service: CategoriesService,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+  ) {
     this.category = this.navParams.get('item');
   }
   filter(ev: {}) {
