@@ -30,7 +30,7 @@
     >
         <app-selector-items [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
           [sorterFunction]="supplierSorterFunction" [filterFunction]="supplierFilterFunction"
-          (selectedItem)="question.selectedItem($event)"></app-selector-items>
+          (selectedItem)="question.selectedItem($event)" ></app-selector-items>
       
     </div>
     <select

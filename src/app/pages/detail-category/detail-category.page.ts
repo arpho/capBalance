@@ -45,7 +45,7 @@ export class DetailCategoryPage implements OnInit {
     new SelectorQuestion({
       key: 'father',
       label: 'categoria origine',
-      text: 'seleziona categoria origine',
+      text: ' categoria origine',
       service: this.service
     })];
   }

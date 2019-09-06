@@ -40,8 +40,9 @@ export class SelectorItemsPage implements OnInit, OnChanges {
         this.itemsList = []
         snap.forEach(item => {
           const Item = this.service.getDummyItem()
-          Item.key = item.key
+          Item.key = item.key;
           Item.build(item.val())
+          Item.service = this.service;
           this.itemsList.push(Item)
 
         })

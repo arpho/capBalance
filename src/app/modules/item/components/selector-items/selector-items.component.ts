@@ -8,7 +8,8 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectionStrategy,
-  forwardRef
+  forwardRef,
+  HostBinding
 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SelectorItemsPage } from '../../pages/selector-items/selector-items.page';
@@ -17,6 +18,7 @@ import { ItemServiceInterface } from '../../models/ItemServiceInterface';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { QuestionProperties } from 'src/app/modules/dynamic-form/models/questionproperties';
 import { CategoryModel } from 'src/app/models/CategoryModel';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-selector-items',
@@ -33,26 +35,51 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 
 export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() text: string
+  // tslint:disable: no-input-rename
+  // tslint:disable-next-line: variable-name
+  @Input('value') _value = undefined;
   @Input() item: ItemModelInterface
   @Input() service: ItemServiceInterface
   @Output() selectedItem: EventEmitter<ItemModelInterface> = new EventEmitter()
   @Input() filterFunction: (item: ItemModelInterface) => boolean
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
+  @HostBinding('attr.id')
+  externalId = '';
+  private _ID = '';
+  @Input()
+  set id(value: string) {
+    this._ID = value;
+    this.externalId = null;
+  }
+  get id() {
+    return this._ID
+  }
   private disabled = false
+
   writeValue(value: any): void {
-    this.item = value
+    if (value !== undefined) {
+      this.value = value
+    }
     console.log('writing ', value)
     this.onChange(value)
   }
   // tslint:disable-next-line: ban-types
-  private onChange: Function = (location: Coordinates) => { };
+  onChange: any = () => { };
   // tslint:disable-next-line: ban-types
-  private onTouch: Function = () => { };
+  onTouched: any = () => { };
+  get value() {
+    return this._value;
+  }
+  set value(val) {
+    this._value = val;
+    this.onChange(val);
+    this.onTouched();
+  }
   registerOnChange(fn: any): void {
     this.onChange = fn
   }
   registerOnTouched(fn: any): void {
-    this.onTouch = fn
+    this.onTouched = fn
   }
   setDisabledState?(disabled: boolean): void {
     this.disabled = disabled
