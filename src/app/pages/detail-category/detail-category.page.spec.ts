@@ -23,7 +23,7 @@ describe('DetailCategoryPage', () => {
       providers: [
         ModalController,
         AngularDelegate,
-        // CategoriesService,
+        CategoriesService,
         { provide: NavParams, useClass: MockNavParams },
       ],
       // imports: [HttpClientModule]

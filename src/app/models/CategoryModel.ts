@@ -16,6 +16,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     note: string;
     fatherKey: string;
     father: CategoryModel;
+
     constructor(key?: string, service?: ItemServiceInterface) {
         this.key = key
         this.service = service

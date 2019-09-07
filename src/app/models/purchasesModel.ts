@@ -1,6 +1,7 @@
 // tslint:disable:semicolon
 import { CategoryModel } from './CategoryModel';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
+import { CategoriesService } from '../services/categories/categorie.service';
 
 export class PurchaseModel {
     barcode: string

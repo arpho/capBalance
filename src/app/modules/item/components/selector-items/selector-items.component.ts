@@ -60,7 +60,6 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
 
   writeValue(value: ItemModelInterface): void {
     if (value !== undefined) {
-      console.log('writing ',value)
       this.item = value
       this.value = value
     }
@@ -116,7 +115,6 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
       }
     });
     modal.onDidDismiss().then(data => {
-      console.log('dismissing selector',data)
       this.item = data.data
       this.selectedItem.emit(data.data)
       this.writeValue(this.item)

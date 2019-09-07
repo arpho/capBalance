@@ -1,5 +1,6 @@
-// tslint:disable:semicolon
+
 import { Injectable } from '@angular/core';
+// tslint:disable:semicolon
 import { ItemServiceInterface } from '../../modules/item/models/ItemServiceInterface'
 import { CategoriesService } from '../categories/categorie.service'
 import { PaymentsService } from '../payments/payments.service'
@@ -7,6 +8,7 @@ import { SuppliersService } from '../suppliers/suppliers.service'
 import * as firebase from 'firebase';
 import { ItemModelInterface } from '../../modules/item/models/itemModelInterface';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
+// tslint:disable:semicolon
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,7 @@ export class ShoppingKartsService implements ItemServiceInterface {
     return this.shoppingKartsListRef.push(item.serialize());
   }
   getEntitiesList(): import('firebase').database.Reference {
+    // tslint:disable-next-line: semicolon
     return this.shoppingKartsListRef
   }
 

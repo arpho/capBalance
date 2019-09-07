@@ -158,7 +158,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     hasQuickActions() {
-        return true;
+        return false;
     }
 
 

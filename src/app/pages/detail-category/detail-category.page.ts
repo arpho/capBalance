@@ -6,7 +6,6 @@ import { QuestionBase } from 'src/app/modules/dynamic-form/models/question-base'
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 import { CategoriesService } from 'src/app/services/categories/categorie.service';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-detail-category',
@@ -24,7 +23,6 @@ export class DetailCategoryPage implements OnInit {
     public modalCtrl: ModalController,
     private toastCtrl: ToastController
   ) {
-    this.category = this.navParams.get('item');
   }
   filter(ev: {}) {
   }
@@ -34,11 +32,10 @@ export class DetailCategoryPage implements OnInit {
     this.showSpinner = true;
     this.service.updateItem(this.category).finally(() => {
       this.showSpinner = false;
-    }).then(async (res) => {
-      console.log('success', res);
+    }).then(async () => {
       const toast = await this.toastCtrl.create({
         message: 'categoria modificata',
-        duration: 3000,
+        duration: 2000,
         position: 'top'
       });
       toast.onDidDismiss().then((result) => {
@@ -50,7 +47,7 @@ export class DetailCategoryPage implements OnInit {
       console.log('error', err);
       const toast = await this.toastCtrl.create({
         message: 'qualcosa è andata male ' + err,
-        duration: 10000
+        duration: 2000
       });
       toast.onDidDismiss().then((res) => {
         console.log('toast dismiss', res);
@@ -66,6 +63,7 @@ export class DetailCategoryPage implements OnInit {
   }
 
   ngOnInit() {
+    this.category = this.navParams.get('item');
     this.categoryFields = [new TextboxQuestion({
       key: 'category',
       label: 'categoria',
