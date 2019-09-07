@@ -49,8 +49,9 @@ export class DetailShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = this.navParams.get('item')
+
     if (this.kart) {
-      // this.kart.load()
+       this.kart.load()
     }
     this.kartFields = [
       new TextboxQuestion({
@@ -93,6 +94,7 @@ export class DetailShoppingKartPage implements OnInit {
     this.kart.title = ev.title
     this.kart.note = ev.note
     this.kart.online = ev.ecommerce
+
 
     this.kart.purchaseDate.updateDate(ev.dataAcquisto)
     this.service.updateItem(this.kart).then(() => {
@@ -141,6 +143,7 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   selectedPayment(payment: PaymentsModel) {
+    console.log('setting payment',payment)
     if (payment) {
       this.kart.setPayment(payment)
 

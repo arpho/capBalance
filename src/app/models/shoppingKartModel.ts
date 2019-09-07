@@ -167,7 +167,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     hasQuickActions?(): boolean {
-        return true
+        return false;
     }
 
     serialize() {

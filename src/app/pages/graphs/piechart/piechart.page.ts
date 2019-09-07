@@ -12,6 +12,7 @@ import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { Title } from '@angular/platform-browser';
 import { DateModel } from '../../../modules/user/models/birthDateModel'
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-piechart',
@@ -71,24 +72,24 @@ export class PiechartPage implements OnInit {
         map(expandCategoriesList2categoryPriceObject).reduce(flattener, []).reduce(categoryPriceReducer, {})
     },
     suppliers: (karts: Array<ShoppingKartModel>) => {
-      const reducer = (acc: { fornitore: string, totale: number }, cv: { title: string, total: number }) => {
+      const reducer = (acc: { title: string, total: number }, cv: { title: string, total: number }) => {
         acc[cv.title] = acc[cv.title] + cv.total || cv.total
         return acc
       }
       const mapper = (kart: ShoppingKartModel) => {
         return { title: kart.getSupplier().title, total: Math.round(kart.totale * 100) / 100 }
       }
-      return karts.map(mapper).reduce(reducer, {})
+      return karts.map(mapper).reduce(reducer, { title: '', total: 0 })
     },
     payments: (karts: Array<ShoppingKartModel>) => {
       const mapper = (kart: ShoppingKartModel) => {
         return { title: kart.getPayment().title, total: Math.round(kart.totale * 100) / 100 }
       }
-      const reducer = (acc: { pagamento: string, totale: number }, cv: { title, total: number }) => {
+      const reducer = (acc: { title: string, total: number }, cv: { title, total: number }) => {
         acc[cv.title] = acc[cv.title] + cv.total || cv.total
         return acc
       }
-      return karts.map(mapper).reduce(reducer, {})
+      return karts.map(mapper).reduce(reducer, { title: '', total: 0 })
     }
   }
 
