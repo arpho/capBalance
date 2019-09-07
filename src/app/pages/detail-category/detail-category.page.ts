@@ -25,14 +25,12 @@ export class DetailCategoryPage implements OnInit {
     private toastCtrl: ToastController
   ) {
     this.category = this.navParams.get('item');
-    console.log('category to update', this.category);
   }
   filter(ev: {}) {
   }
   async submit(ev: {}) {
     // tslint:disable-next-line: no-string-literal
     this.category.father = ev['father'];
-    console.log('updated', this.category);
     this.showSpinner = true;
     this.service.updateItem(this.category).finally(() => {
       this.showSpinner = false;
@@ -44,7 +42,6 @@ export class DetailCategoryPage implements OnInit {
         position: 'top'
       });
       toast.onDidDismiss().then((result) => {
-        console.log('toast dismissed', result);
         this.dismiss();
       });
       toast.present();

@@ -13,6 +13,5 @@ export class SelectorQuestion extends QuestionBase<CategoryModel> {
         super(options);
     }
     selectedItem(item: ItemModelInterface) {
-        console.log('selected', item);
     }
 }

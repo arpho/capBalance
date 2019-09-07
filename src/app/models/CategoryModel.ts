@@ -123,6 +123,8 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         return DetailCategoryPage
     }
 
+
+
     getFilterPopup(next) {
 
         return {

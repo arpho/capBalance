@@ -64,7 +64,9 @@ export class CategoriesSelectorPage implements OnInit {
       this.service.getEntitiesList().on('value', snap => {
         this.categoriesList = []
         snap.forEach(val => {
-          this.categoriesList.push(new CategoryModel(val.key).build(val.val()))
+          const cat = new CategoryModel(val.key, this.service).build(val.val())
+          cat.load()
+          this.categoriesList.push(cat)
         })
       })
     }
@@ -98,7 +100,7 @@ export class CategoriesSelectorPage implements OnInit {
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
   }
   addCategory(cat: CategoryModel) {
-    // this.searchControl.reset()
+    // TODO this.searchControl.reset()
     this.selectedCategoriesList = [...this.selectedCategoriesList, ...cat.addCategory()]
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
 

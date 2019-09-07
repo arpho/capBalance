@@ -2,7 +2,7 @@
 import { CategoryModel } from './CategoryModel';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 
-export class PurchaseModel  {
+export class PurchaseModel {
     barcode: string
     descrizione: string
     key: string
@@ -75,7 +75,7 @@ export class PurchaseModel  {
         this.categorieId = item['categorieId']
         this.key = item['key'] || ''
         this.note = item['note']
-        this.prezzo = parseFloat(item['prezzo'])
+        this.prezzo = parseFloat(item['prezzo']) || 0
         this.categorie = this.categorie || this.instatiateCategories(item.categorieId || item.categorie)
         this.key = item['key'] || String(new Date().getTime())
         return this
