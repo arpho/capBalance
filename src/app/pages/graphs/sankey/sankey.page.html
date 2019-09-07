@@ -13,4 +13,11 @@
   [options]="chart.options">
 </google-chart>
 
+<app-dynamic-form
+    [questions]="options"
+    [submitText]="submitText"
+    (interactiveSubmit)="filter($event)"
+    (singleSubmit)="submit($event)"
+  ></app-dynamic-form>
+
 </ion-content>

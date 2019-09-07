@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';
+import { DateModel } from 'src/app/modules/user/models/birthDateModel';
+import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
+import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
+import { PurchaseModel } from 'src/app/models/purchasesModel';
+import { CategoryModel } from 'src/app/models/CategoryModel';
+// tslint:disable:semicolon
 @Component({
   selector: 'app-sankey',
   templateUrl: './sankey.page.html',
@@ -8,7 +14,24 @@ import { Component, OnInit } from '@angular/core';
 export class SankeyPage implements OnInit {
   chart: any
   data
-  constructor() { }
+  karts: Array<ShoppingKartModel>
+  tempDate = new Date(Date.now());
+  options = [new DateQuestion({
+    key: 'dataInizio',
+    label: 'inizio periodo',
+    value: new DateModel(new Date(this.tempDate).setDate(this.tempDate.getDate() - 7)).formatDate(),
+    required: true
+
+  }),
+  new DateQuestion({
+    key: 'dataFine',
+    label: 'fine periodo',
+    value: new DateModel(new Date()).formatDate(),
+    required: true
+  })
+  ];
+  submitText = ' Opzioni grafico';
+  constructor(public service: ShoppingKartsService) { }
 
   ngOnInit() {
     this.chart = {
@@ -30,6 +53,81 @@ export class SankeyPage implements OnInit {
         height: 500
       }
     };
+    if (this.service.getEntitiesList()) {
+      this.service.getEntitiesList().on('value', kartsSnap => {
+        this.karts = []
+        kartsSnap.forEach(snap => {
+          const kart = new ShoppingKartModel({ item: snap.val(), service: this.service }).setKey(snap.key)
+          kart.load()
+
+          this.karts.push(kart)
+        })
+        const extractedData = this.extractData(
+          // this.transformers.categories,
+          this.filterFactory(7)
+        )
+        // this.setData({ data: extractedData.data2Graph, title: this.makeTitle(extractedData.totaleSpesa, 7) })
+      })
+    }
+  }
+
+
+  filterFactory(day: number) {
+    const today = new Date()
+    const since = new Date(new Date().setDate(today.getDate() - day))
+    return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
+
+  }
+
+  extractData(filterFunction) {
+    const filtered = (this.karts.filter(filterFunction))
+    console.log(filtered)
+    const calcolaTotale = (acc: number, currentKart: ShoppingKartModel) => {
+      acc += currentKart.totale
+      return acc
+    }
+    const totaleSpesa = Math.round(this.karts.filter(filterFunction).reduce(calcolaTotale, 0) * 100) / 100
+    console.log('totale', totaleSpesa)
+    // estrae la lista degli acquisti di ogni carrello
+    const mappKart2Purchse = (kart: ShoppingKartModel) => kart.items
+    const flattener = (acc: any, el: any) => {
+      acc = [...acc, ...el]
+      return acc
+    }
+    const purchases = this.karts.filter(filterFunction).map(mappKart2Purchse).reduce(flattener, [])
+    const mapPurchase2CategoriesList = (purchase: PurchaseModel) => ({ categorie: purchase.categorie, prezzo: purchase.prezzo })
+    const categoriesPriceList = purchases.map(mapPurchase2CategoriesList)
+    // mappa gli oggetti di categoriesPrice con una lista di oggetti [caegoria:CategoryModel,prezzo:number]
+    const mapCategoriesprice2CategoryPrice = (item: { categorie: Array<CategoryModel>, prezzo: number }) => {
+      const CategoryMapper = (cat: CategoryModel) => ({ categoria: cat, prezzo: item.prezzo })
+      return item.categorie.map(CategoryMapper)
+    }
+    const categoryPriceList = categoriesPriceList.map(mapCategoriesprice2CategoryPrice).reduce(flattener,[])
+    console.log(categoryPriceList)
+    const dataFormatter = (Data: [string, number]) => {
+      return [`${Data[0]}`, Math.round(Data[1] * 100) / 100]
+    }
+  }
+  
+    
+    // const formatted = data2Graph.map(dataFormatter)
+    // return { data2Graph: formatted, totaleSpesa }
+  
+
+
+  dateFilterFactory(args: { dataInizio: Date, dataFine: Date }) {
+    return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) >= args.dataInizio &&
+      new Date(item.purchaseDate.formatDate()) <= args.dataFine
+
+  }
+
+  filter(ev) {
+    console.log('filtering', ev);
+
+  }
+
+  submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
+    console.log('submit', ev)
   }
 
 }

@@ -23,8 +23,9 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     }
     build(obj: { title: string, key: string, service?: CategoriesService }) {
         this.title = obj.title;
-        this.key = this.key || obj.key;
-        this.service = this.service || obj.service
+        this.key = this.key || obj.key; if (obj.service) {
+            this.service = this.service || obj.service
+        }
 
         return this
     }
