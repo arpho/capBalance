@@ -13,5 +13,9 @@
 
     <app-dynamic-form [questions]="categoryFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)">
       </app-dynamic-form>
+      <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+      </div>
 
 </ion-content>

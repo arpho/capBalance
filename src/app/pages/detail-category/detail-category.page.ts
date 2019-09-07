@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController, NavController } from '@ionic/angular';
+import { NavParams, ModalController, NavController, ToastController } from '@ionic/angular';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { QuestionBase } from 'src/app/modules/dynamic-form/models/question-base';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 import { CategoriesService } from 'src/app/services/categories/categorie.service';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-detail-category',
@@ -15,19 +16,51 @@ import { CategoriesService } from 'src/app/services/categories/categorie.service
 export class DetailCategoryPage implements OnInit {
   category: CategoryModel;
   categoryFields: Array<any>;
+  showSpinner = false;
 
   constructor(
     public service: CategoriesService,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    private toastCtrl: ToastController
   ) {
     this.category = this.navParams.get('item');
+    console.log('category to update', this.category);
   }
   filter(ev: {}) {
-    console.log('filter', ev);
   }
-  submit(ev: {}) {
-    console.log('submit', ev);
+  async submit(ev: {}) {
+    // tslint:disable-next-line: no-string-literal
+    this.category.father = ev['father'];
+    console.log('updated', this.category);
+    this.showSpinner = true;
+    this.service.updateItem(this.category).finally(() => {
+      this.showSpinner = false;
+    }).then(async (res) => {
+      console.log('success', res);
+      const toast = await this.toastCtrl.create({
+        message: 'categoria modificata',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.onDidDismiss().then((result) => {
+        console.log('toast dismissed', result);
+        this.dismiss();
+      });
+      toast.present();
+
+    }).catch(async (err) => {
+      console.log('error', err);
+      const toast = await this.toastCtrl.create({
+        message: 'qualcosa è andata male ' + err,
+        duration: 10000
+      });
+      toast.onDidDismiss().then((res) => {
+        console.log('toast dismiss', res);
+        this.dismiss();
+      });
+      toast.present();
+    });
   }
 
   dismiss() {
@@ -46,7 +79,9 @@ export class DetailCategoryPage implements OnInit {
       key: 'father',
       label: 'categoria origine',
       text: ' categoria origine',
-      service: this.service
+      value: this.category.father,
+      service: this.service,
+      required: true
     })];
   }
 

@@ -60,6 +60,7 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
 
   writeValue(value: any): void {
     if (value !== undefined) {
+      this.item = value
       this.value = value
     }
     console.log('writing ', value)
