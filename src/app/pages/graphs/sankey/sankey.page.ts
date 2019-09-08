@@ -47,7 +47,7 @@ export class SankeyPage implements OnInit {
         ['B', 'C', 6],
         ['C', 'X', 7]
       ],
-      columnNames: ['From', 'To', 'Weigth'],
+      columnNames: ['From', 'To', 'Toale spesa'],
       options: {
         width: 300,
         height: 250
@@ -158,8 +158,15 @@ export class SankeyPage implements OnInit {
 
   }
 
+
+
   submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
     console.log('submit', ev)
+    const data2Graph = this.extractData(this.dateFilterFactory({
+      dataInizio: new Date(ev.dataInizio),
+      dataFine: new Date(ev.dataFine)
+    }))
+    this.setData({ data: data2Graph, title: '' })
   }
 
 }
