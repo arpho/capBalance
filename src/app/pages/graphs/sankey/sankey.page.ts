@@ -49,8 +49,8 @@ export class SankeyPage implements OnInit {
       ],
       columnNames: ['From', 'To', 'Weigth'],
       options: {
-        width: 600,
-        height: 500
+        width: 300,
+        height: 250
       }
     };
     if (this.service.getEntitiesList()) {
@@ -66,9 +66,19 @@ export class SankeyPage implements OnInit {
           // this.transformers.categories,
           this.filterFactory(7)
         )
-        // this.setData({ data: extractedData.data2Graph, title: this.makeTitle(extractedData.totaleSpesa, 7) })
+        this.setData({ data: extractedData, title: this.makeTitle(extractedData.totaleSpesa, 7) })
       })
     }
+  }
+
+  makeTitle(tot: number, days: number) {
+    return `${tot} di  spesa negli  ultimi ${days} giorni`
+  }
+
+  setData(data: { data: [], title: string }) {
+    this.chart.data = data.data
+    this.chart.title = data.title
+
   }
 
 
@@ -78,16 +88,14 @@ export class SankeyPage implements OnInit {
     return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
 
   }
+  roundNumber = (val: number) => Math.round(val * 100) / 100
 
   extractData(filterFunction) {
-    const filtered = (this.karts.filter(filterFunction))
-    console.log(filtered)
     const calcolaTotale = (acc: number, currentKart: ShoppingKartModel) => {
       acc += currentKart.totale
       return acc
     }
     const totaleSpesa = Math.round(this.karts.filter(filterFunction).reduce(calcolaTotale, 0) * 100) / 100
-    console.log('totale', totaleSpesa)
     // estrae la lista degli acquisti di ogni carrello
     const mappKart2Purchse = (kart: ShoppingKartModel) => kart.items
     const flattener = (acc: any, el: any) => {
@@ -102,17 +110,41 @@ export class SankeyPage implements OnInit {
       const CategoryMapper = (cat: CategoryModel) => ({ categoria: cat, prezzo: item.prezzo })
       return item.categorie.map(CategoryMapper)
     }
-    const categoryPriceList = categoriesPriceList.map(mapCategoriesprice2CategoryPrice).reduce(flattener,[])
-    console.log(categoryPriceList)
-    const dataFormatter = (Data: [string, number]) => {
-      return [`${Data[0]}`, Math.round(Data[1] * 100) / 100]
+    const categoryPriceList = categoriesPriceList.map(mapCategoriesprice2CategoryPrice).reduce(flattener, [])
+    const calcolaTotaleCategory = (acc: {}, cv: { categoria: CategoryModel, prezzo: number }) => {
+      if (cv.categoria && cv.categoria.key) {
+        acc[cv.categoria.key] = acc[cv.categoria.key] ?
+          { categoria: cv.categoria, prezzo: this.roundNumber(acc[cv.categoria.key].prezzo + cv.prezzo) } :
+          {
+            categoria: cv.categoria, prezzo: cv.prezzo
+          }
+      }
+      return acc
     }
+    const totaleCategorie = categoryPriceList.reduce(calcolaTotaleCategory, {})
+    const reduceTotaleCategorie2List = (acc, cv) => {
+      acc.push(cv[1])
+      return acc
+    }
+    const totaleCategorieList = Object.entries(totaleCategorie).reduce(reduceTotaleCategorie2List, [])
+    const CategoryPrice2dataMapper = (item: { categoria: CategoryModel, prezzo: number }) => {
+      return [item.categoria.title, item.categoria.afferTo(), item.prezzo]
+    }
+    const data2Graph = Object.entries(this.karts
+      .filter(filterFunction)
+      .map(mappKart2Purchse)
+      .reduce(flattener, [])
+      .map(mapPurchase2CategoriesList)
+      .map(mapCategoriesprice2CategoryPrice).reduce(flattener, [])
+      .reduce(calcolaTotaleCategory, {})).reduce(reduceTotaleCategorie2List, [])
+      .map(CategoryPrice2dataMapper)
+    return data2Graph
   }
-  
-    
-    // const formatted = data2Graph.map(dataFormatter)
-    // return { data2Graph: formatted, totaleSpesa }
-  
+
+
+  // const formatted = data2Graph.map(dataFormatter)
+  // return { data2Graph: formatted, totaleSpesa }
+
 
 
   dateFilterFactory(args: { dataInizio: Date, dataFine: Date }) {

@@ -170,7 +170,7 @@ export class PiechartPage implements OnInit {
     const since = new Date(new Date().setDate(today.getDate() - day))
     return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
   }
-  
+
   newExtractData(trasformer, filterFunction) {
     const trasformed = trasformer(this.karts.filter(filterFunction))
     const data = Object.entries(trasformed)
