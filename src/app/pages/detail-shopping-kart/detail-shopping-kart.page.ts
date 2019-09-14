@@ -19,7 +19,6 @@ import { DateModel } from 'src/app/modules/user/models/birthDateModel';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { QuestionBase } from 'src/app/modules/item/models/question-base';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
-import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-detail-shopping-kart',
