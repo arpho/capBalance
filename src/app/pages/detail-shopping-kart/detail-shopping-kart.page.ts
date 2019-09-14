@@ -18,6 +18,8 @@ import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DateModel } from 'src/app/modules/user/models/birthDateModel';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { QuestionBase } from 'src/app/modules/item/models/question-base';
+import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
+import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-detail-shopping-kart',
@@ -43,7 +45,7 @@ export class DetailShoppingKartPage implements OnInit {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public service: ShoppingKartsService
-    ) {
+  ) {
 
   }
 
@@ -51,7 +53,7 @@ export class DetailShoppingKartPage implements OnInit {
     this.kart = this.navParams.get('item')
 
     if (this.kart) {
-       this.kart.load()
+      this.kart.load()
     }
     this.kartFields = [
       new TextboxQuestion({
@@ -81,7 +83,26 @@ export class DetailShoppingKartPage implements OnInit {
         label: "data di acquisto",
         value: this.kart ? this.kart.purchaseDate.formatDate() : new DateModel(new Date()).formatDate(),
         required: true
-      })
+      }),
+      new SelectorQuestion(
+        {
+          label: 'Pagamento',
+          key: 'payment',
+          value: this.kart ? this.kart.pagamento : undefined,
+          required: true,
+          service: this.service.paymentsService
+        }
+      ),
+      new SelectorQuestion(
+        {
+          label: 'Fornitore',
+          key: 'supplier',
+          required: true,
+          service: this.service.suppliersService,
+          value: this.kart ? this.kart.fornitore : undefined
+
+        }
+      )
     ];
 
 
@@ -143,15 +164,17 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   selectedPayment(payment: PaymentsModel) {
-    console.log('setting payment',payment)
+    console.log('setting payment', payment)
     if (payment) {
       this.kart.setPayment(payment)
 
     }
   }
 
-  filter(ev) {
-    if (ev.ecommerce) {
+  filter(ev: {}) {
+    console.log('filtering', ev)
+    // tslint:disable-next-line: no-string-literal
+    if (ev['ecommerce']) {
       this.supplierFilterFunction = (item: SupplierModel) => {
         return item.ecommerce
       }

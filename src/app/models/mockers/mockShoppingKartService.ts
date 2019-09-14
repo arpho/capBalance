@@ -10,16 +10,16 @@ import { MockSupplierService } from './mockSuppliersService';
 import { MockPaymentService } from './mockPaymentService';
 
 export class MockShoppingKartervice implements ItemServiceInterface {
-    extraService0?: MockCategoriesService; extraService1?: MockSupplierService;
-    extraService2?: MockPaymentService;
+    categoriesService?: MockCategoriesService; suppliersService?: MockSupplierService;
+    paymentsService?: MockPaymentService;
     data: {}
     public shoppingKartsListRef: firebase.database.Reference
 
     constructor(data: {}) {
         this.data = data
-        this.extraService0 = new MockCategoriesService()
-        this.extraService1 = new MockSupplierService()
-        this.extraService2 = new MockPaymentService()
+        this.categoriesService = new MockCategoriesService()
+        this.suppliersService = new MockSupplierService()
+        this.paymentsService = new MockPaymentService()
 
     }
 
@@ -29,7 +29,7 @@ export class MockShoppingKartervice implements ItemServiceInterface {
         // tslint:disable: no-unused-expression
         // tslint:disable:semicolon
         // return { val: () => { title: this.data[key] } }
-        const val = function () {
+        const val = function() {
             return this.data
         }
         const cat = { val }

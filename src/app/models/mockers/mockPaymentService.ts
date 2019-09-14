@@ -4,11 +4,11 @@ import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInt
 import { PaymentsModel } from '../paymentModel';
 
 export class MockPaymentService implements ItemServiceInterface {
-    extraService0?: ItemServiceInterface; extraService1?: ItemServiceInterface;
-    extraService2?: ItemServiceInterface;
+    categoriesService?: ItemServiceInterface; suppliersService?: ItemServiceInterface;
+    paymentsService?: ItemServiceInterface;
     public categoriesListRef: firebase.database.Reference;
-    
-    
+
+
     getItem(key: string): any {
         const data = { key: '123', title: 'qwertyu', note: 'asdfghj', addebito: '12/05/2019', nome: 'cash' };
         // tslint:disable: label-position

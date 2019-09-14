@@ -4,9 +4,9 @@ import * as firebase from 'firebase';
 import { ItemModelInterface } from './itemModelInterface';
 export interface ItemServiceInterface {
 // extra service for complex models
-extraService0?: ItemServiceInterface
-extraService1?: ItemServiceInterface
-extraService2?: ItemServiceInterface
+categoriesService?: ItemServiceInterface
+suppliersService?: ItemServiceInterface
+paymentsService?: ItemServiceInterface
 suppliersListRef?
 
     /**get one item from firebase

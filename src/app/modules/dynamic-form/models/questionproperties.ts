@@ -2,7 +2,7 @@
 import { ItemModelInterface } from '../../item/models/itemModelInterface';
 
 export interface QuestionProperties<T> {
-    value?: T;
+    value?: T|any;
     key?: string;
     label?: string;
     required?: boolean;

@@ -3,8 +3,8 @@ import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInt
 import { SupplierModel } from '../supplierModel';
 
 export class MockSupplierService implements ItemServiceInterface {
-    extraService0?: ItemServiceInterface; extraService1?: ItemServiceInterface;
-    extraService2?: ItemServiceInterface;
+    categoriesService?: ItemServiceInterface; suppliersService?: ItemServiceInterface;
+    paymentsService?: ItemServiceInterface;
     public suppliersListRef: firebase.database.Reference;
     getItem(key: string): any {
         const data = {

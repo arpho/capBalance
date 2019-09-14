@@ -90,7 +90,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento = new PaymentsModel()
         this.fornitore.key = this.fornitore.key || this.fornitoreId
         this.pagamento.key = this.pagamento.key || this.pagamentoId
-        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item, this.service.extraService0)) : []
+        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item, this.service.categoriesService)) : []
         // gli items sono stati tutti definiti non hanno ancora caricato le categorie
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
@@ -147,7 +147,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         const out = !this.title ? new Value({
             value: ' ' + this.fornitore ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
         }) :
-            new Value({ value: this.title, label: 'titolo' })
+            new Value({ value: this.title, label: ' titolo ' })
         return out
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
@@ -191,7 +191,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getTitle() {
         // tslint:disable: semicolon
-        return new Value({ value: this.getValue4().value, label: 'titolo' })
+        return new Value({ value: this.getValue4().value, label: ' titolo ' })
 
     }
 
@@ -219,8 +219,8 @@ export class ShoppingKartModel implements ItemModelInterface {
                }
            })*/
         // items  loaded and categories instantiated but not loaded
-        this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.extraService1)
-        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.extraService2)
+        this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.suppliersService)
+        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.paymentsService)
         this.fornitore.load(next)
         this.pagamento.load()
         if (this.items) { // ci sono carrelli senza acquisti

@@ -177,7 +177,7 @@ describe('loading purchase', () => {
         expect(kart1).toEqual(jasmine.any(ShoppingKartModel))
         expect(kart1.items[0]).toEqual(jasmine.any(PurchaseModel))
         expect(kart1.service).toBeTruthy()
-        expect(kart1.service.extraService0).toBeTruthy()
+        expect(kart1.service.categoriesService).toBeTruthy()
         expect(kart1.items[0].service).toBeTruthy()
         expect(kart1.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
         expect(kart1.items[0].categorie[0].service).toBeTruthy()

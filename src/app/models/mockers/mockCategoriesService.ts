@@ -2,8 +2,8 @@ import { ItemServiceInterface } from '../../modules/item/models/ItemServiceInter
 import { CategoryModel } from '../CategoryModel';
 
 export class MockCategoriesService implements ItemServiceInterface {
-    extraService0?: ItemServiceInterface; extraService1?: ItemServiceInterface;
-    extraService2?: ItemServiceInterface;
+    categoriesService?: ItemServiceInterface; suppliersService?: ItemServiceInterface;
+    paymentsService?: ItemServiceInterface;
     public categoriesListRef: firebase.database.Reference;
     getItem(key: string): any {
         const data = {

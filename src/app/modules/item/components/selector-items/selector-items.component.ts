@@ -18,7 +18,6 @@ import { ItemServiceInterface } from '../../models/ItemServiceInterface';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { QuestionProperties } from 'src/app/modules/dynamic-form/models/questionproperties';
 import { CategoryModel } from 'src/app/models/CategoryModel';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-selector-items',
