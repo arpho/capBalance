@@ -5,7 +5,7 @@ import { ItemModelInterface } from './itemModelInterface';
 // tslint:disable:semicolon
 export interface SelectorProperties extends QuestionProperties<CategoryModel> {
     service: ItemServiceInterface;
-    text?: string;
+    text: string;
     filterFunction?: (item: ItemModelInterface) => boolean
     sorterFunction?: (a: ItemModelInterface, b: ItemModelInterface) => number
 

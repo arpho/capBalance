@@ -8,14 +8,14 @@ export class QuestionBase<T> {
 
     constructor(options: {
         value?: T,
-        key?: string,
-        label?: string,
+        key: string,
+        label: string,
         required?: boolean,
         order?: number,
         controlType?: string,
         labelTrue?: string,
         labelFalse?: string,
-    } = {}) {
+    } ) {
         this.value = options.value;
         this.key = options.key || '';
         this.label = options.label || '';

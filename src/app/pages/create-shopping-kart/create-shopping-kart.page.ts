@@ -16,6 +16,7 @@ import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
+import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 // tslint:disable: semicolon
 @Component({
   selector: 'app-create-shopping-kart',
@@ -69,6 +70,23 @@ export class CreateShoppingKartPage implements OnInit {
         label: "data di acquisto",
         value: this.kart.purchaseDate.formatDate(),
         required: true
+      }),
+      new SelectorQuestion({
+        key: 'supplier',
+        text: 'text Fornitore',
+        label: 'Fornitore',
+        service: this.service.suppliersService,
+        value: this.kart.fornitore,
+        required: true
+      }),
+      new SelectorQuestion({
+        key: 'payment',
+        text: 'text pagamento',
+        label: 'Pagamento',
+        service: this.service.paymentsService,
+        required: true,
+        value: this.kart.pagamento
+
       })
     ];
 

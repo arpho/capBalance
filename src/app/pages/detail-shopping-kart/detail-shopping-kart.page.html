@@ -12,11 +12,6 @@
 <ion-content>
   <app-dynamic-form [questions]="kartFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)">
   </app-dynamic-form>
-  <app-selector-items [text]="textSelectSupplier" [service]="supplierService" [item]="kart?.fornitore"
-    (selectedItem)="selectedSupplier($event)" [sorterFunction]="supplierSorterFunction"
-    [filterFunction]="supplierFilterFunction" (selectedItem)="selectedSupplier($event)"></app-selector-items>
-  <app-selector-items [text]="textSelectPayment" [service]="paymentsService" [item]="kart?.pagamento"
-    (selectedItem)="selectedPayment($event)"></app-selector-items>
 
   <ion-button (click)="addPurchase()">
     <ion-icon name='basket'></ion-icon>

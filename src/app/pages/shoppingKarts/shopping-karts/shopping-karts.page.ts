@@ -3,6 +3,7 @@ import { ItemControllerInterface } from 'src/app/modules/item/models/ItemControl
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -13,6 +14,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   ItemsList: ItemModelInterface[];
   filterLabel: string;
   filterString: string;
+  showGear: boolean;
   filterFields: any;
   filterFunction: (item: ItemModelInterface) => boolean;
   sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number =
@@ -45,13 +47,13 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   async ngOnInit() {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-        this.ItemsList = [];
-        eventSuppliersListSnapshot.forEach(snap => {
+         this.showGear = true
+         this.ItemsList = [];
+         eventSuppliersListSnapshot.forEach(snap => {
           const kart = new ShoppingKartModel({ item: snap.val(), service: this.service })
           kart.key = snap.key
           kart.load()
           this.ItemsList.push(kart);
-
         });
       });
     }

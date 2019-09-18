@@ -29,7 +29,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
-  public showGear = false;
 
   constructor(
     public alertCtrl: AlertController,
@@ -57,10 +56,10 @@ export class PageItemsListComponent implements OnInit, OnChanges {
           this.ref.markForCheck()
         }
         this.items_list.forEach(item => {
+
           item.load(next)
         })
       }
-      this.showGear = false
     }
   }
 
@@ -101,7 +100,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
       this.showSpinner = false;
-      this.showGear = true
     }
     if (changes.filterFunction) {
       this.filterFunction = changes.filterFunction.currentValue;
@@ -112,7 +110,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     return this.items_list
       ? this.items_list.filter(this.filterFunction).length
       : "loading";
-      this.showGear = false
   }
 
   editItem(item: ItemModelInterface) {

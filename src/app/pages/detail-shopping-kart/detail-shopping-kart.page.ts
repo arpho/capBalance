@@ -87,9 +87,10 @@ export class DetailShoppingKartPage implements OnInit {
         {
           label: 'Pagamento',
           key: 'payment',
-          value: this.kart ? this.kart.pagamento : undefined,
+          value: this.kart ? this.kart.pagamento : new PaymentsModel(),
           required: true,
-          service: this.service.paymentsService
+          service: this.service.paymentsService,
+          text: this.textSelectPayment
         }
       ),
       new SelectorQuestion(
@@ -97,8 +98,10 @@ export class DetailShoppingKartPage implements OnInit {
           label: 'Fornitore',
           key: 'supplier',
           required: true,
-          service: this.service.suppliersService,
-          value: this.kart ? this.kart.fornitore : undefined
+          text: this.textSelectSupplier,
+          service: this.service.suppliersService
+          ,
+          value: this.kart ? this.kart.fornitore : new SupplierModel()
 
         }
       )
@@ -163,7 +166,6 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   selectedPayment(payment: PaymentsModel) {
-    console.log('setting payment', payment)
     if (payment) {
       this.kart.setPayment(payment)
 
@@ -171,7 +173,13 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   filter(ev: {}) {
-    console.log('filtering', ev)
+    // tslint:disable: no-string-literal
+    if (ev['payment']) {
+      this.selectedPayment(ev['payment'])
+    }
+    if (ev['supplier']) {
+      this.selectedSupplier(ev['supplier'])
+    }
     // tslint:disable-next-line: no-string-literal
     if (ev['ecommerce']) {
       this.supplierFilterFunction = (item: SupplierModel) => {

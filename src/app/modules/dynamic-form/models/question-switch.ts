@@ -1,6 +1,6 @@
 
 // tslint:disable: quotemark
-    // tslint:disable: no-string-literal
+// tslint:disable: no-string-literal
 import { QuestionBase } from "./question-base";
 import { QuestionProperties } from './questionproperties';
 
@@ -20,7 +20,7 @@ export class SwitchQuestion<T> extends QuestionBase<boolean> {
   iconTrue: string;
   type: boolean;
 
-  constructor(options: SwitchQuestionProperties = {}) {
+  constructor(options: SwitchQuestionProperties = { key: 'switch', label: 'make your choice' }) {
     super(options);
     this.labelFalse = options["labelFalse"] || "";
     this.labelTrue = options["labelTrue"] || "";

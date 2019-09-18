@@ -18,27 +18,27 @@ export class QuestionBase<T> {
   neutralFilter: (item: ItemModelInterface) => boolean
   // any solo per testing TOBE refactored
   filterFunction: (value: any, item: ItemModelInterface | any) => boolean
-  filterFactory: (Options: {}) => (item: ItemModelInterface | any) => boolean = (Options: {}) =>
+  filterFactory: (Options: any) => (item: ItemModelInterface | any) => boolean = (Options: any) =>
     Options[this.key] ? (item: ItemModelInterface) => this.filterFunction(Options[this.key], item) :
       this.neutralFilter
 
   constructor(
-    options: QuestionProperties<T> = {}
+    options: { key: string, label: string }|QuestionProperties<any>
   ) {
     this.value = options["value"];
     this.key = options.key || "";
     this.label = options.label || "";
-    this.required = !!options.required;
-    this.filterFunction = options.filterFunction
-    this.order = options.order === undefined ? 1 : options.order;
-    this.controlType = options.controlType || "";
+    this.required = !!options['required'];
+    this.filterFunction = options['filterFunction']
+    this.order = options['order'] === undefined ? 1 : options['order'];
+    this.controlType = options['controlType'] || "";
     for (const key in options) {
       if (options[key]) {
         this[key] = options[key]
       }
     }
     this.neutralFilter = (item: ItemModelInterface) => true
-    this.filterFunction = options.filterFunction || this.neutralFilter;
+    this.filterFunction = options['filterFunction'] || this.neutralFilter;
   }
 
 
