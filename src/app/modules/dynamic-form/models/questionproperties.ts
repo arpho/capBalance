@@ -7,6 +7,7 @@ export interface QuestionProperties<T> {
     label: string;
     required?: boolean;
     order?: number;
+    type?:string
     controlType?: string;
     filterFunction?: (value: any, item: ItemModelInterface | any) => boolean
 }
