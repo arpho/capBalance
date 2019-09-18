@@ -18,7 +18,7 @@ export class SwitchQuestion<T> extends QuestionBase<boolean> {
   labelFalse: string;
   iconFalse: string;
   iconTrue: string;
-  type: boolean;
+  type: string;
 
   constructor(options: SwitchQuestionProperties = { key: 'switch', label: 'make your choice' }) {
     super(options);
