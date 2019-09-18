@@ -51,7 +51,7 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
         label: 'venditore online',
         labelTrue: 'venditore fa ecommerce',
         labelFalse: ' venditore tradizionale',
-        iconnTrue: 'wifi',
+        iconTrue: 'wifi',
         iconFalse: 'cash',
         required: false,
         order: 4
