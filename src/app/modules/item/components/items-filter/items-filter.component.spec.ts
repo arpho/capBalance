@@ -92,6 +92,7 @@ describe('ItemsFilterComponent', () => {
     const questionNote = new QuestionBase<string>({
       order: 1,
       key: 'note',
+      label: '',
       filterFunction: filterFunctionNote
     })
     const fields = [questionNote, questionTitle]
@@ -140,6 +141,7 @@ describe('ItemsFilterComponent', () => {
     const questionNote = new QuestionBase<string>({
       order: 1,
       key: 'note',
+      label: '',
       filterFunction: filterFunctionNote
     })
     const fields = [questionNote, questionTitle]

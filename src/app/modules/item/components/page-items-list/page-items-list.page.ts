@@ -24,11 +24,13 @@ import { Router } from "@angular/router";
 export class PageItemsListComponent implements OnInit, OnChanges {
   // tslint:disable-next-line: variable-name
   @Input() items_list: ItemModelInterface[];
+  @Input() secondSpinner
   @Input() service: ItemServiceInterface;
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
+  public showSpinner2 = false;
 
   constructor(
     public alertCtrl: AlertController,
@@ -100,6 +102,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
       this.showSpinner = false;
+      this.showSpinner2 = changes.secondSpinner.currentValue
     }
     if (changes.filterFunction) {
       this.filterFunction = changes.filterFunction.currentValue;

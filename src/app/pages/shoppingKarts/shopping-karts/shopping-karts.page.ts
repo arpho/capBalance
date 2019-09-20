@@ -14,7 +14,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   ItemsList: ItemModelInterface[];
   filterLabel: string;
   filterString: string;
-  showGear: boolean;
+  secondSpinner: boolean;
   filterFields: any;
   filterFunction: (item: ItemModelInterface) => boolean;
   sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number =
@@ -47,7 +47,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   async ngOnInit() {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-         this.showGear = true
+         this.secondSpinner = true
          this.ItemsList = [];
          eventSuppliersListSnapshot.forEach(snap => {
           const kart = new ShoppingKartModel({ item: snap.val(), service: this.service })
@@ -55,6 +55,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
           kart.load()
           this.ItemsList.push(kart);
         });
+         this.secondSpinner = false
       });
     }
   }

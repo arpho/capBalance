@@ -1,7 +1,9 @@
 <p class="counter">{{ countItems() }}{{ dummyItem?.getCountingText() }}</p>
 
 <ion-list>
-  <div></div>
+  <div>
+    <ion-spinner name="Bubbles" [style.display]="showSpinner2?'block':'none'"></ion-spinner>
+  </div>
   <div class="spinner" [style.display]="showSpinner ? 'block' : 'none'">
     <div class="dot1"></div>
     <div class="dot2"></div>

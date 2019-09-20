@@ -1,8 +1,9 @@
 import { QuestionBase } from './question-base';
 import { QuestionProperties } from './questionproperties';
-
-export interface DropdownProperties extends QuestionProperties<any[]> {
-    options: any[]
+import { ComboValue } from './ComboValueinterface';
+// tslint:disable:semicolon
+export interface DropdownProperties extends QuestionProperties<ComboValue[]> {
+    options: ComboValue[]
 }
 
 export class DropdownQuestion extends QuestionBase<string> {
