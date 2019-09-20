@@ -35,7 +35,6 @@ export class QuestionFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes in form', changes)
   }
   get isValid() {
     return this.question ? this.form.controls[this.question.key].valid : false;

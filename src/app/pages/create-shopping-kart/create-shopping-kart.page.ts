@@ -172,6 +172,12 @@ export class CreateShoppingKartPage implements OnInit {
     } else {
       this.supplierFilterFunction = (item) => true
     }
+    if (ev.supplier) {
+      this.selectedSupplier(ev.supplier)
+    }
+    if (ev.payment) {
+      this.selectedPayment(ev.payment)
+    }
     this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
   }
   submit(ev) {
