@@ -23,7 +23,7 @@ export class QuestionBase<T> {
       this.neutralFilter
 
   constructor(
-    options: { key: string, label: string }|QuestionProperties<any>
+    options: QuestionProperties<any> | { key: string, label: string }
   ) {
     this.value = options["value"];
     this.key = options.key || "";

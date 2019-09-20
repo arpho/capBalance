@@ -5,7 +5,7 @@ export class GeoLocateQuestion extends QuestionBase<string> {
     controlType = 'geobox';
     type: string;
 
-    constructor(options: { key: string, label: string } | QuestionProperties<Coordinates>) {
+    constructor(options: QuestionProperties<Coordinates>| { key: string, label: string }) {
         super(options);
         // tslint:disable-next-line: no-string-literal
         this.type = options['type'] || '';

@@ -33,6 +33,7 @@
         [id]="question?.key"
          [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
           [sorterFunction]="supplierSorterFunction" [filterFunction]="supplierFilterFunction"
+          [item]="question?.value"
           (selectedItem)="question.selectedItem($event)" ></app-selector-items>
       
     </div>

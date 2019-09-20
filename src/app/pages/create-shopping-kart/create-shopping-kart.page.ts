@@ -42,6 +42,28 @@ export class CreateShoppingKartPage implements OnInit {
     public service: ShoppingKartsService,
   ) {
     this.kart = new ShoppingKartModel()
+
+
+  }
+
+  setTotal(total: number) {
+    this.kart.totale = total
+  }
+
+  async addPurchase() {
+    const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
+    modal.onDidDismiss().then((purchase) => {
+      const Purchase = purchase.data
+      this.kart.addItem(Purchase)
+    })
+    return await modal.present()
+  }
+
+
+  ngOnInit() {
+    this.kart = new ShoppingKartModel()
+    this.kart.fornitore = new SupplierModel()
+    this.kart.pagamento = new PaymentsModel()
     this.kartFields = [
       new TextboxQuestion({
         key: 'title',
@@ -73,7 +95,7 @@ export class CreateShoppingKartPage implements OnInit {
       }),
       new SelectorQuestion({
         key: 'supplier',
-        text: 'text Fornitore',
+        text: 'seleziona Fornitore',
         label: 'Fornitore',
         service: this.service.suppliersService,
         value: this.kart.fornitore,
@@ -81,7 +103,7 @@ export class CreateShoppingKartPage implements OnInit {
       }),
       new SelectorQuestion({
         key: 'payment',
-        text: 'text pagamento',
+        text: 'seleziona pagamento',
         label: 'Pagamento',
         service: this.service.paymentsService,
         required: true,
@@ -89,26 +111,6 @@ export class CreateShoppingKartPage implements OnInit {
 
       })
     ];
-
-
-  }
-
-  setTotal(total: number) {
-    this.kart.totale = total
-  }
-
-  async addPurchase() {
-    const modal = await this.modalCtrl.create({ component: CreatePurchasePage })
-    modal.onDidDismiss().then((purchase) => {
-      const Purchase = purchase.data
-      this.kart.addItem(Purchase)
-    })
-    return await modal.present()
-  }
-
-
-  ngOnInit() {
-    this.kart = new ShoppingKartModel()
     this.geo.getPosition().then(coords => {
       if (coords) {
         this.localPosition = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
