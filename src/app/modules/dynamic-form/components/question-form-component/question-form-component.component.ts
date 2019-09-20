@@ -5,18 +5,20 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  ɵConsole
-} from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
+  ɵConsole,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
-import { QuestionBase } from "../../models/question-base";
+import { QuestionBase } from '../../models/question-base';
 
 @Component({
-  selector: "app-question",
-  templateUrl: "./question-form-component.html",
+  selector: 'app-question',
+  templateUrl: './question-form-component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuestionFormComponent implements OnInit {
+export class QuestionFormComponent implements OnInit, OnChanges {
   public value: any;
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
@@ -27,9 +29,13 @@ export class QuestionFormComponent implements OnInit {
       ? this.form
       : new FormGroup({
         // I need an instance of formgroup for run the tests
-        name: new FormControl("turiddu"),
-        age: new FormControl("20")
+        name: new FormControl('turiddu'),
+        age: new FormControl('20')
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes in form', changes)
   }
   get isValid() {
     return this.question ? this.form.controls[this.question.key].valid : false;

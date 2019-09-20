@@ -32,7 +32,8 @@
         [formControlName]="question?.key"
         [id]="question?.key"
          [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
-          [sorterFunction]="supplierSorterFunction" [filterFunction]="supplierFilterFunction"
+          [sorterFunction]="question?.orterFunction"
+          [filterFunction]="question?.filterFunction"
           [item]="question?.value"
           (selectedItem)="question.selectedItem($event)" ></app-selector-items>
       

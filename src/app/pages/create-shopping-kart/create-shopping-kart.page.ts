@@ -59,22 +59,18 @@ export class CreateShoppingKartPage implements OnInit {
     return await modal.present()
   }
 
-
-  ngOnInit() {
-    this.kart = new ShoppingKartModel()
-    this.kart.fornitore = new SupplierModel()
-    this.kart.pagamento = new PaymentsModel()
-    this.kartFields = [
+  setFormFields(kart: ShoppingKartModel, filterFunction: (item: ItemModelInterface) => boolean) {
+    return [
       new TextboxQuestion({
         key: 'title',
         label: 'titolo spesa',
-        value: this.kart.title,
+        value: kart.title,
         order: 1
       }),
       new TextboxQuestion({
         key: 'note',
         label: 'note',
-        value: this.kart.note,
+        value: kart.note,
         order: 2
       }),
       new SwitchQuestion({
@@ -82,7 +78,7 @@ export class CreateShoppingKartPage implements OnInit {
         label: 'modalità di acquisto',
         labelTrue: 'acquisto online',
         labelFalse: ' acquisto di persona',
-        value: this.kart.online,
+        value: kart.online,
         required: false,
         order: 4
       }),
@@ -90,27 +86,36 @@ export class CreateShoppingKartPage implements OnInit {
         key: 'dataAcquisto',
         // tslint:disable-next-line: quotemark
         label: "data di acquisto",
-        value: this.kart.purchaseDate.formatDate(),
+        value: kart.purchaseDate.formatDate(),
         required: true
       }),
       new SelectorQuestion({
         key: 'supplier',
-        text: 'seleziona Fornitore',
+        text: ' Fornitore',
         label: 'Fornitore',
         service: this.service.suppliersService,
-        value: this.kart.fornitore,
+        filterFunction,
+        value: kart.fornitore,
         required: true
       }),
       new SelectorQuestion({
         key: 'payment',
-        text: 'seleziona pagamento',
+        text: 'Pagamento',
         label: 'Pagamento',
         service: this.service.paymentsService,
         required: true,
-        value: this.kart.pagamento
+        value: kart.pagamento
 
       })
     ];
+  }
+
+
+  ngOnInit() {
+    this.kart = new ShoppingKartModel()
+    this.kart.fornitore = new SupplierModel()
+    this.kart.pagamento = new PaymentsModel()
+    this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
     this.geo.getPosition().then(coords => {
       if (coords) {
         this.localPosition = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
@@ -167,6 +172,7 @@ export class CreateShoppingKartPage implements OnInit {
     } else {
       this.supplierFilterFunction = (item) => true
     }
+    this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
   }
   submit(ev) {
     this.showSpinner = true

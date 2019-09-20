@@ -93,7 +93,6 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('selectorItems changes',changes)
     if (changes.sorterFunction) {
       this.sorterFunction = changes.sorterFunction.currentValue
     }
