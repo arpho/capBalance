@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
@@ -35,6 +35,7 @@ export class CreateShoppingKartPage implements OnInit {
   textSelectPayment = 'Pagamento'
   localPosition: { latitude: number, longitude: number }
   constructor(
+    public toastCtrl: ToastController,
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
     public geo: GeoService,
@@ -48,6 +49,7 @@ export class CreateShoppingKartPage implements OnInit {
 
   setTotal(total: number) {
     this.kart.totale = total
+    this.showToast(`totale: ${total}`)
   }
 
   async addPurchase() {
@@ -108,6 +110,16 @@ export class CreateShoppingKartPage implements OnInit {
 
       })
     ];
+  }
+
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'top'
+    })
+    toast.present()
+
   }
 
 
