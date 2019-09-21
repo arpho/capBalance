@@ -42,7 +42,7 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
   @Output() selectedItem: EventEmitter<ItemModelInterface> = new EventEmitter()
   @Input() filterFunction: (item: ItemModelInterface) => boolean
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
-  @Input() formControlName: string
+  // @Input() formControlName: string
 
   @HostBinding('attr.id')
   externalId = '';

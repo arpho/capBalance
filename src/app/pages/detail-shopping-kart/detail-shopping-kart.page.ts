@@ -1,6 +1,6 @@
 // tslint:disable: semicolon
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { GeoService } from 'src/app/modules/geo-location/services/geo-service';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
@@ -38,6 +38,7 @@ export class DetailShoppingKartPage implements OnInit {
   localPosition: { latitude: number, longitude: number }
 
   constructor(
+    public toastCtrl: ToastController,
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
     public geo: GeoService,
@@ -110,6 +111,15 @@ export class DetailShoppingKartPage implements OnInit {
 
 
   }
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'top'
+    })
+    toast.present()
+
+  }
 
   async submit(ev: any) {
     // TODO: sostituire any con un tipo definito
@@ -156,6 +166,7 @@ export class DetailShoppingKartPage implements OnInit {
 
   setTotal(tot: number) {
     this.kart.totale = tot
+    this.showToast(`totale: ${tot}`)
   }
 
   async selectedSupplier(supplier: SupplierModel) {

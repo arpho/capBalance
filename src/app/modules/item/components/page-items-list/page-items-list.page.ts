@@ -99,7 +99,9 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.showSpinner2 = changes.secondSpinner.currentValue
+    if (changes.secondSpinner) {
+      this.showSpinner2 = changes.secondSpinner.currentValue
+    }
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
       this.showSpinner = false;

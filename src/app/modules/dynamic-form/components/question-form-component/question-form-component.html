@@ -27,6 +27,7 @@
     <div *ngSwitchCase="'itemSelector'"
     [formControlName]="question?.key"
     [id]="question?.key"
+    ngDefaultControl
     >
         <app-selector-items
         [formControlName]="question?.key"
