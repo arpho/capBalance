@@ -14,6 +14,7 @@ import { access } from 'fs';
 export class ItemsFilterComponent implements OnInit {
   @Input() filterFields: Array<QuestionBase<any>>
   @Output() filterSet: EventEmitter<{}> = new EventEmitter()
+  @Output() filterFunction: EventEmitter<(item: ItemModelInterface) => boolean> = new EventEmitter()
 
   constructor(public modal: ModalController) { }
 
@@ -23,11 +24,12 @@ export class ItemsFilterComponent implements OnInit {
     const modal = await this.modal.create({ component: FilterPopupPage, componentProps: { filterFields: this.filterFields } })
     modal.onDidDismiss().then(data => {
       this.filterSet.emit(data.data)
+      this.filterFunction.emit(this.filterFactory(data.data, this.filterFields))
     })
     return await modal.present()
   }
   filterFactory = (filterSettings: {}, fields: Array<QuestionBase<any>>) => {
-    const questionMapper = (question: any) => question.filterFactory(filterSettings)
+    const questionMapper = (question: QuestionBase<any>) => question.filterFactory(filterSettings)
     const filterFunctionReducer = (acc: (item: ItemModelInterface) => boolean, currentFunction: (item: ItemModelInterface) => boolean) =>
       (item: ItemModelInterface) => acc(item) && currentFunction(item)
 

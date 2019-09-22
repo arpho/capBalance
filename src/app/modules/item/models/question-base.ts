@@ -1,3 +1,5 @@
+// tslint:disable:semicolon
+import { ItemModelInterface } from '../models/itemModelInterface'
 export class QuestionBase<T> {
     value: T;
     key: string;
@@ -15,7 +17,7 @@ export class QuestionBase<T> {
         controlType?: string,
         labelTrue?: string,
         labelFalse?: string,
-    } ) {
+    }) {
         this.value = options.value;
         this.key = options.key || '';
         this.label = options.label || '';
@@ -28,5 +30,9 @@ export class QuestionBase<T> {
                 this[key] = options[key];
             }
         }
+    }
+    filterFactory() {
+        // tslint:disable-next-line: no-string-literal
+        return this['filterFunction'] || ((item: ItemModelInterface) => Boolean)
     }
 }

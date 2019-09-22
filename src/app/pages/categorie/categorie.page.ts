@@ -1,8 +1,10 @@
+// tslint:disable:semicolon
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../../services/categories/categorie.service';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
+import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 
 @Component({
   selector: 'app-categorie',
@@ -21,27 +23,23 @@ export class CategoriePage implements OnInit {
       new TextboxQuestion({
         key: 'title',
         label: 'Filtra per categoria',
-        filterFunction: (value: string, category: CategoryModel) => category.title.toUpperCase().includes(value.toLocaleUpperCase()),
+        filterFunction: (value: string, category: CategoryModel) => category.title.toUpperCase().includes(value.toUpperCase()),
         order: 1
       }),
-      new TextboxQuestion({
+      new SelectorQuestion({
         key: 'father',
-        label: 'Filtra per categoria',
-        // value: 'Bombasto',
-        order: 1
+        label: 'categoria origine',
+        text: ' categoria origine',
+        service: this.categories,
+        // filterFunction: (value: CategoryModel, category: CategoryModel) => value.father ? value.father.key === category.key : false,
+        required: false
       }),
     ];
   }
 
 
-  filter(event) {
-    const filterTitle = event.title ?
-      (item: ItemModelInterface) => item.title.toLowerCase().indexOf(event.title.toLowerCase()) !== -1 :
-      (item: ItemModelInterface) => true; // se non filtro il campo title prendo tutto
-    const filterNote = event.note ? (item: ItemModelInterface) => item.note.toLowerCase().indexOf(event.note.toLowerCase()) !== -1 :
-      (item: ItemModelInterface) => true;
-    const out = (item: ItemModelInterface) => filterNote(item) && filterTitle(item);
-    return out;
+  setFilter(ev: (item: ItemModelInterface) => boolean) {
+    this.filterFunction = ev
   }
 
   searchFunctionFactory(v): (item: ItemModelInterface) => boolean {
