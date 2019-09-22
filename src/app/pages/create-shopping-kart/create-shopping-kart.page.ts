@@ -97,6 +97,7 @@ export class CreateShoppingKartPage implements OnInit {
         label: 'Fornitore',
         service: this.service.suppliersService,
         filterFunction,
+        sorterFunction:this.supplierSorterFunction,
         value: kart.fornitore,
         required: true
       }),
@@ -125,8 +126,8 @@ export class CreateShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = new ShoppingKartModel()
-    this.kart.fornitore = new SupplierModel()
-    this.kart.pagamento = new PaymentsModel()
+   /*  this.kart.fornitore = new SupplierModel()
+    this.kart.pagamento = new PaymentsModel() */
     this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
     this.geo.getPosition().then(coords => {
       if (coords) {
