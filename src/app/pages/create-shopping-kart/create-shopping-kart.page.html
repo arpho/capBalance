@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content>
-  <app-dynamic-form [questions]="kartFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)">
+  <app-dynamic-form [questions]="kartFields" (interactiveSubmit)="filter($event)" (singleSubmit)="submit($event)"
+  (Form)="setForm($event)"
+  >
   </app-dynamic-form>
 
   <ion-button (click)="addPurchase()">

@@ -17,6 +17,7 @@ import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
+import { FormGroup } from '@angular/forms';
 // tslint:disable: semicolon
 @Component({
   selector: 'app-create-shopping-kart',
@@ -29,6 +30,7 @@ export class CreateShoppingKartPage implements OnInit {
   supplierSorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   kart: ShoppingKartModel
   kartFields: any
+  Form: FormGroup
   categoryColor = 'blue'
   categoryIcon = 'pricetag'
   textSelectSupplier = 'Fornitore'
@@ -97,7 +99,7 @@ export class CreateShoppingKartPage implements OnInit {
         label: 'Fornitore',
         service: this.service.suppliersService,
         filterFunction,
-        sorterFunction:this.supplierSorterFunction,
+        sorterFunction: this.supplierSorterFunction,
         value: kart.fornitore,
         required: true
       }),
@@ -126,8 +128,6 @@ export class CreateShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = new ShoppingKartModel()
-   /*  this.kart.fornitore = new SupplierModel()
-    this.kart.pagamento = new PaymentsModel() */
     this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
     this.geo.getPosition().then(coords => {
       if (coords) {
@@ -177,21 +177,29 @@ export class CreateShoppingKartPage implements OnInit {
     }
   }
 
-  filter(ev) {
-    if (ev.ecommerce) {
-      this.supplierFilterFunction = (item: SupplierModel) => {
-        return item.ecommerce
+  setForm(form: FormGroup) {
+    this.Form = form
+    // tslint:disable-next-line: no-string-literal
+    this.Form.controls['ecommerce'].valueChanges.subscribe(ev => {
+      if (ev) {
+        this.supplierFilterFunction = (item: SupplierModel) => {
+          return item.ecommerce
+        }
+      } else {
+        this.supplierFilterFunction = (item) => true
       }
-    } else {
-      this.supplierFilterFunction = (item) => true
-    }
+      this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
+    })
+    console.log('set form', form)
+  }
+
+  filter(ev) {
     if (ev.supplier) {
       this.selectedSupplier(ev.supplier)
     }
     if (ev.payment) {
       this.selectedPayment(ev.payment)
     }
-    this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
   }
   submit(ev) {
     this.showSpinner = true

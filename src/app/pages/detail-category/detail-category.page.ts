@@ -1,3 +1,4 @@
+// tslint:disable:semicolon
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController, NavController, ToastController } from '@ionic/angular';
 import { CategoryModel } from 'src/app/models/CategoryModel';
@@ -25,6 +26,8 @@ export class DetailCategoryPage implements OnInit {
   ) {
   }
   filter(ev: {}) {
+    // tslint:disable-next-line: no-string-literal
+    this.category.title = ev['category']
   }
   async submit(ev: {}) {
     // tslint:disable-next-line: no-string-literal
@@ -76,7 +79,7 @@ export class DetailCategoryPage implements OnInit {
       text: ' categoria origine',
       value: this.category.father,
       service: this.service,
-      required: true
+      required: false
     })];
   }
 

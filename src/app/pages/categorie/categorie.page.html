@@ -7,12 +7,10 @@
       ></ion-back-button>
     </ion-buttons>
    
-    <ion-title>categorie</ion-title>
+    <ion-title>Categorie</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <!--app-dynamic-form [questions]="filterFields" (interactiveSubmit)="filterFunction=filter($event)"></app-dynamic-form-->
   <app-page-items-list [items_list]="CategoriesList" [service]="categories" [filterFunction]="filterFunction"></app-page-items-list>
 </ion-content>
