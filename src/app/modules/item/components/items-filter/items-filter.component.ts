@@ -1,11 +1,11 @@
-// tslint:disable:semicolon
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FilterPopupPage } from '../../pages/filter-popup/filter-popup.page';
-import { QuestionBase } from '../../models/question-base';
+import { QuestionBase } from '../../../dynamic-form/models/question-base';
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { access } from 'fs';
-
+// tslint:disable:semicolon
 @Component({
   selector: 'app-items-filter',
   templateUrl: './items-filter.component.html',

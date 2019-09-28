@@ -1,4 +1,4 @@
-import { QuestionBase } from './question-base';
+import { QuestionBase } from '../../dynamic-form/models/question-base';
 import { DropdownProperties } from '../../dynamic-form/models/question-dropdown';
 
 export class DropdownQuestion extends QuestionBase<string> {

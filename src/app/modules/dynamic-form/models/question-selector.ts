@@ -1,4 +1,4 @@
-import { QuestionBase } from '../../item/models/question-base';
+import { QuestionBase } from '../../item/models/question-base.old';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { SelectorProperties } from '../../item/models/selectorItemsProperties';
 import { ItemModule } from '../../item/item.module';

@@ -1,4 +1,4 @@
-import { QuestionBase } from './question-base';
+import { QuestionBase } from './question-base.old';
 import { QuestionProperties } from '../../dynamic-form/models/questionproperties';
 // tslint:disable:semicolon
 export interface SwitchProperties extends QuestionProperties<boolean> {

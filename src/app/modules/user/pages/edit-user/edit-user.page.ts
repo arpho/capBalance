@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from '../../models/userModel';
 import { UsersService } from '../../services/users.service';
-import { QuestionBase } from 'src/app/modules/item/models/question-base';
+import { QuestionBase } from 'src/app/modules/item/models/question-base.old';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';
@@ -10,6 +10,7 @@ import { DateModel } from '../../models/birthDateModel';
 import { DropdownQuestion } from 'src/app/modules/dynamic-form/models/question-dropdown';
 import { configs } from 'src/app/configs/configs';
 import { RoleModel } from '../../models/privilegesLevelModel';
+import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 
 @Component({
   selector: 'app-edit-user',
@@ -52,7 +53,7 @@ export class EditUserPage implements OnInit {
       this.currentUser.firstName && this.currentUser.lastName
         ? `${this.currentUser.firstName} ${this.currentUser.lastName}`
         : this.currentUser.email;
-    const questions: QuestionBase<any>[] = [
+    const questions: any[] = [
       new TextboxQuestion({
         key: 'firstName',
         label: 'nome',
@@ -101,6 +102,7 @@ export class EditUserPage implements OnInit {
     user.key = this.currentUser.key;
     user.privileges = configs.accessLevel.filter((r: RoleModel) => {
       // tslint:disable: triple-equals
+      // tslint:disable-next-line: no-unused-expression
       r.value == this.currentUser.level;
     })[0];
     console.log('updating user', user);

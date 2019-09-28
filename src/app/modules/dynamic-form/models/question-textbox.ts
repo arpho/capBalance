@@ -5,7 +5,7 @@ export class TextboxQuestion extends QuestionBase<string> {
     controlType = 'textbox';
     type: string;
 
-    constructor(options: QuestionProperties<string> | { key: string, label: string }) {
+    constructor(options: QuestionProperties<string> | { key: string, label: string, type: 'string' }) {
         super(options);
         // tslint:disable-next-line: no-string-literal
         this.type = options['type'] || '';

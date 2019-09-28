@@ -1,5 +1,5 @@
 // tslint:disable:semicolon
-import { ItemModelInterface } from '../models/itemModelInterface'
+import { ItemModelInterface } from './itemModelInterface'
 export class QuestionBase<T> {
     value: T;
     key: string;
@@ -7,6 +7,7 @@ export class QuestionBase<T> {
     required: boolean;
     order: number;
     controlType: string;
+    filterFunction: (item: ItemModelInterface) => boolean
 
     constructor(options: {
         value?: T,
@@ -33,6 +34,11 @@ export class QuestionBase<T> {
     }
     filterFactory() {
         // tslint:disable-next-line: no-string-literal
-        return this['filterFunction'] || ((item: ItemModelInterface) => Boolean)
+        if (this['filterFunction']) {
+            // tslint:disable-next-line: no-string-literal
+            return this['filterFunction']
+        } else {
+            return (item: ItemModelInterface) => true
+        }
     }
 }

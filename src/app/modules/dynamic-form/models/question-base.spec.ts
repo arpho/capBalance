@@ -39,6 +39,6 @@ describe("testing filterFunction", () => {
     it('filterFactory should return neutralFilter', () => {
         const filter = question.filterFactory({ test: '' })
 
-        expect(filter('abc')).toBe(true)
+        expect(filter(new CategoryModel())).toBe(true)
     })
 })

@@ -1,4 +1,5 @@
-import { QuestionBase } from './question-base';
+import { QuestionBase } from './question-base.old';
+// tslint:disable-next-line: semicolon
 import { QuestionProperties } from '../../dynamic-form/models/questionproperties'
 
 export class TextboxQuestion extends QuestionBase<string> {
