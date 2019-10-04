@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from '../../models/userModel';
 import { UsersService } from '../../services/users.service';
-import { QuestionBase } from 'src/app/modules/item/models/question-base.old';
+import { QuestionBase } from '../../../dynamic-form/models/question-base';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';

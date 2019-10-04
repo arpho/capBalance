@@ -11,7 +11,7 @@ export class QuestionBase<T> {
   label: string;
   required: boolean;
   order: number;
-  type: string
+  type: string|ItemModelInterface
   controlType: string;
   iconTrue: string;
   iconFalse: string;

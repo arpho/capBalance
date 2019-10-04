@@ -1,4 +1,4 @@
-import { QuestionBase } from './question-base.old';
+import { QuestionBase } from '../../dynamic-form/models/question-base';
 // tslint:disable-next-line: semicolon
 import { QuestionProperties } from '../../dynamic-form/models/questionproperties'
 
