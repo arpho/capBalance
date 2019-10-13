@@ -3,7 +3,7 @@
 // tslint:disable: no-string-literal
 import { ItemModelInterface } from '../../item/models/itemModelInterface';
 import { QuestionProperties } from './questionproperties';
-import { Options } from 'selenium-webdriver';
+//import { Options } from 'selenium-webdriver';
 
 export class QuestionBase<T> {
   value: T;
@@ -44,7 +44,7 @@ export class QuestionBase<T> {
     this.filterFunction = options['filterFunction'] || this.neutralFilter;
   }
   filterFactory =  (options: {}) => {
-return Options[this.key] ? (item: ItemModelInterface) =>
+return options[this.key] ? (item: ItemModelInterface) =>
      this.filterFunction(item, options[this.key]) : this.neutralFilter
 
     // return this['filterFunction'] ? this['filterFunction'] : (item: ItemModelInterface, value: any) => true

@@ -37,3 +37,7 @@ platforms
 .firebase/hosting.d3d3.cache
 
 *.cache
+
+package-lock.json
+
+package.skecth.json

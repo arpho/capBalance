@@ -1,6 +1,6 @@
 {
   "name": "capBalance",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "ArphoSolutions",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -27,11 +27,9 @@
     "@capacitor/android": "^1.1.0",
     "@capacitor/cli": "1.1.0",
     "@capacitor/core": "1.0.0",
-    "@ionic-native/barcode-scanner": "^5.13.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
-    "@ionic/angular": "^4.1.0",
     "@ionic/storage": "^2.2.0",
     "@ngrx/effects": "^7.4.0",
     "@ngrx/store": "^7.4.0",
@@ -39,12 +37,12 @@
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
     "firebase-admin": "^8.1.0",
-    "ionic-angular": "^3.9.6",
     "ionic-tooltips": "^3.1.0",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.29"
+    "zone.js": "~0.8.29",
+    "@ionic/angular": "^4.7.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.13.8",
