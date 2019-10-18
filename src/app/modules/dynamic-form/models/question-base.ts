@@ -45,9 +45,8 @@ export class QuestionBase<T> {
   }
   filterFactory =  (options: {}) => {
 return options[this.key] ? (item: ItemModelInterface) =>
-     this.filterFunction(item, options[this.key]) : this.neutralFilter
+     this.filterFunction( options[this.key],item) : this.neutralFilter
 
-    // return this['filterFunction'] ? this['filterFunction'] : (item: ItemModelInterface, value: any) => true
   }
 
 

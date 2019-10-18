@@ -6,7 +6,7 @@ import { MockCategoriesService } from 'src/app/models/mockers/mockCategoriesServ
 // tslint:disable-next-line: quotemark
 describe("testing filterFunction", () => {
     const filterFunction = (value: string, item: CategoryModel) => {
-        return item.title.includes(value)
+        return item && item.title ? item.title.includes(value) : false
     }
     const question = new QuestionBase<string>({ order: 0, key: 'test', label: 'test', value: 'text to be tested', filterFunction })
     it('filterfunction is defined', () => {
@@ -17,6 +17,7 @@ describe("testing filterFunction", () => {
         const cat = new CategoryModel('alimenti', new MockCategoriesService())
         cat.load()
         const filterFunction2testTrue = question.filterFactory(options)
+        
         expect(filterFunction2testTrue(cat)).toBeTruthy()
         options.test = 'veg'
         const filterFunction2testFalse = question.filterFactory(options)
