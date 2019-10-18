@@ -26,7 +26,7 @@ describe('testing Payment model', () => {
         })
         it('key should be correct', () => {
             // tslint:disable-next-line: no-string-literal
-            expect(Payment.serialize()['key']).toBe('123')
+            expect(Payment.serialize()['key']).toBeUndefined
         })
 
         it('note should be correct', () => {

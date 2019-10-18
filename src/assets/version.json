@@ -1,7 +1,9 @@
 {
-    "version": "1.1.7.7",
+    "version": "1.1.8",
     "name":"CapBalance",
     "features": [
+        "payments update",
+        "bugs fixed",
         "bugs fixed on form",
         "a toast is showed when the total changes",
         "shopping  kart page has been cleaned",
