@@ -203,8 +203,8 @@ export class PaymentsModel implements ItemModelInterface {
     serialize() {
         return {
             title: this.title || '',
-            addebito: this.addebito || '', note: this.note || '',
-            key: this.key
+            addebito: this.addebito || '',
+            note: this.note || '',
         };
 
     }
