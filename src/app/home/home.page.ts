@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ShoppingKartModel } from '../models/shoppingKartModel';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(public modalCtrl:ModalController) {}
+
+  async addShoppingKart(){
+    const modal = await this.modalCtrl.create({ component: new ShoppingKartModel().getCreatePopup() })
+    return await modal.present()
+
+  }
 
 }
