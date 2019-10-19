@@ -21,7 +21,7 @@ export class DetailPaymentPage implements OnInit {
       this.titolo = `dettaglio ${this.payment.title}`
 
       this.paymentsFields = [
-        new TextboxQuestion({ key: 'titolo', label: 'nome del pagamento', value: this.payment.title, required: true }),
+        new TextboxQuestion({ key: 'title', label: 'nome del pagamento', value: this.payment.title, required: true }),
         new TextboxQuestion({ key: 'note', label: 'note', value: this.payment.note }),
         new TextboxQuestion({ key: 'addebito', label: 'codice addebito', value: this.payment.addebito })
       ]
@@ -47,9 +47,7 @@ export class DetailPaymentPage implements OnInit {
     toast.present().finally(args.next)
   }
   submit(ev) {
-    console.log('submit', ev)
     Object.assign(this.payment, ev)
-    console.log('payment to update', this.payment)
     const next = () => {
       return this.dismiss()
     }
