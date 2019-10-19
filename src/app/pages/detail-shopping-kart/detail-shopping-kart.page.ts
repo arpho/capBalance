@@ -35,7 +35,7 @@ export class DetailShoppingKartPage implements OnInit {
   textSelectPayment = 'Pagamento'
   categoryIcon = 'eye'
   categoryColor = 'blue'
-  localPosition: { latitude: number, longitude: number }
+  position: { latitude: number, longitude: number }
 
   constructor(
     public toastCtrl: ToastController,
@@ -51,6 +51,10 @@ export class DetailShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = this.navParams.get('item')
+    this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
+      return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
+        this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
+    }
 
     if (this.kart) {
       this.kart.load()
@@ -100,6 +104,7 @@ export class DetailShoppingKartPage implements OnInit {
           key: 'supplier',
           required: true,
           text: this.textSelectSupplier,
+          sorterFunction: this.supplierSorterFunction,
           service: this.service.suppliersService
           ,
           value: this.kart ? this.kart.fornitore : new SupplierModel()
