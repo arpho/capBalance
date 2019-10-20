@@ -33,7 +33,6 @@ export class PaymentsService implements ItemServiceInterface {
   }
 
   createItem(item: ItemModelInterface) {
-    console.log('payment',item.serialize())
     return this.paymentsListRef.push(item.serialize());
 
   }

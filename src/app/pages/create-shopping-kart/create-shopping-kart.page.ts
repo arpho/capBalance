@@ -26,6 +26,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class CreateShoppingKartPage implements OnInit {
   showSpinner = false
+  public position = { latitude: 0, longitude: 0 };
   supplierFilterFunction: (item: ItemModelInterface) => boolean
   supplierSorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   kart: ShoppingKartModel
@@ -45,6 +46,10 @@ export class CreateShoppingKartPage implements OnInit {
     public service: ShoppingKartsService,
   ) {
     this.kart = new ShoppingKartModel()
+    this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
+      return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
+        this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
+    }
 
 
   }

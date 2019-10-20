@@ -205,6 +205,7 @@ export class PaymentsModel implements ItemModelInterface {
             title: this.title || '',
             addebito: this.addebito || '',
             note: this.note || '',
+            key: this.key || ''
         };
 
     }

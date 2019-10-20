@@ -50,7 +50,7 @@ export class SankeyPage implements OnInit {
       columnNames: ['From', 'To', 'Toale spesa'],
       options: {
         width: 300,
-        height: 250
+        height: 500
       }
     };
     if (this.service.getEntitiesList()) {
@@ -95,7 +95,7 @@ export class SankeyPage implements OnInit {
       acc += currentKart.totale
       return acc
     }
-    const totaleSpesa = Math.round(this.karts.filter(filterFunction).reduce(calcolaTotale, 0) * 100) / 100
+    const totaleSpesa = this.karts ? Math.round(this.karts.filter(filterFunction).reduce(calcolaTotale, 0) * 100) / 100 : 0
     // estrae la lista degli acquisti di ogni carrello
     const mappKart2Purchse = (kart: ShoppingKartModel) => kart.items
     const flattener = (acc: any, el: any) => {
@@ -154,14 +154,12 @@ export class SankeyPage implements OnInit {
   }
 
   filter(ev) {
-    console.log('filtering', ev);
 
   }
 
 
 
   submit(ev: { dataInizio: string, dataFine: string, entity: string }) {
-    console.log('submit', ev)
     const data2Graph = this.extractData(this.dateFilterFactory({
       dataInizio: new Date(ev.dataInizio),
       dataFine: new Date(ev.dataFine)
