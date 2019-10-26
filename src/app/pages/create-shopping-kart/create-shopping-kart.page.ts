@@ -195,7 +195,6 @@ export class CreateShoppingKartPage implements OnInit {
       }
       this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction)
     })
-    console.log('set form', form)
   }
 
   filter(ev) {

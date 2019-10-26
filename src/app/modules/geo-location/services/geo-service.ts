@@ -67,11 +67,15 @@ export class GeoService {
 
     const options: GeolocationOptions = {};
     options.enableHighAccuracy = true;
+    // set 5 min timeout
     if (this.setTimeout(300000)) {
       this.oldLocation = await Geolocation.getCurrentPosition(options);
       return this.oldLocation;
     } else {
-      return this.oldLocation;
+      const promise = new Promise((resolve, reject) => {
+        resolve({ coords: this.oldLocation })
+      })
+      return promise;
     }
   }
 }

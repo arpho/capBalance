@@ -14,15 +14,15 @@ import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.s
 export class HomePage {
 
   constructor(
-    public modalCtrl:ModalController,
+    public modalCtrl: ModalController,
     // initializing services, no good way
     public categories: CategoriesService,
-    public suppliers:SuppliersService,
-    public payments:PaymentsService,
-    public shoppingkarts:ShoppingKartsService
-    ) {}
+    public suppliers: SuppliersService,
+    public payments: PaymentsService,
+    public shoppingkarts: ShoppingKartsService
+  ) { }
 
-  async addShoppingKart(){
+  async addShoppingKart() {
     const modal = await this.modalCtrl.create({ component: new ShoppingKartModel().getCreatePopup() })
     return await modal.present()
 
