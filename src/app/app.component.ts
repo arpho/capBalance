@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase/app';
 import { InfoService } from './modules/info/services/info/info.service';
 import { Router } from '@angular/router';
+import { CategoriesService } from './services/categories/categorie.service';
 
 @Component({
   selector: 'app-root',
@@ -55,11 +56,13 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private info: InfoService,
-    private router: Router
+    private router: Router,
+    // private categoriesService:CategoriesService
   ) {
     this.initializeApp();
     if (!firebase.apps.length) {
       firebase.initializeApp(configs.firebase);
+      // const  cat = this.categoriesService.getDummyItem();
     }
   }
 

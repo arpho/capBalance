@@ -12,7 +12,7 @@ const { Geolocation } = Plugins;
 })
 export class GeoService {
   private timeoutExpired: boolean;
-  private oldLocation: GeolocationPosition;
+  private oldLocation: any;
 
 
   constructor(public http: HttpClient) {

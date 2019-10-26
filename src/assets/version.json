@@ -1,7 +1,8 @@
 {
-    "version": "1.1.8.2",
+    "version": "1.1.8.4",
     "name":"CapBalance",
     "features": [
+        "bug fixing",
         "sorting supplier by distance",
         "shortcut to create shopping kart",
         "payments update",
@@ -18,7 +19,7 @@
         "refactoring piechart",
         "can create new categories",
         "bug fixed",
-        "full text search in categoeies selectors'",
+        "full text search in categories selectors'",
         "bug fixed",
         "manage suppliers",
         "manage payment's kind",
