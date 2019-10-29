@@ -96,9 +96,7 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
 
   async ngOnInit() {
     this.geo.getPosition().then(coords => {
-      console.log('got position',coords)
       this.position = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
-      console.log('position set',this.position)
       this.sorterFunction = (a: SupplierModel, b: SupplierModel) => {
         return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
           this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
