@@ -11,11 +11,7 @@ export class CategoriesService implements ItemServiceInterface {
   public categoriesListRef: firebase.database.Reference;
 
   constructor() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`);
-      }
-    });
+    
 
   }
 
