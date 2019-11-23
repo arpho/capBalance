@@ -42,6 +42,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     const filterNote = (value: string, item: ShoppingKartModel) => item.note ? item.note.toUpperCase().includes(value.toUpperCase()) : false
     const filterOnline = (value, item: ShoppingKartModel) => item.online == value
     const filterAfterDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() >= new Date(value) : false
+    const filterBeforeDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() <= new Date(value) : false
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
@@ -72,7 +73,14 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         label: " acquistato dopo",
         // value: kart.purchaseDate.formatDate(),
         filterFunction: filterAfterDate,
+        order: 4
       }),
+      new DateQuestion({
+        key: 'dateBefore',
+        label: "acquistato prima",
+        filterFunction: filterBeforeDate,
+        order: 5
+      })
     ];
   }
 
