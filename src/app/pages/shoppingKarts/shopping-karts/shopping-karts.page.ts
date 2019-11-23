@@ -36,21 +36,21 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   }
 
   constructor(public service: ShoppingKartsService) {
-    const filterDescription = (value: string, item: ShoppingKartModel) => {
-      return (item.title) ? item.title.toUpperCase().includes(value.toUpperCase()) : true // i vecchi acquisti non hanno il campo title
-    }
+    const filterDescription = (value: string, item: ShoppingKartModel) =>
+      (item.title) ? item.title.toUpperCase().includes(value.toUpperCase()) : true // i vecchi acquisti non hanno il campo title
+    const filterNote = (value:string,item:ShoppingKartModel)=> item.note? item.note.toUpperCase().includes(value.toUpperCase()):false
+    const filterOnline = (value, item: ShoppingKartModel) => item.online == value
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
         label: 'filtra per descrizione',
         filterFunction: filterDescription,
-        // value: 'Bombasto',
         order: 1
       }),
       new TextboxQuestion({
         key: 'note',
         label: 'filtra per note',
-        // value: 'Bombasto',
+        filterFunction:filterNote,
         order: 2
       }),
       new SwitchQuestion({
@@ -61,6 +61,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         iconTrue: 'wifi',
         iconFalse: 'person',
         required: false,
+        filterFunction: filterOnline,
         order: 4
       })
     ];
@@ -68,7 +69,6 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
 
   setFilterFunction(filter) {
     this.filterFunction = filter
-    console.log('filterFunction set', filter)
   }
   async loadKart(snap) {
     const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
@@ -93,7 +93,6 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   }
 
   filter(ev) {
-    console.log('filter set', ev)
   }
 
   viewGraps() {
