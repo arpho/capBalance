@@ -6,6 +6,7 @@ import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { runInThisContext } from 'vm';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
+import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -38,8 +39,9 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   constructor(public service: ShoppingKartsService) {
     const filterDescription = (value: string, item: ShoppingKartModel) =>
       (item.title) ? item.title.toUpperCase().includes(value.toUpperCase()) : true // i vecchi acquisti non hanno il campo title
-    const filterNote = (value:string,item:ShoppingKartModel)=> item.note? item.note.toUpperCase().includes(value.toUpperCase()):false
+    const filterNote = (value: string, item: ShoppingKartModel) => item.note ? item.note.toUpperCase().includes(value.toUpperCase()) : false
     const filterOnline = (value, item: ShoppingKartModel) => item.online == value
+    const filterAfterDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() >= new Date(value) : false
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
@@ -50,7 +52,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
       new TextboxQuestion({
         key: 'note',
         label: 'filtra per note',
-        filterFunction:filterNote,
+        filterFunction: filterNote,
         order: 2
       }),
       new SwitchQuestion({
@@ -62,8 +64,15 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         iconFalse: 'person',
         required: false,
         filterFunction: filterOnline,
-        order: 4
-      })
+        order: 3
+      }),
+      new DateQuestion({
+        key: 'dateAfter',
+        // tslint:disable-next-line: quotemark
+        label: " acquistato dopo",
+        // value: kart.purchaseDate.formatDate(),
+        filterFunction: filterAfterDate,
+      }),
     ];
   }
 
@@ -92,7 +101,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     }
   }
 
-  filter(ev) {
+  filter(fileds) {
+    console.log('filter fields', fileds)
   }
 
   viewGraps() {
