@@ -212,12 +212,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     async load(next?: () => void) {
-        /*   this.service.getItem(this.key).on('value', (kart) => {
-               if (kart.val()) {
-                   // carico i valori
-                   this.build(kart.val())
-               }
-           })*/
+        
         // items  loaded and categories instantiated but not loaded
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.suppliersService)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.paymentsService)

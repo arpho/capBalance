@@ -36,6 +36,7 @@ export class DetailShoppingKartPage implements OnInit {
   categoryIcon = 'eye'
   categoryColor = 'blue'
   position: { latitude: number, longitude: number }
+  title: string
 
   constructor(
     public toastCtrl: ToastController,
@@ -57,7 +58,10 @@ export class DetailShoppingKartPage implements OnInit {
     }
 
     if (this.kart) {
-      this.kart.load()
+      this.kart.load().finally(() => {
+        this.title = `${this.kart.title} ${this.kart.moneta} ${this.kart.totale}`
+
+      })
     }
     this.kartFields = [
       new TextboxQuestion({
@@ -170,8 +174,8 @@ export class DetailShoppingKartPage implements OnInit {
   }
 
   setTotal(tot: number) {
-    this.kart.totale = tot
-    this.showToast(`totale: ${tot}`)
+    this.kart.totale = Math.round(tot * 100) / 100
+    this.title = `${this.kart.title} ${this.kart.moneta} ${tot}`
   }
 
   async selectedSupplier(supplier: SupplierModel) {

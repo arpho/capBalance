@@ -55,7 +55,7 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   setTotal(total: number) {
-    this.kart.totale = Math.round(total/100)*100
+    this.kart.totale = Math.round(total*100)/100
     this.title = `nuovo carrello ${this.kart.moneta} ${this.kart.totale} `
   }
 
