@@ -4,6 +4,8 @@ import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterfa
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { runInThisContext } from 'vm';
+import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
+import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -27,16 +29,46 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
 
   compareDate = (a: Date, b: Date) => a > b ? -1 : a < b ? 1 : 0
 
-  filter() {
-    throw new Error('Method not implemented.');
-  }
+
 
   createItem() {
     throw new Error('Method not implemented.');
   }
 
   constructor(public service: ShoppingKartsService) {
-    this.filterFields = []
+    const filterDescription = (value: string, item: ShoppingKartModel) => {
+      return (item.title) ? item.title.toUpperCase().includes(value.toUpperCase()) : true // i vecchi acquisti non hanno il campo title
+    }
+    this.filterFields = [
+      new TextboxQuestion({
+        key: 'description',
+        label: 'filtra per descrizione',
+        filterFunction: filterDescription,
+        // value: 'Bombasto',
+        order: 1
+      }),
+      new TextboxQuestion({
+        key: 'note',
+        label: 'filtra per note',
+        // value: 'Bombasto',
+        order: 2
+      }),
+      new SwitchQuestion({
+        key: 'ecommerce',
+        label: 'filtra per modalità di acquisto',
+        labelTrue: ' acquistato online',
+        labelFalse: ' acquistato di persona',
+        iconTrue: 'wifi',
+        iconFalse: 'person',
+        required: false,
+        order: 4
+      })
+    ];
+  }
+
+  setFilterFunction(filter) {
+    this.filterFunction = filter
+    console.log('filterFunction set', filter)
   }
   async loadKart(snap) {
     const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
@@ -47,17 +79,21 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   async ngOnInit() {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-         this.secondSpinner = true
-         this.ItemsList = [];
-         eventSuppliersListSnapshot.forEach(snap => {
+        this.secondSpinner = true
+        this.ItemsList = [];
+        eventSuppliersListSnapshot.forEach(snap => {
           const kart = new ShoppingKartModel({ item: snap.val(), service: this.service })
           kart.key = snap.key
           kart.load()
           this.ItemsList.push(kart);
         });
-         this.secondSpinner = false
+        this.secondSpinner = false
       });
     }
+  }
+
+  filter(ev) {
+    console.log('filter set', ev)
   }
 
   viewGraps() {

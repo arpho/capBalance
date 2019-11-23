@@ -13,8 +13,7 @@ const routes: Routes = [
   { path: 'pagamenti', loadChildren: './pages/pagamenti/payments.module#PaymentsPageModule', canActivate: [AuthGuard] },
   { path: 'fornitori', loadChildren: './pages/fornitori/fornitori.module#FornitoriPageModule', canActivate: [AuthGuard] },
   {
-    path: 'shopping-karts', loadChildren:
-      './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule', canActivate: [AuthGuard]
+    path: 'shopping-karts', loadChildren: './pages/shoppingKarts/shopping-karts/shopping-karts.module#ShoppingKartsPageModule', canActivate: [AuthGuard]
   },
   { path: 'graphs', loadChildren: './pages/graphs/graphs.module#GraphsPageModule', canActivate: [AuthGuard] },
   { path: 'graphs/piechart', loadChildren: './pages/graphs/piechart/piechart.module#PiechartPageModule', canActivate: [AuthGuard] },

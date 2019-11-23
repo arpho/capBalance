@@ -9,6 +9,8 @@
           <ion-icon name="stats"></ion-icon>
         </a>
       </ion-button>
+
+    <app-items-filter [filterFields]="filterFields"(filterSet)="filter($event)"(filterFunction)="setFilterFunction($event)"></app-items-filter>
     </ion-buttons>
     <ion-title>Carrelli della spesa</ion-title>
 

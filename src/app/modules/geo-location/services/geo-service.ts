@@ -3,6 +3,10 @@ import { Plugins, GeolocationOptions, GeolocationPosition } from '@capacitor/cor
 import { HttpClient } from '@angular/common/http';
 import { configs } from '../../../configs/credentials';
 
+export enum Status{
+  cached = 'cached',
+  fresh = 'fresh'
+}
 const { Geolocation } = Plugins;
 
 
@@ -70,13 +74,13 @@ export class GeoService {
     // set 5 min timeout
     if (this.setTimeout(300000)) {
       this.oldLocation = await Geolocation.getCurrentPosition(options);
-      this.oldLocation.status = 'fresh'
+      this.oldLocation.status =  Status.fresh
       console.log('fresh position',this.oldLocation)
       return this.oldLocation;
     } else {
       console.log('cached position',{ coords: this.oldLocation })
       const promise = new Promise((resolve, reject) => {
-        this.oldLocation.status = 'cached'
+        this.oldLocation.status = Status.cached
 
         resolve(  this.oldLocation )
       })
