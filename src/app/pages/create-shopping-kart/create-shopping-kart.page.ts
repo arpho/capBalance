@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
@@ -32,13 +32,13 @@ export class CreateShoppingKartPage implements OnInit {
   kart: ShoppingKartModel
   kartFields: any
   Form: FormGroup
+  title:string
   categoryColor = 'blue'
   categoryIcon = 'pricetag'
   textSelectSupplier = 'Fornitore'
   textSelectPayment = 'Pagamento'
   localPosition: { latitude: number, longitude: number }
   constructor(
-    public toastCtrl: ToastController,
     public supplierService: SuppliersService,
     public paymentsService: PaymentsService,
     public geo: GeoService,
@@ -55,8 +55,8 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   setTotal(total: number) {
-    this.kart.totale = total
-    this.showToast(`totale: ${total}`)
+    this.kart.totale = Math.round(total/100)*100
+    this.title = `nuovo carrello ${this.kart.moneta} ${this.kart.totale} `
   }
 
   async addPurchase() {
@@ -120,18 +120,11 @@ export class CreateShoppingKartPage implements OnInit {
     ];
   }
 
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-      position: 'top'
-    })
-    toast.present()
-
-  }
+  
 
 
   ngOnInit() {
+    this.title = 'nuovo carrello '
     this.kart = new ShoppingKartModel()
     this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction) // kartFields must be initialized asap 
     this.geo.getPosition().then(coords => {

@@ -73,13 +73,13 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         label: " acquistato dopo",
         // value: kart.purchaseDate.formatDate(),
         filterFunction: filterAfterDate,
-        order: 4
+        order: 3
       }),
       new DateQuestion({
         key: 'dateBefore',
         label: "acquistato prima",
         filterFunction: filterBeforeDate,
-        order: 5
+        order: 4
       })
     ];
   }
