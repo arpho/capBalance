@@ -32,7 +32,7 @@ export class CreateShoppingKartPage implements OnInit {
   kart: ShoppingKartModel
   kartFields: any
   Form: FormGroup
-  title:string
+  title: string
   categoryColor = 'blue'
   categoryIcon = 'pricetag'
   textSelectSupplier = 'Fornitore'
@@ -55,7 +55,7 @@ export class CreateShoppingKartPage implements OnInit {
   }
 
   setTotal(total: number) {
-    this.kart.totale = Math.round(total*100)/100
+    this.kart.totale = Math.round(total * 100) / 100
     this.title = `nuovo carrello ${this.kart.moneta} ${this.kart.totale} `
   }
 
@@ -103,7 +103,7 @@ export class CreateShoppingKartPage implements OnInit {
         text: ' Fornitore',
         label: 'Fornitore',
         service: this.service.suppliersService,
-        filterFunction,
+        FilterFunction: filterFunction,
         sorterFunction,
         value: kart.fornitore,
         required: true
@@ -120,7 +120,7 @@ export class CreateShoppingKartPage implements OnInit {
     ];
   }
 
-  
+
 
 
   ngOnInit() {
@@ -129,7 +129,6 @@ export class CreateShoppingKartPage implements OnInit {
     this.kartFields = this.setFormFields(this.kart, this.supplierFilterFunction) // kartFields must be initialized asap 
     this.geo.getPosition().then(coords => {
       if (coords) {
-        console.log('got position', coords)
         this.localPosition = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
         this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
           return this.geo.distance(a.address.latitude, a.address.longitude, this.localPosition.latitude, this.localPosition.longitude)

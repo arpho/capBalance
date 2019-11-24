@@ -11,7 +11,7 @@ export class QuestionBase<T> {
   label: string;
   required: boolean;
   order: number;
-  type: string|ItemModelInterface
+  type: string | ItemModelInterface
   controlType: string;
   iconTrue: string;
   iconFalse: string;
@@ -43,9 +43,9 @@ export class QuestionBase<T> {
     this.neutralFilter = (item: ItemModelInterface) => true
     this.filterFunction = options['filterFunction'] || this.neutralFilter;
   }
-  filterFactory =  (options: {}) => {
-return options && options[this.key] ? (item: ItemModelInterface) =>
-     this.filterFunction( options[this.key],item) : this.neutralFilter
+  filterFactory = (options: {}) => {
+    return options && options[this.key] ? (item: ItemModelInterface) =>
+      this.filterFunction(options[this.key], item) : this.neutralFilter
 
   }
 

@@ -91,6 +91,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         text: ' Fornitore',
         label: 'filtra per fornitore',
         service: this.service.suppliersService,
+        filterFunction: filterBySupplier,
         order: 5
       }),
       new SelectorQuestion({
