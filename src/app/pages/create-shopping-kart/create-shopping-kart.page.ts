@@ -68,7 +68,7 @@ export class CreateShoppingKartPage implements OnInit {
     return await modal.present()
   }
 
-  setFormFields(kart: ShoppingKartModel, filterFunction: (item: ItemModelInterface) => boolean, sorterFunction?) {
+  setFormFields(kart: ShoppingKartModel, FilterFunction: (item: ItemModelInterface) => boolean, sorterFunction?) {
     return [
       new TextboxQuestion({
         key: 'title',
@@ -103,7 +103,7 @@ export class CreateShoppingKartPage implements OnInit {
         text: ' Fornitore',
         label: 'Fornitore',
         service: this.service.suppliersService,
-        FilterFunction: filterFunction,
+        FilterFunction,
         sorterFunction,
         value: kart.fornitore,
         required: true
