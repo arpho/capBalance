@@ -44,7 +44,7 @@ export class QuestionBase<T> {
     this.filterFunction = options['filterFunction'] || this.neutralFilter;
   }
   filterFactory =  (options: {}) => {
-return options[this.key] ? (item: ItemModelInterface) =>
+return options && options[this.key] ? (item: ItemModelInterface) =>
      this.filterFunction( options[this.key],item) : this.neutralFilter
 
   }
