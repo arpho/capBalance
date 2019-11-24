@@ -131,7 +131,6 @@ export class CreateShoppingKartPage implements OnInit {
       if (coords) {
         console.log('got position', coords)
         this.localPosition = { latitude: coords.coords.latitude, longitude: coords.coords.longitude };
-        console.log('set position', this.localPosition)
         this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
           return this.geo.distance(a.address.latitude, a.address.longitude, this.localPosition.latitude, this.localPosition.longitude)
             - this.geo.distance(b.address.latitude, b.address.longitude, this.localPosition.latitude, this.localPosition.longitude)

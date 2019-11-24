@@ -7,6 +7,9 @@ import { runInThisContext } from 'vm';
 import { TextboxQuestion } from 'src/app/modules/item/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date';
+import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
+import { SupplierModel } from 'src/app/models/supplierModel';
+import { PaymentsModel } from 'src/app/models/paymentModel';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -43,6 +46,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     const filterOnline = (value, item: ShoppingKartModel) => item.online == value
     const filterAfterDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() >= new Date(value) : false
     const filterBeforeDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() <= new Date(value) : false
+    const filterBySupplier = (value: SupplierModel, item: ShoppingKartModel) => item.fornitore ? item.fornitore.key == value.key : false
+    const filterByPayment = (value: PaymentsModel, item: ShoppingKartModel) => item.pagamento ? item.pagamento.key == value.key : false
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
@@ -80,12 +85,30 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         label: "acquistato prima",
         filterFunction: filterBeforeDate,
         order: 4
+      }),
+      new SelectorQuestion({
+        key: 'supplier',
+        text: ' Fornitore',
+        label: 'filtra per fornitore',
+        service: this.service.suppliersService,
+        order: 5
+      }),
+      new SelectorQuestion({
+        key: 'payment',
+        text: 'Pagamento',
+        label: 'filtra per pagamento',
+        service: this.service.paymentsService,
+        filterFunction: filterByPayment,
+        order: 6
+
       })
     ];
   }
 
   setFilterFunction(filter) {
-    this.filterFunction = filter
+    if (filter) {
+      this.filterFunction = filter
+    }
   }
   async loadKart(snap) {
     const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
@@ -110,7 +133,6 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   }
 
   filter(fileds) {
-    console.log('filter fields', fileds)
   }
 
   viewGraps() {

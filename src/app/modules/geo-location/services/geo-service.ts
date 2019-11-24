@@ -75,10 +75,8 @@ export class GeoService {
     if (this.setTimeout(300000)) {
       this.oldLocation = await Geolocation.getCurrentPosition(options);
       this.oldLocation.status =  Status.fresh
-      console.log('fresh position',this.oldLocation)
       return this.oldLocation;
     } else {
-      console.log('cached position',{ coords: this.oldLocation })
       const promise = new Promise((resolve, reject) => {
         this.oldLocation.status = Status.cached
 
