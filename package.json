@@ -38,7 +38,6 @@
     "core-js": "^2.5.4",
     "firebase": "^6.2.0",
     "firebase-admin": "^8.1.0",
-    "highcharts": "^7.2.1",
     "ionic-tooltips": "^3.1.0",
     "ng-connection-service": "^1.0.4",
     "rxjs": "~6.5.1",

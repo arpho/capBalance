@@ -11,6 +11,8 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
   templateUrl: './sankey.page.html',
   styleUrls: ['./sankey.page.scss'],
 })
+
+
 export class SankeyPage implements OnInit {
   chart: any
   data
