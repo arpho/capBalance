@@ -34,7 +34,7 @@
         [id]="question?.key"
          [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
           [sorterFunction]="question?.sorterFunction"
-          [filterFunction]="question?.FilterFunction"
+          [filterFunction]="question?.ItemsFilterFunction"
           [item]="question?.value"
           (selectedItem)="question.selectedItem($event)" ></app-selector-items>
       

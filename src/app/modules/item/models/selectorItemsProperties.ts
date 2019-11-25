@@ -7,7 +7,7 @@ export interface SelectorProperties extends QuestionProperties<CategoryModel> {
     service: ItemServiceInterface;
     text: string;
     filterFunction?: (item: ItemModelInterface, value: ItemModelInterface| any) => boolean
-    FilterFunction?: (item:ItemModelInterface) => boolean
+    ItemsFilterFunction?: (item:ItemModelInterface) => boolean
     sorterFunction?: (a: ItemModelInterface, b: ItemModelInterface) => number
 
 }
