@@ -68,6 +68,11 @@ export class ShoppingKartModel implements ItemModelInterface {
 
     }
 
+    getCategoriesKeys(){
+        const reducer = (accumulator:Array<string>,cv:Array<string>)=> accumulator = [...accumulator,...cv]
+        return this.items.map((purc:PurchaseModel)=>purc.getCategoriesKeys()).reduce(reducer,[])
+    }
+
     getSupplier() {
         return this.fornitore
     }
