@@ -81,15 +81,16 @@ describe('serialize must not have undefined fields', () => {
     })
 
     it('adding items should work', () => {
-        const a = new PurchaseModel({ key: 'a', prezzo: 1,categorieId: ['a', 'b', 'c'] })
+        const a = new PurchaseModel({ key: 'a', prezzo: 1,categorieId: ['a', 'b', 'c'],descrizione:'a' })
         a.load()
         kart.addItem(a)
         expect(kart.items.length).toBe(1)
         expect(kart.items[0].prezzo).toBe(1)
-        const b = new PurchaseModel({ key: 'b', prezzo: 2,categorieId: ['a', 'b', 'c'] })
+        const b = new PurchaseModel({ key: 'b', prezzo: 2,categorieId: ['a', 'b', 'c'],descrizione:'b' })
         b.load()
         kart.addItem(b)
         expect(kart.items.length).toBe(2)
+        expect(kart.hasPurchaseDescription('a')).toBeTruthy
         expect(kart.getCategoriesKeys().length).toBe(6)
         expect(kart.hasCategorykey('a')).toBeTruthy
         expect(kart.hasCategorykey('f')).toBeFalsy

@@ -10,6 +10,8 @@ import { DateQuestion } from 'src/app/modules/dynamic-form/models/question-date'
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 import { SupplierModel } from 'src/app/models/supplierModel';
 import { PaymentsModel } from 'src/app/models/paymentModel';
+import { Value } from 'src/app/modules/item/models/value';
+import { CategoryModel } from 'src/app/models/CategoryModel';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -48,6 +50,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     const filterBeforeDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() <= new Date(value) : false
     const filterBySupplier = (value: SupplierModel, item: ShoppingKartModel) => item.fornitore ? item.fornitore.key == value.key : false
     const filterByPayment = (value: PaymentsModel, item: ShoppingKartModel) => item.pagamento ? item.pagamento.key == value.key : false
+    const filterByCategory = (value:CategoryModel,item:ShoppingKartModel)=> item.hasCategorykey(value.key)
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
@@ -102,6 +105,13 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         filterFunction: filterByPayment,
         order: 6
 
+      }),
+      new SelectorQuestion({
+        key: 'category',
+        text: ' una categoria',
+        label: 'filtra per categoria',
+        service: this.service.categoriesService,
+        filterFunction:filterByCategory,
       })
     ];
   }

@@ -69,7 +69,7 @@ export class PurchaseModel {
 
     build(item) {
         this.barcode = item['barcode']
-        this.descrizione = item['descrizione']
+        this.descrizione = item['descrizione'] || item['label']
         this.moneta = item['moneta'] || '€'
         this.picture = item['picture']
         this.note = item['note']
@@ -82,8 +82,8 @@ export class PurchaseModel {
         return this
 
     }
-    getCategoriesKeys(){
-        return this.categorie.map((cat:CategoryModel)=>cat.key)
+    getCategoriesKeys() {
+        return this.categorie.map((cat: CategoryModel) => cat.key)
     }
 
     serialize() {

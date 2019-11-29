@@ -68,13 +68,23 @@ export class ShoppingKartModel implements ItemModelInterface {
 
     }
 
-    getCategoriesKeys(){
-        const reducer = (accumulator:Array<string>,cv:Array<string>)=> accumulator = [...accumulator,...cv]
-        return this.items.map((purc:PurchaseModel)=>purc.getCategoriesKeys()).reduce(reducer,[])
+    getCategoriesKeys() {
+        const reducer = (accumulator: Array<string>, cv: Array<string>) => accumulator = [...accumulator, ...cv]
+        return this.items.map((purc: PurchaseModel) => purc.getCategoriesKeys()).reduce(reducer, [])
     }
 
-    hasCategorykey(key:string){
+    hasCategorykey(key: string) {
         return this.getCategoriesKeys().includes(key)
+    }
+
+
+    hasPurchaseDescription(description: string) {
+        const mapper = (item: PurchaseModel) => item.descrizione // transform a listof purchase in a list of description
+        const reducer = (accumulator: boolean, cv: string) => accumulator = accumulator || cv.toUpperCase().includes(
+            description
+            .toUpperCase())
+            console.log('items',this.items,this.items.map(mapper))
+        return this.items.map(mapper).reduce(reducer,false)// checs if at least one of the purchases' description conatains the required description
     }
 
     getSupplier() {
@@ -221,7 +231,7 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     async load(next?: () => void) {
-        
+
         // items  loaded and categories instantiated but not loaded
         this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.suppliersService)
         this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.paymentsService)
