@@ -73,6 +73,10 @@ export class ShoppingKartModel implements ItemModelInterface {
         return this.items.map((purc:PurchaseModel)=>purc.getCategoriesKeys()).reduce(reducer,[])
     }
 
+    hasCategorykey(key:string){
+        return this.getCategoriesKeys().includes(key)
+    }
+
     getSupplier() {
         return this.fornitore
     }
