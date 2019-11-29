@@ -92,6 +92,7 @@ describe('serialize must not have undefined fields', () => {
         expect(kart.items.length).toBe(2)
         expect(kart.getCategoriesKeys().length).toBe(6)
         expect(kart.hasCategorykey('a')).toBeTruthy
+        expect(kart.hasCategorykey('f')).toBeFalsy
         expect(kart.items[1].prezzo).toBe(2)
 
     })
