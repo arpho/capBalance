@@ -86,6 +86,10 @@ describe('testing loading', () => {
         purchase.load()
         expect(purchase.categorie.length).toBe(testdata.categorieId.length)
         expect(purchase.categorie[0]).toEqual(jasmine.any(CategoryModel))
+        expect(purchase.getCategoriesKeys().length).toBe(3)
+        expect(purchase.getCategoriesKeys().includes('a')).toBeTruthy
+        expect(purchase.getCategoriesKeys().includes('b')).toBeTruthy
+        expect(purchase.getCategoriesKeys().includes('c')).toBeTruthy
         expect(purchase.categorie[0].title).toBe('a')
 
     })

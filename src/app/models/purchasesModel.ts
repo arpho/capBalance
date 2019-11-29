@@ -82,6 +82,9 @@ export class PurchaseModel {
         return this
 
     }
+    getCategoriesKeys(){
+        return this.categorie.map((cat:CategoryModel)=>cat.key)
+    }
 
     serialize() {
         return {
