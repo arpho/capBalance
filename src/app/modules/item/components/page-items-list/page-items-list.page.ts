@@ -41,9 +41,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   ) {
     // this.showSpinner = false
     this.filterFunction = v => true;
-    if (this.service && this.service.items) {
-      this.service.items.subscribe((items) => { if (items) { this.showSpinner = false } })
-    }
   }
 
   async createItem() {
@@ -104,7 +101,12 @@ export class PageItemsListComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.secondSpinner) {
-      this.showSpinner2 = changes.secondSpinner.currentValue
+      if (this.service && this.service.items) {
+        this.service.items.subscribe((items) => { if (items) { 
+          console.log('stop spinner')
+          this.showSpinner = false
+        this.secondSpinner = false } })
+      }
     }
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
