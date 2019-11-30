@@ -12,9 +12,5 @@
 </ion-header>
 
 <ion-content padding>
-  <!--app-dynamic-form [questions]="filterFields" (interactiveSubmit)="filterFunction=filter($event)"></app-dynamic-form-->
-
-  <!-- <item-field-filter [label]="filterLabel0" (doFilter)="filterFunction=searchFunctionFactory({title:$event})"></item-field-filter>
-  <item-field-filter [label]="filterLabel1" (doFilter)="filterFunction=searchFunctionFactory({note:$event})"></item-field-filter>-->
-  <app-page-items-list [service]='payments' [items_list]="paymentsList" [filterFunction]="filterFunction"></app-page-items-list>
+  <app-page-items-list [service]='payments' [filterFunction]="filterFunction"></app-page-items-list>
 </ion-content>

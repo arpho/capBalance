@@ -35,7 +35,7 @@ export class PaymentsPage implements OnInit {
 
   ngOnInit() {
     if (this.payments.getEntitiesList()) {
-      if (this.payments.getEntitiesList()) {
+      /* if (this.payments.getEntitiesList()) {
         this.payments.getEntitiesList().on('value', eventCategoriesListSnapshot => {
 
           this.paymentsList = [];
@@ -43,7 +43,7 @@ export class PaymentsPage implements OnInit {
             this.paymentsList.push(new PaymentsModel(undefined, snap.key, this.payments));
           });
         });
-      }
+      } */
     }
   }
 

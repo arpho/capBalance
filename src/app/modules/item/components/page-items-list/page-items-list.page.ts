@@ -14,6 +14,7 @@ import { AlertController, ModalController } from "@ionic/angular";
 import { ItemModelInterface } from "../../models/itemModelInterface";
 import { ItemServiceInterface } from "../../models/ItemServiceInterface";
 import { Router } from "@angular/router";
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: "app-page-items-list",
@@ -38,6 +39,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     public modalController: ModalController,
     public ref: ChangeDetectorRef,
   ) {
+    this.showSpinner = false
     this.filterFunction = v => true;
   }
 
@@ -58,7 +60,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
           this.ref.markForCheck()
         }
         this.items_list.forEach(item => {
-
           item.load(next)
         })
       }
