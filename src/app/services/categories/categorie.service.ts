@@ -3,16 +3,26 @@ import { ItemServiceInterface } from '../../modules/item/models/ItemServiceInter
 import * as firebase from 'firebase';
 import { ItemModelInterface } from '../../modules/item/models/itemModelInterface';
 import { CategoryModel } from 'src/app/models/CategoryModel';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService implements ItemServiceInterface {
   public categoriesListRef: firebase.database.Reference;
+  private _items:BehaviorSubject<Array<CategoryModel>> = new BehaviorSubject([])
+  public readonly items:Observable<Array<CategoryModel>> = this._items.asObservable()
+  private items_list:Array<CategoryModel> = []
 
   constructor() {firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`);
+      this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`);this.getEntitiesList().on('value', eventCategoriesListSnapshot => {
+        this.items_list = [];
+        eventCategoriesListSnapshot.forEach(snap => {
+          this.items_list.push(new CategoryModel(snap.key, this));
+        });
+        this._items.next(this.items_list)
+      });
     }
   });
     
@@ -25,20 +35,7 @@ export class CategoriesService implements ItemServiceInterface {
     return new CategoryModel();
   }
 
-  createCategory(
-    eventName: string,
-    eventDate: Date,
-    eventPrice: number,
-    eventCost: number
-  ): firebase.database.ThenableReference {
-    return this.categoriesListRef.push({
-      name: eventName,
-      date: eventDate.toDateString(),
-      price: eventPrice * 1,
-      cost: eventCost * 1,
-      revenue: eventCost * -1,
-    });
-  }
+ 
 
 
   createItem(item: CategoryModel) {

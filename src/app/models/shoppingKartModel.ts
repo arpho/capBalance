@@ -73,18 +73,18 @@ export class ShoppingKartModel implements ItemModelInterface {
         return this.items.map((purc: PurchaseModel) => purc.getCategoriesKeys()).reduce(reducer, [])
     }
 
-    hasCategorykey(key: string) {
+    hasCategoryKey(key: string) {
         return this.getCategoriesKeys().includes(key)
     }
 
 
     hasPurchaseDescription(description: string) {
         const mapper = (item: PurchaseModel) => item.descrizione // transform a listof purchase in a list of description
-        const reducer = (accumulator: boolean, cv: string) => accumulator = accumulator || cv.toUpperCase().includes(
+        const reducer = (accumulator: boolean, cv: string) => accumulator = accumulator || cv ? cv.toUpperCase().includes(
             description
-            .toUpperCase())
-            console.log('items',this.items,this.items.map(mapper))
-        return this.items.map(mapper).reduce(reducer,false)// checs if at least one of the purchases' description conatains the required description
+                .toUpperCase()) : false
+        console.log('result', this.items.map(mapper).reduce(reducer, false))
+        return this.items.map(mapper).reduce(reducer, false)// checs if at least one of the purchases' description conatains the required description
     }
 
     getSupplier() {

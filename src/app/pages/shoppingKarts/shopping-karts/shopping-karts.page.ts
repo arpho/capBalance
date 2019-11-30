@@ -50,7 +50,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     const filterBeforeDate = (value: string, item: ShoppingKartModel) => item.purchaseDate ? item.purchaseDate.getFullDate() <= new Date(value) : false
     const filterBySupplier = (value: SupplierModel, item: ShoppingKartModel) => item.fornitore ? item.fornitore.key == value.key : false
     const filterByPayment = (value: PaymentsModel, item: ShoppingKartModel) => item.pagamento ? item.pagamento.key == value.key : false
-    const filterByCategory = (value:CategoryModel,item:ShoppingKartModel)=> item.hasCategorykey(value.key)
+    const filterByCategory = (value: CategoryModel, item: ShoppingKartModel) => item.hasCategoryKey(value.key)
+    const flterByPurchaseDescription = (value: string, item: ShoppingKartModel) => item.hasPurchaseDescription(value)
     this.filterFields = [
       new TextboxQuestion({
         key: 'description',
@@ -111,8 +112,15 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         text: ' una categoria',
         label: 'filtra per categoria',
         service: this.service.categoriesService,
-        filterFunction:filterByCategory,
-      })
+        filterFunction: filterByCategory,
+        order: 7
+      }),
+      new TextboxQuestion({
+        key: 'purchaseDescription',
+        label: 'filtra per acquisto',
+        filterFunction: flterByPurchaseDescription,
+        order: 8
+      }),
     ];
   }
 
