@@ -112,10 +112,12 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     }
   }
 
-  countItems() {
-    return this.items_list
-      ? this.items_list.filter(this.filterFunction).length
-      : "loading";
+   countItems() {
+    var count
+    this.service.items.subscribe(items=>{
+      console.log('counting items ',items.length)
+      count = items.filter(this.filterFunction).length})
+    return (count)? count: "loading";
   }
 
   editItem(item: ItemModelInterface) {

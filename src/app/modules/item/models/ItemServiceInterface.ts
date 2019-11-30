@@ -2,12 +2,14 @@
 // tslint:disable:semicolon
 import * as firebase from 'firebase';
 import { ItemModelInterface } from './itemModelInterface';
+import { Observable } from 'rxjs';
 export interface ItemServiceInterface {
 // extra service for complex models
 categoriesService?: ItemServiceInterface
 suppliersService?: ItemServiceInterface
 paymentsService?: ItemServiceInterface
 suppliersListRef?
+items?: Observable<Array<ItemModelInterface>>
 
     /**get one item from firebase
      * @param key:string
