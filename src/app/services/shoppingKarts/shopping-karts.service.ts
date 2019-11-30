@@ -8,6 +8,7 @@ import { SuppliersService } from '../suppliers/suppliers.service'
 import * as firebase from 'firebase';
 import { ItemModelInterface } from '../../modules/item/models/itemModelInterface';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
+import { BehaviorSubject, Observable } from 'rxjs';
 // tslint:disable:semicolon
 
 @Injectable({
@@ -15,6 +16,9 @@ import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 })
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
+  private _items:BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
+  public readonly items:Observable<Array<ShoppingKartModel>> = this._items.asObservable()
+  private items_list:Array<ShoppingKartModel> = []
   categoriesService?: ItemServiceInterface;
   suppliersService?: SuppliersService | ItemServiceInterface;
   paymentsService?: ItemServiceInterface | ItemServiceInterface;
@@ -46,6 +50,17 @@ export class ShoppingKartsService implements ItemServiceInterface {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.shoppingKartsListRef = firebase.database().ref(`/acquisti/${user.uid}/`);
+        this.getEntitiesList().on('value', eventSuppliersListSnapshot => {
+          console.log('loading shoppingkart list')
+          this.items_list = [];
+          eventSuppliersListSnapshot.forEach(snap => {
+            const kart = new ShoppingKartModel({ item: snap.val(), service: this })
+            kart.key = snap.key
+            kart.load()
+            this.items_list.push(kart);
+          });
+          this._items.next(this.items_list)
+        });
       }
     });
   }

@@ -100,14 +100,11 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.secondSpinner) {
       if (this.service && this.service.items) {
         this.service.items.subscribe((items) => { if (items) { 
-          console.log('stop spinner')
           this.showSpinner = false
         this.secondSpinner = false } })
       }
-    }
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
       this.showSpinner = false;

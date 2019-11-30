@@ -8,12 +8,16 @@ import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInt
 import { ShoppingKartModel } from '../shoppingKartModel';
 import { MockSupplierService } from './mockSuppliersService';
 import { MockPaymentService } from './mockPaymentService';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export class MockShoppingKartervice implements ItemServiceInterface {
     categoriesService?: MockCategoriesService; suppliersService?: MockSupplierService;
     paymentsService?: MockPaymentService;
     data: {}
     public shoppingKartsListRef: firebase.database.Reference
+    private _items:BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
+    public readonly items:Observable<Array<ShoppingKartModel>> = this._items.asObservable()
+    private items_list:Array<ShoppingKartModel> = []
 
     constructor(data: {}) {
         this.data = data
