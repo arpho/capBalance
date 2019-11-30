@@ -145,7 +145,7 @@ export class PaymentsModel implements ItemModelInterface {
     }
 
     hasQuickActions() {
-        return true
+        return false
     }
 
     getElement() {

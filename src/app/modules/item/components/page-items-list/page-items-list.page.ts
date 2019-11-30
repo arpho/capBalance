@@ -39,8 +39,11 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     public modalController: ModalController,
     public ref: ChangeDetectorRef,
   ) {
-    this.showSpinner = false
+    // this.showSpinner = false
     this.filterFunction = v => true;
+    if (this.service && this.service.items) {
+      this.service.items.subscribe((items) => { if (items) { this.showSpinner = false } })
+    }
   }
 
   async createItem() {
@@ -112,12 +115,12 @@ export class PageItemsListComponent implements OnInit, OnChanges {
     }
   }
 
-   countItems() {
+  countItems() {
     var count
-    this.service.items.subscribe(items=>{
-      console.log('counting items ',items.length)
-      count = items.filter(this.filterFunction).length})
-    return (count)? count: "loading";
+    this.service.items.subscribe(items => {
+      count = items.filter(this.filterFunction).length
+    })
+    return (count) ? count : "loading";
   }
 
   editItem(item: ItemModelInterface) {
