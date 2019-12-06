@@ -62,12 +62,7 @@ export class CategoriesSelectorPage implements OnInit {
     this.baseFilter = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', snap => {
-        this.categoriesList = []
-        snap.forEach(val => {
-          const cat = new CategoryModel(val.key, this.service).build(val.val())
-          cat.load()
-          this.categoriesList.push(cat)
-        })
+        this.service.items.subscribe(items => { this.categoriesList = items })
       })
     }
   }

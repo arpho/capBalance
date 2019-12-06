@@ -61,6 +61,11 @@ export class PaymentsModel implements ItemModelInterface {
         const out: ItemFilterOPtions = new ItemFilterOPtions('categoria', 'text');
         return [out];
     }
+
+    initialize(payment){
+        Object.assign(this,payment)
+        return this
+    }
     async load() {
         if (this.key && this.service) {
             this.service.getItem(this.key).on('value', pay => {
@@ -105,7 +110,7 @@ export class PaymentsModel implements ItemModelInterface {
 
 
 
-    getEditPopup(item: ItemModelInterface, service: ItemServiceInterface) {
+    getEditPopup(item: ItemModelInterface,) {
 
         return {
             subHeader: 'modifica pagamento',
@@ -130,7 +135,7 @@ export class PaymentsModel implements ItemModelInterface {
                     handler: data => {
                         item.title = data.title;
                         item.note = data.note;
-                        service.updateItem(item);
+                        // service.updateItem(item);
                     },
                 },
             ],

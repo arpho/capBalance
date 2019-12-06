@@ -61,7 +61,7 @@ export class PurchaseModel {
     instatiateCategories(categorieId: Array<string>) {
         if (categorieId) {
             // console.log('got categorieId', categorieId)
-            const out = categorieId.map((key: string) => new CategoryModel(key, this.service))
+            const out = categorieId.map((key: string) => new CategoryModel(key))
             // console.log('instatiated categorie', out)
             return out
         } else { return [] }
@@ -101,7 +101,7 @@ export class PurchaseModel {
     async load() {
         if (this.categorie) {
             this.categorie.forEach(cat => {
-                cat.load()
+                // cat.load()
             }) // carico  le categorie da firebase}
         }
     }

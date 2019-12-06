@@ -55,7 +55,6 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         return this
     }
      initialize(cat:any) {
-        console.log('initializing',cat)
         this.title = cat.title
         this.fatherKey = cat.fatherKey
         

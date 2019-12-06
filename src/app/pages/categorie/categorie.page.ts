@@ -52,9 +52,6 @@ export class CategoriePage implements OnInit {
     if (this.categories.getEntitiesList()) {
       this.categories.getEntitiesList().on('value', eventCategoriesListSnapshot => {
         this.CategoriesList = [];
-        eventCategoriesListSnapshot.forEach(snap => {
-          this.CategoriesList.push(new CategoryModel(snap.key, this.categories));
-        });
       });
     }
   }
