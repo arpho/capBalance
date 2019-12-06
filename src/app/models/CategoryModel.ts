@@ -17,14 +17,14 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     fatherKey: string;
     father: CategoryModel;
 
-    constructor(key?: string, service?: ItemServiceInterface) {
+    constructor(key?: string, ) {
         this.key = key
-        this.service = service
+        // this.service = service
     }
     build(obj: { title: string, key: string, service?: CategoriesService }) {
         this.title = obj.title;
         this.key = this.key || obj.key; if (obj.service) {
-            this.service = this.service || obj.service
+            // this.service = this.service || obj.service
         }
 
         return this
@@ -33,24 +33,46 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     hasQuickActions() {
         return false
     }
-
-    async load() {
+    load(cat:any) { // TODO to be removed
+        this.title = cat.title
+        this.father = cat.father
         if (this.service) {
             this.service.getItem(this.key).on('value', cat => {
                 if (cat.val()) {
                     this.title = cat.val().title;
                     this.fatherKey = cat.val().fatherKey
                     if (this.fatherKey) {
-                        this.father = new CategoryModel(this.fatherKey, this.service)
-                        this.father.load()
+                        // this.father = new CategoryModel(this.fatherKey)
+                        // this.father.initialize()
                     }
                 } else {
                     this.title = 'deleted'
                 }
             });
         } else {
-            this.title = 'non service'
+            // this.title = 'non service'
         }
+        return this
+    }
+     initialize(cat:any) {
+        console.log('initializing',cat)
+        this.title = cat.title
+        this.fatherKey = cat.fatherKey
+        
+        if (this.service) {
+            this.service.getItem(this.key).on('value', cat => {
+                if (cat.val()) {
+                    this.title = cat.val().title;
+                    this.fatherKey = cat.val().fatherKey
+                    if (this.fatherKey) {
+                        // this.father = new CategoryModel(this.fatherKey)
+                        // this.father.initialize()
+                    }
+                } else {
+                    this.title = 'deleted'
+                }
+            });
+        } 
         return this
     }
     getCountingText() { return ' categorie'; }

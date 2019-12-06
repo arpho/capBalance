@@ -31,7 +31,7 @@ export class PageItemComponent extends MyItemComponent implements OnInit {
       const next = () => {
         this.ref.markForCheck()
       }
-      this.Item.load(next)
+      // this.Item.load(next)
     }
   }
   doAction(action: QuickAction) {

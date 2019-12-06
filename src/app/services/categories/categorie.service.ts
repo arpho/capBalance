@@ -10,22 +10,37 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class CategoriesService implements ItemServiceInterface {
   public categoriesListRef: firebase.database.Reference;
-  private _items:BehaviorSubject<Array<CategoryModel>> = new BehaviorSubject([])
-  public readonly items:Observable<Array<CategoryModel>> = this._items.asObservable()
-  private items_list:Array<CategoryModel> = []
+  private _items: BehaviorSubject<Array<CategoryModel>> = new BehaviorSubject([])
+  public readonly items: Observable<Array<CategoryModel>> = this._items.asObservable()
+  private items_list: Array<CategoryModel> = []
 
-  constructor() {firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`);this.getEntitiesList().on('value', eventCategoriesListSnapshot => {
-        this.items_list = [];
-        eventCategoriesListSnapshot.forEach(snap => {
-          this.items_list.push(new CategoryModel(snap.key, this));
+  constructor() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`); this.getEntitiesList().on('value', eventCategoriesListSnapshot => {
+          this.items_list = [];
+          eventCategoriesListSnapshot.forEach(snap => {
+            const cat = new CategoryModel(snap.key).initialize(snap.val())
+            if (cat.fatherKey) {
+              this.getItem(cat.fatherKey).on('value', (category) => {
+                cat.father = new CategoryModel(cat.fatherKey).initialize(category.val())
+                this.items_list.push(cat);
+              })
+            } else{
+              this.items_list.push(cat)
+            }
+          }
+
+              
+              
+
+            
+          );
+          this._items.next(this.items_list)
         });
-        this._items.next(this.items_list)
-      });
-    }
-  });
-    
+      }
+    });
+
 
   }
 
@@ -35,7 +50,7 @@ export class CategoriesService implements ItemServiceInterface {
     return new CategoryModel();
   }
 
- 
+
 
 
   createItem(item: CategoryModel) {
