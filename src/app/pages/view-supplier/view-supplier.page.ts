@@ -12,6 +12,7 @@ import { SwitchQuestion } from 'src/app/modules/dynamic-form/models/question-swi
 import { GeoLocateQuestion } from 'src/app/modules/dynamic-form/models/question-geolocate';
 import { Coordinates } from 'src/app/modules/geo-location/models/coordinates';
 import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInterface';
+import { CategoriesService } from 'src/app/services/categories/categorie.service';
 
 @Component({
   selector: 'app-view-supplier',
@@ -21,10 +22,10 @@ import { ItemServiceInterface } from 'src/app/modules/item/models/ItemServiceInt
 export class ViewSupplierPage implements OnInit {
   supplier: SupplierModel
   supplierFields: any
-  suppliers: ItemServiceInterface
   showSpinner = false
 
   constructor(
+    public suppliers:SuppliersService,
     public modalCtrl: ModalController,
     navParams: NavParams
   ) {
