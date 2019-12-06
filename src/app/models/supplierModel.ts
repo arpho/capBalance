@@ -34,7 +34,6 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     cliente: boolean
     onLine: boolean; // back compatibility
     // tslint:disable: semicolon
-    service: ItemServiceInterface
     quickActions: Array<QuickAction>
 
 
@@ -57,7 +56,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
 
     },
         // tslint:disable-next-line: align
-        key?: string, service?: ItemServiceInterface) {
+        key?: string) {
         this.quickActions = [
             new QuickAction({
                 icon: 'eye',
@@ -85,11 +84,14 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                     = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
             }
         }
-        if (key && service) {
+        if (key ) {
             this.key = key
-            this.service = service
         }
 
+    }
+    initialize(supplier){
+        Object.assign(this,supplier)
+        return this
     }
 
     getDetailPage() {
@@ -105,7 +107,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     load(next?: () => void) {
-        if (this.service.getItem(this.key)) {
+     /*    if (this.service.getItem(this.key)) {
             this.service.getItem(this.key).on('value', sup => {
 
                 const loader = ([Key, value]) => {
@@ -136,8 +138,8 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                 if (next) {
                     next()
                 }
-            });
-        }
+            }); 
+        }*/
         return this
     }
 

@@ -106,7 +106,7 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
       this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.ItemsList = [];
         eventSuppliersListSnapshot.forEach(snap => {
-          const supplier = new SupplierModel(undefined, snap.key, this.suppliers)
+          const supplier = new SupplierModel(snap.val(), snap.key,)
           supplier.load()
           supplier.key = snap.key // alcuni item non hanno il campo key
           this.ItemsList.push(supplier);

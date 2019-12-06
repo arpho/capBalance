@@ -30,9 +30,6 @@ export class ViewSupplierPage implements OnInit {
   ) {
     // super(suppliers, geo, router, modalCtrl)
     this.supplier = navParams.get('item')
-    if (this.supplier) {
-      this.suppliers = this.supplier.service
-    }
     this.supplierFields = [
       new TextboxQuestion({
         key: 'title',

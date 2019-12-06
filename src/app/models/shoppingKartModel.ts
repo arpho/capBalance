@@ -233,10 +233,10 @@ export class ShoppingKartModel implements ItemModelInterface {
     async load(next?: () => void) {
 
         // items  loaded and categories instantiated but not loaded
-        this.fornitore = new SupplierModel(undefined, this.fornitoreId, this.service.suppliersService)
-        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, this.service.paymentsService)
-        this.fornitore.load(next)
-        this.pagamento.load()
+        this.fornitore = new SupplierModel(undefined, this.fornitoreId, )
+        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, )
+        //this.fornitore.load(next)
+        // this.pagamento.load()
         if (this.items) { // ci sono carrelli senza acquisti
             // this.items = this.loadPurchases(this.items, this.service.extraService0)
             // this.items = this.items.map(pur => new PurchaseModel(pur, this.service.extraService0))// .map(p => p.load())
