@@ -12,11 +12,9 @@ import { CategoriesService } from '../services/categories/categorie.service';
 import { PaymentsService } from '../services/payments/payments.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
 import { DateModel } from '../modules/user/models/birthDateModel'
-import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
 import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
 import { OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DetailShoppingKartPage } from '../pages/detail-shopping-kart/detail-shopping-kart.page';
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -51,15 +49,7 @@ export class ShoppingKartModel implements ItemModelInterface {
 
         }
         this.quickActions = [
-            new QuickAction({
-                icon: 'eye',
-                title: 'visualiza',
-                description: '',
-                action: async (Args: { alertCtrl?: any, router: any, modal: ModalController }) => {
-                    const modal = await Args.modal.create({ component: DetailShoppingKartPage, componentProps: { kart: this } })
-                    return await modal.present()
-                }
-            })
+
         ]
 
 
@@ -115,9 +105,6 @@ export class ShoppingKartModel implements ItemModelInterface {
     isArchived(): boolean {
         return this.archived
     }
-    getDetailPage() {
-        return DetailShoppingKartPage
-    }
 
     archiveItem?(b: boolean) {
         this.archived = b
@@ -168,10 +155,6 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
     getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface) {
         throw new Error('Method not implemented.');
-    }
-
-    getCreatePopup() {
-        return CreateShoppingKartPage
     }
 
     getAggregate(): Value {

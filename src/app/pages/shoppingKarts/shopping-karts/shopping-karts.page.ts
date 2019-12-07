@@ -14,6 +14,8 @@ import { Value } from 'src/app/modules/item/models/value';
 import { CategoryModel } from 'src/app/models/CategoryModel';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
+import { CreateShoppingKartPage } from '../../create-shopping-kart/create-shopping-kart.page';
+import { DetailShoppingKartPage } from '../../detail-shopping-kart/detail-shopping-kart.page';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -25,6 +27,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   filterLabel: string;
   filterString: string;
   secondSpinner: boolean;
+  createModalPage= CreateShoppingKartPage
+  public editModalPage= DetailShoppingKartPage
   filterFields: any;
   filterFunction: (item: ItemModelInterface) => boolean;
   sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number =
