@@ -141,9 +141,6 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         };
     }
 
-    getDetailPage() {
-        return DetailCategoryPage
-    }
 
 
 

@@ -5,6 +5,7 @@ import { CategoriesService } from '../services/categories/categorie.service';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
 import { PaymentsService } from '../services/payments/payments.service';
 import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
+import { CreateShoppingKartPage } from '../pages/create-shopping-kart/create-shopping-kart.page';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomePage {
   ) { }
 
   async addShoppingKart() {
-    const modal = await this.modalCtrl.create({ component: new ShoppingKartModel().getCreatePopup() })
+    const modal = await this.modalCtrl.create({ component: CreateShoppingKartPage })
     return await modal.present()
 
   }
