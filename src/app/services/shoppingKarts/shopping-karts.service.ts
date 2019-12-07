@@ -9,6 +9,10 @@ import * as firebase from 'firebase';
 import { ItemModelInterface } from '../../modules/item/models/itemModelInterface';
 import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SupplierModel } from 'src/app/models/supplierModel';
+import { PaymentsModel } from 'src/app/models/paymentModel';
+import { PurchaseModel } from 'src/app/models/purchasesModel';
+import { CategoryModel } from 'src/app/models/CategoryModel';
 // tslint:disable:semicolon
 
 @Injectable({
@@ -16,12 +20,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
-  private _items:BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
-  public readonly items:Observable<Array<ShoppingKartModel>> = this._items.asObservable()
-  private items_list:Array<ShoppingKartModel> = []
+  private _items: BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
+  public readonly items: Observable<Array<ShoppingKartModel>> = this._items.asObservable()
+  private items_list: Array<ShoppingKartModel> = []
   categoriesService?: ItemServiceInterface;
-  suppliersService?: SuppliersService | ItemServiceInterface;
-  paymentsService?: ItemServiceInterface | ItemServiceInterface;
+
   getItem(key: string): firebase.database.Reference {
     return this.shoppingKartsListRef.child(key);
   }
@@ -44,8 +47,22 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
   constructor(categories: CategoriesService, payments: PaymentsService, suppliers: SuppliersService) {
     this.categoriesService = categories
-    this.suppliersService = suppliers
-    this.paymentsService = payments
+    const purchaseInitializer = (purchase)=>{
+      console.log('initializing purchase',purchase)
+      const Purchase = new PurchaseModel().initialize(purchase)
+      const initiateCategory = (catKey)=>{
+         const Category =new CategoryModel(catKey)
+        this.categoriesService.getItem(catKey).on('value',(category)=>{
+          Category.initialize(category.val())
+        })
+        return Category
+      }
+      Purchase.categorie = Purchase.categorieId? Purchase.categorieId.map(initiateCategory):[]
+      console.log('categories loaded',Purchase)
+      return Purchase
+    }
+
+
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -54,10 +71,13 @@ export class ShoppingKartsService implements ItemServiceInterface {
           console.log('loading shoppingkart list')
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
-            const kart = new ShoppingKartModel({ item: snap.val(), service: this })
+            const kart = new ShoppingKartModel({ key: snap.val() }).initialize(snap.val())
             kart.key = snap.key
-            kart.load()
+            kart.items = kart.items.map(purchaseInitializer)
+            console.log('pushing kart',kart)
             this.items_list.push(kart);
+            console.log('karts',this.items_list.length)
+
           });
           this._items.next(this.items_list)
         });

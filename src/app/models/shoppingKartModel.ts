@@ -41,17 +41,14 @@ export class ShoppingKartModel implements ItemModelInterface {
     public service: ShoppingKartsService
 
 
-    constructor(args?: { key?: string, service?: ShoppingKartsService, item?: {} }) {
+    constructor(args?: { key?: string, item?: {} }) {
         this.items = []
         this.purchaseDate = new DateModel(new Date())
         if (args) {
 
             this.key = (args.key) ? args.key : ''
-            this.service = (args.service) ? args.service : undefined
-            if (args.item) {
-                this.build(args.item)
-            } else {
-            }
+            //this.service = (args.service) ? args.service : undefined
+            
         }
         this.quickActions = [
             new QuickAction({
@@ -109,7 +106,7 @@ export class ShoppingKartModel implements ItemModelInterface {
         this.pagamento = new PaymentsModel()
         this.fornitore.key = this.fornitore.key || this.fornitoreId
         this.pagamento.key = this.pagamento.key || this.pagamentoId
-        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item, this.service.categoriesService)) : []
+        this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
         // gli items sono stati tutti definiti non hanno ancora caricato le categorie
         // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
@@ -230,6 +227,11 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.note, label: 'nota' })
     }
 
+    initialize(cart){
+        Object.assign(this,cart)
+        return this
+    }
+
     async load(next?: () => void) {
 
         // items  loaded and categories instantiated but not loaded
@@ -248,7 +250,7 @@ export class ShoppingKartModel implements ItemModelInterface {
 
     loadPurchases(items: {}[], categories?): PurchaseModel[] {
         return items.map(value => {
-            const purchase = new PurchaseModel(value, categories)
+            const purchase = new PurchaseModel(value)
             purchase.load()
             return purchase
         })

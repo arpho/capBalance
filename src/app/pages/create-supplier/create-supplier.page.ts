@@ -28,11 +28,6 @@ export class CreateSupplierPage implements OnInit {
     this.showSpinner = true
     this.supplier = new SupplierModel(supplier)
     this.supplier.build(supplier)
- /*    this.suppliers.createItem(this.supplier).then(sup => {
-      this.supplier.key = sup.key
-      this.modalCtrl.dismiss(this.supplier)
-      this.showSpinner = false
-    }) */
 
   }
 

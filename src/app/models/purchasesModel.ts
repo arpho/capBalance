@@ -15,13 +15,13 @@ export class PurchaseModel {
     categorieId: Array<string>
     service: ItemServiceInterface
 
-    constructor(item?: {}, categories?: ItemServiceInterface) {
+    constructor(item?: {}, ) {
         // tslint:disable: no-string-literal
         if (item) {
             this.build(item)
         }
         this.key = this.key || String(new Date().getTime())
-        if (categories) {
+        /* if (categories) {
             // è presente categoriesService carico le categorie
             this.service = categories
             if (this.categorieId) {
@@ -33,8 +33,12 @@ export class PurchaseModel {
                 this.categorie = item['categorieId'].map(key => new CategoryModel(key))
 
             }
-        }
+        } */
 
+    }
+    initialize(purchase){
+        Object.assign(this,purchase)
+        return this
     }
 
     clone(item: {
@@ -60,9 +64,9 @@ export class PurchaseModel {
 
     instatiateCategories(categorieId: Array<string>) {
         if (categorieId) {
-            // console.log('got categorieId', categorieId)
+             console.log('got categorieId', categorieId)
             const out = categorieId.map((key: string) => new CategoryModel(key))
-            // console.log('instatiated categorie', out)
+             console.log('instatiated categorie', out)
             return out
         } else { return [] }
     }
