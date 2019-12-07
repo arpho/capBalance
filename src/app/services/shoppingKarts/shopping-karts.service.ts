@@ -48,7 +48,6 @@ export class ShoppingKartsService implements ItemServiceInterface {
   constructor(categories: CategoriesService, payments: PaymentsService, suppliers: SuppliersService) {
     this.categoriesService = categories
     const purchaseInitializer = (purchase)=>{
-      console.log('initializing purchase',purchase)
       const Purchase = new PurchaseModel().initialize(purchase)
       const initiateCategory = (catKey)=>{
          const Category =new CategoryModel(catKey)
@@ -58,7 +57,6 @@ export class ShoppingKartsService implements ItemServiceInterface {
         return Category
       }
       Purchase.categorie = Purchase.categorieId? Purchase.categorieId.map(initiateCategory):[]
-      console.log('categories loaded',Purchase)
       return Purchase
     }
 
@@ -68,15 +66,12 @@ export class ShoppingKartsService implements ItemServiceInterface {
       if (user) {
         this.shoppingKartsListRef = firebase.database().ref(`/acquisti/${user.uid}/`);
         this.getEntitiesList().on('value', eventSuppliersListSnapshot => {
-          console.log('loading shoppingkart list')
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
             const kart = new ShoppingKartModel({ key: snap.val() }).initialize(snap.val())
             kart.key = snap.key
             kart.items = kart.items.map(purchaseInitializer)
-            console.log('pushing kart',kart)
             this.items_list.push(kart);
-            console.log('karts',this.items_list.length)
 
           });
           this._items.next(this.items_list)

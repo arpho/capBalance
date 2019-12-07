@@ -55,8 +55,8 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         return this
     }
      initialize(cat:any) {
-        this.title = cat.title
-        this.fatherKey = cat.fatherKey
+        this.title = cat.title? cat.title:''
+        this.fatherKey = cat.fatherKey ?cat.fatherKey:''
         
         if (this.service) {
             this.service.getItem(this.key).on('value', cat => {

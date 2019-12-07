@@ -48,7 +48,7 @@ export class ShoppingKartModel implements ItemModelInterface {
 
             this.key = (args.key) ? args.key : ''
             //this.service = (args.service) ? args.service : undefined
-            
+
         }
         this.quickActions = [
             new QuickAction({
@@ -160,8 +160,9 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     getValue4(): Value {
+            console.log('fornitore in kart',this.fornitore)
         const out = !this.title ? new Value({
-            value: ' ' + this.fornitore ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
+            value: ' ' + (this.fornitore) ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
         }) :
             new Value({ value: this.title, label: ' titolo ' })
         return out
@@ -227,16 +228,16 @@ export class ShoppingKartModel implements ItemModelInterface {
         return new Value({ value: this.note, label: 'nota' })
     }
 
-    initialize(cart){
-        Object.assign(this,cart)
+    initialize(cart) {
+        Object.assign(this, cart)
         return this
     }
 
     async load(next?: () => void) {
 
         // items  loaded and categories instantiated but not loaded
-        this.fornitore = new SupplierModel(undefined, this.fornitoreId, )
-        this.pagamento = new PaymentsModel(undefined, this.pagamentoId, )
+        this.fornitore = new SupplierModel(undefined, this.fornitoreId)
+        this.pagamento = new PaymentsModel(undefined, this.pagamentoId)
         //this.fornitore.load(next)
         // this.pagamento.load()
         if (this.items) { // ci sono carrelli senza acquisti

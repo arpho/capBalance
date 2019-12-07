@@ -15,6 +15,7 @@ import { ItemModelInterface } from "../../models/itemModelInterface";
 import { ItemServiceInterface } from "../../models/ItemServiceInterface";
 import { Router } from "@angular/router";
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { ComponentRef } from '@ionic/core';
 
 @Component({
   selector: "app-page-items-list",
@@ -27,11 +28,13 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() items_list: ItemModelInterface[];
   @Input() secondSpinner
   @Input() service: ItemServiceInterface;
+  @Input() editModalPage:ComponentRef
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   public showSpinner = true;
   public showSpinner2 = false;
+  @Input() createModalPage: ComponentRef;
 
   constructor(
     public alertCtrl: AlertController,
@@ -44,7 +47,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   async createItem() {
-    const modal = await this.modalController.create({ component: this.dummyItem.getCreatePopup() })
+    const modal = await this.modalController.create({ component: this.createModalPage })
     return await modal.present()
 
   }
@@ -123,7 +126,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   editItem(item: ItemModelInterface) {
-    this.router.navigate([item.getEditPopup(), item.key]);
+    this.router.navigate([this.editModalPage, item.key]);
   }
 
 
