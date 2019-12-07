@@ -9,7 +9,8 @@ import { GeoService } from '../../modules/geo-location/services/geo-service';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { SwitchQuestion } from 'src/app/modules/item/models/question-switch';
 import { ItemControllerInterface } from '../../modules/item/models/ItemControllerInterface'
-// import { DistanceSorterPipe } from 'src/app/modules/geo-location/pipes/distance-sorter.pipe';
+import { ViewSupplierPage } from '../view-supplier/view-supplier.page'
+import { CreateSupplierPage } from '../create-supplier/create-supplier.page';
 
 @Component({
   selector: 'app-fornitori',
@@ -24,6 +25,8 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
   public filterFunction: (item: SupplierModel) => boolean;
   public sorterFunction: (a: any, b: any) => number
   public position = { latitude: 0, longitude: 0 };
+  public createModalPage = CreateSupplierPage
+  public editModalPage = ViewSupplierPage
 
   constructor(
     public suppliers: SuppliersService,
@@ -106,7 +109,7 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
       this.suppliers.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.ItemsList = [];
         eventSuppliersListSnapshot.forEach(snap => {
-          const supplier = new SupplierModel(snap.val(), snap.key,)
+          const supplier = new SupplierModel(snap.val(), snap.key)
           supplier.load()
           supplier.key = snap.key // alcuni item non hanno il campo key
           this.ItemsList.push(supplier);

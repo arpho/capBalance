@@ -139,9 +139,6 @@ export class PaymentsModel implements ItemModelInterface {
         };
     }
 
-    getCreatePopup() {
-        return CreatePaymentPage
-    }
     getQuickActions() {
         return this.quickActions
     }

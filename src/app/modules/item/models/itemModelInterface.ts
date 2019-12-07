@@ -27,7 +27,6 @@ export interface ItemModelInterface {
   getValue3(): Value;
   getValue4(): Value;
   getEditPopup(item?: ItemModelInterface, service?: ItemServiceInterface);
-  getCreatePopup(service?: ItemServiceInterface): string | any;
 
   // tslint:disable-next-line: jsdoc-format
   /**ritorna l'etichetta e il valore da visualizzare del campo aggregato **/

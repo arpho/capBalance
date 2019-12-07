@@ -7,12 +7,10 @@ import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterface';
 import { Value } from '../modules/item/models/value';
 import { FirebaseObject } from '../models/firebaseObject';
-import { CreateSupplierPage } from '../pages/create-supplier/create-supplier.page'
 import { Coordinates } from '../modules/geo-location/models/coordinates';
 import { FornitoriPage } from '../pages/fornitori/fornitori.page';
 import { QuickAction } from '../modules/item/models/QuickAction';
 import { ModalController, AlertController } from '@ionic/angular';
-import { ViewSupplierPage } from '../pages/view-supplier/view-supplier.page';
 import { SuppliersService } from '../services/suppliers/suppliers.service';
 export class SupplierModel implements ItemModelInterface, FirebaseObject {
     nome: string;
@@ -58,15 +56,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         // tslint:disable-next-line: align
         key?: string) {
         this.quickActions = [
-            new QuickAction({
-                icon: 'eye',
-                title: 'visualiza',
-                description: '',
-                action: async (args: { alertCtrl?: any, router: any, modal: ModalController }) => {
-                    const modal = await args.modal.create({ component: ViewSupplierPage, componentProps: { supplier: this } })
-                    return await modal.present()
-                }
-            })
+
         ]
         if (fornitore) {
             Object.entries(fornitore).forEach(([Key, value]) => {
@@ -84,19 +74,17 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
                     = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
             }
         }
-        if (key ) {
+        if (key) {
             this.key = key
         }
 
     }
-    initialize(supplier){
-        Object.assign(this,supplier)
+    initialize(supplier) {
+        Object.assign(this, supplier)
         return this
     }
 
-    getDetailPage() {
-        return ViewSupplierPage
-    }
+
 
     getQuickActions() {
         return this.quickActions
@@ -107,39 +95,40 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     load(next?: () => void) {
-     /*    if (this.service.getItem(this.key)) {
-            this.service.getItem(this.key).on('value', sup => {
-
-                const loader = ([Key, value]) => {
-                    if (Key !== 'key') { // evito di sovrascrivere la chiave
-                        this[Key] = value;
-                    }
-                };
-                if (sup.val()) {
-                    Object.entries(sup.val()).forEach(loader);
-                }
-                // retro compatibilità
-                this.title = this.title || this.nome;
-                this.latitude = Number(this.latitude || this.latitudine);
-                this.longitude = Number(this.longitude || this.longitudine);
-                // this.address = this.address || this.indirizzo;
-                this.ecommerce = this.ecommerce || this.onLine;
-                this.title = this.title || this.nome
-                if (this.address) {
-                    this.address =
-                        new Coordinates({
-                            latitude: this.address.latitude,
-                            longitude: this.address.longitude,
-                            address: this.address.address
-                        })
-                } else {
-                    this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
-                }
-                if (next) {
-                    next()
-                }
-            }); 
-        }*/
+        // TODO remove
+        /*    if (this.service.getItem(this.key)) {
+               this.service.getItem(this.key).on('value', sup => {
+   
+                   const loader = ([Key, value]) => {
+                       if (Key !== 'key') { // evito di sovrascrivere la chiave
+                           this[Key] = value;
+                       }
+                   };
+                   if (sup.val()) {
+                       Object.entries(sup.val()).forEach(loader);
+                   }
+                   // retro compatibilità
+                   this.title = this.title || this.nome;
+                   this.latitude = Number(this.latitude || this.latitudine);
+                   this.longitude = Number(this.longitude || this.longitudine);
+                   // this.address = this.address || this.indirizzo;
+                   this.ecommerce = this.ecommerce || this.onLine;
+                   this.title = this.title || this.nome
+                   if (this.address) {
+                       this.address =
+                           new Coordinates({
+                               latitude: this.address.latitude,
+                               longitude: this.address.longitude,
+                               address: this.address.address
+                           })
+                   } else {
+                       this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
+                   }
+                   if (next) {
+                       next()
+                   }
+               }); 
+           }*/
         return this
     }
 
@@ -259,10 +248,6 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
         return 'supplierUpdate';
     }
 
-    getCreatePopup() {
-
-        return CreateSupplierPage;
-    }
 
     getFilterPopup(next) {
 
