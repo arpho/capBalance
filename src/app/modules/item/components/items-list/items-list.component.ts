@@ -9,6 +9,7 @@ import {
 import { ItemModelInterface } from "../../models/itemModelInterface";
 import { AlertController } from "@ionic/angular";
 import { ItemServiceInterface } from "../../models/ItemServiceInterface";
+import { ComponentRef } from '@ionic/core';
 
 @Component({
   selector: "my-items-list",
@@ -21,6 +22,7 @@ export class ItemsListComponent implements OnInit, OnChanges {
   @Input() service: ItemServiceInterface;
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
+  @Input() createPopup:any
   public showSpinner = true;
 
   constructor(public alertCtrl: AlertController) { }
@@ -35,7 +37,7 @@ export class ItemsListComponent implements OnInit, OnChanges {
 
 
   async create() {
-    const popup = this.service.getDummyItem().getCreatePopup(this.service);
+    const popup = this.createPopup;
     const alert = await this.alertCtrl.create(popup);
     await alert.present();
   }

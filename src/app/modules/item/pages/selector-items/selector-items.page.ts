@@ -1,8 +1,9 @@
 // tslint:disable: semicolon
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges,  } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { ItemServiceInterface } from '../../models/ItemServiceInterface';
+import { ComponentRef } from '@ionic/core';
 
 @Component({
   selector: 'app-selector-items-page',
@@ -15,18 +16,20 @@ export class SelectorItemsPage implements OnInit, OnChanges {
   service: ItemServiceInterface
   itemsList: Array<ItemModelInterface>
   filterText: string
+  createPopup:ComponentRef
   filterFunction: any // (item: ItemModelInterface) => boolean
   sorterFunction: any // (a: ItemModelInterface, b: ItemModelInterface) => number
 
   constructor(public modalCtrl: ModalController, public navParams: NavParams) {
     this.title = `Seleziona  ${this.navParams.get('title')}`
     this.selectedItem = this.navParams.get('item')
-    this.service = this.navParams.get('service')
+    this.service = this.navParams.get('service')   
+    this.createPopup = this.navParams.get('createPopup')     
     this.filterFunction = this.navParams.get('filterFunction')
     this.sorterFunction = this.navParams.get('sorterFunction')
   }
   async createItem() {
-    const modal = await this.modalCtrl.create({ component: this.service.getDummyItem().getCreatePopup() })
+    const modal = await this.modalCtrl.create({ component: this.createPopup })
     modal.onDidDismiss().then(item => {
       console.log('created', item)
       this.dismiss(item.data)
