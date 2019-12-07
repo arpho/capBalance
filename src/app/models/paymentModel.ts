@@ -5,9 +5,6 @@ import { ItemServiceInterface } from '../modules/item/models/ItemServiceInterfac
 import { Value } from '../modules/item/models/value';
 import { ItemFilterOPtions } from '../modules/item/models/ItemFIlterOptions';
 import { QuickAction } from '../modules/item/models/QuickAction';
-import { CreatePaymentPage } from '../pages/create-payment/create-payment.page';
-import { DetailCategoryPage } from '../pages/detail-category/detail-category.page';
-import { DetailPaymentPage } from '../pages/detail-payment/detail-payment.page';
 export class PaymentsModel implements ItemModelInterface {
     nome: string; // retro compatibilità
     title: string;
@@ -201,9 +198,6 @@ export class PaymentsModel implements ItemModelInterface {
         return value;
     }
 
-    getDetailPage() {
-        return DetailPaymentPage
-    }
 
     serialize() {
         return {

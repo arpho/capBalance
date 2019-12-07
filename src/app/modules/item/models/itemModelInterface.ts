@@ -34,7 +34,6 @@ export interface ItemModelInterface {
   getAggregate(): Value;
   aggregateAction?(): any | void;
   hasQuickActions?(): boolean;
-  getDetailPage(): Page;
   serialize /*
   serialize the model for storing in firebase
   */();
