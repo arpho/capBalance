@@ -160,7 +160,6 @@ export class ShoppingKartModel implements ItemModelInterface {
     }
 
     getValue4(): Value {
-            console.log('fornitore in kart',this.fornitore)
         const out = !this.title ? new Value({
             value: ' ' + (this.fornitore) ? this.fornitore.getTitle().value : '' || this.fornitore.nome, label: ' titolo '
         }) :
