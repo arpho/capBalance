@@ -102,7 +102,7 @@ export class CreateShoppingKartPage implements OnInit {
         key: 'supplier',
         text: ' Fornitore',
         label: 'Fornitore',
-        service: this.service.suppliersService,
+        service: this.supplierService,
         ItemsFilterFunction,
         sorterFunction,
         value: kart.fornitore,
@@ -112,7 +112,7 @@ export class CreateShoppingKartPage implements OnInit {
         key: 'payment',
         text: 'Pagamento',
         label: 'Pagamento',
-        service: this.service.paymentsService,
+        service: this.paymentsService,
         required: true,
         value: kart.pagamento
 

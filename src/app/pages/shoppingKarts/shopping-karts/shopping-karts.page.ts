@@ -12,6 +12,8 @@ import { SupplierModel } from 'src/app/models/supplierModel';
 import { PaymentsModel } from 'src/app/models/paymentModel';
 import { Value } from 'src/app/modules/item/models/value';
 import { CategoryModel } from 'src/app/models/CategoryModel';
+import { PaymentsService } from 'src/app/services/payments/payments.service';
+import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
 
 @Component({
   selector: 'app-shopping-karts',
@@ -34,6 +36,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     }
 
   compareDate = (a: Date, b: Date) => a > b ? -1 : a < b ? 1 : 0
+  
 
 
 
@@ -41,7 +44,9 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
     throw new Error('Method not implemented.');
   }
 
-  constructor(public service: ShoppingKartsService) {
+  constructor(public service: ShoppingKartsService,
+    public paymentsService:PaymentsService,
+    public SuppliersService:SuppliersService) {
     const filterDescription = (value: string, item: ShoppingKartModel) =>
       (item.title) ? item.title.toUpperCase().includes(value.toUpperCase()) : true // i vecchi acquisti non hanno il campo title
     const filterNote = (value: string, item: ShoppingKartModel) => item.note ? item.note.toUpperCase().includes(value.toUpperCase()) : false
@@ -94,7 +99,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         key: 'supplier',
         text: ' Fornitore',
         label: 'filtra per fornitore',
-        service: this.service.suppliersService,
+        service: this.SuppliersService,
         filterFunction: filterBySupplier,
         order: 5
       }),
@@ -102,7 +107,7 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         key: 'payment',
         text: 'Pagamento',
         label: 'filtra per pagamento',
-        service: this.service.paymentsService,
+        service: this.paymentsService,
         filterFunction: filterByPayment,
         order: 6
 
@@ -129,24 +134,16 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
       this.filterFunction = filter
     }
   }
-  async loadKart(snap) {
-    const kart = new ShoppingKartModel({ key: snap.key, service: this.service })
-    await kart.load()
-    return kart
-  }
 
   async ngOnInit() {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.secondSpinner = true
         this.ItemsList = [];
-        eventSuppliersListSnapshot.forEach(snap => {
-          const kart = new ShoppingKartModel({ item: snap.val(), service: this.service })
-          kart.key = snap.key
-          kart.load()
-          this.ItemsList.push(kart);
-        });
-        this.secondSpinner = false
+        this.service.items.subscribe(items=>{
+          this.ItemsList = items
+          this.secondSpinner = false
+        })
       });
     }
   }

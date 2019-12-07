@@ -98,7 +98,7 @@ export class DetailShoppingKartPage implements OnInit {
           key: 'payment',
           value: this.kart ? this.kart.pagamento : new PaymentsModel(),
           required: true,
-          service: this.service.paymentsService,
+          service: this.paymentsService,
           text: this.textSelectPayment
         }
       ),
@@ -109,7 +109,7 @@ export class DetailShoppingKartPage implements OnInit {
           required: true,
           text: this.textSelectSupplier,
           sorterFunction: this.supplierSorterFunction,
-          service: this.service.suppliersService
+          service: this.supplierService
           ,
           value: this.kart ? this.kart.fornitore : new SupplierModel()
 

@@ -114,11 +114,8 @@ export class PiechartPage implements OnInit {
     if (this.service.getEntitiesList()) {
       this.service.getEntitiesList().on('value', kartsSnap => {
         this.karts = []
-        kartsSnap.forEach(snap => {
-          const kart = new ShoppingKartModel({ item: snap.val(), service: this.service }).setKey(snap.key)
-          kart.load()
-
-          this.karts.push(kart)
+        this.service.items.subscribe(items=>{
+          this.karts = items
         })
         const extractedData = this.newExtractData(
           this.transformers.categories,
