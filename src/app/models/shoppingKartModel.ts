@@ -22,13 +22,13 @@ export class ShoppingKartModel implements ItemModelInterface {
     dataAcquisto: string
     purchaseDate: DateModel
     dataAddebito: string
-    fornitore: SupplierModel;
+    public fornitore: SupplierModel;
     fornitoreId: string; // campo di comodo
     pagamentoId: string // campo di comodo
     key: string
     title: string
     moneta = '€'
-    pagamento: PaymentsModel
+    public pagamento: PaymentsModel
     online: boolean
     tassoConversione: number
     totale: number
@@ -70,7 +70,6 @@ export class ShoppingKartModel implements ItemModelInterface {
         const reducer = (accumulator: boolean, cv: string) => accumulator = accumulator || cv ? cv.toUpperCase().includes(
             description
                 .toUpperCase()) : false
-        console.log('result', this.items.map(mapper).reduce(reducer, false))
         return this.items.map(mapper).reduce(reducer, false)// checs if at least one of the purchases' description conatains the required description
     }
 

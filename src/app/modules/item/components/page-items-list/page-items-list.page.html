@@ -12,7 +12,7 @@
     *ngFor="let item of service.items |async | filterItems: filterFunction| sorterItems: sorterFunction"
     #sliding_item
   >
-    <app-page-item [Item]="item" [Service]="service"></app-page-item>
+    <app-page-item [Item]="item" ></app-page-item>
 
     <ion-item-options side="start">
       <ion-button

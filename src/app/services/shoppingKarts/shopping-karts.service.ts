@@ -45,18 +45,20 @@ export class ShoppingKartsService implements ItemServiceInterface {
     return this.shoppingKartsListRef
   }
 
-  constructor(categories: CategoriesService, payments: PaymentsService, suppliers: SuppliersService) {
+  constructor(categories: CategoriesService, public payments: PaymentsService, public suppliers: SuppliersService) {
     this.categoriesService = categories
-    const purchaseInitializer = (purchase)=>{
+    const purchaseInitializer = (purchase) => {
       const Purchase = new PurchaseModel().initialize(purchase)
-      const initiateCategory = (catKey)=>{
-         const Category =new CategoryModel(catKey)
-        this.categoriesService.getItem(catKey).on('value',(category)=>{
+
+
+      const initiateCategory = (catKey) => {
+        const Category = new CategoryModel(catKey)
+        this.categoriesService.getItem(catKey).on('value', (category) => {
           Category.initialize(category.val())
         })
         return Category
       }
-      Purchase.categorie = Purchase.categorieId? Purchase.categorieId.map(initiateCategory):[]
+      Purchase.categorie = Purchase.categorieId ? Purchase.categorieId.map(initiateCategory) : []
       return Purchase
     }
 
@@ -65,12 +67,22 @@ export class ShoppingKartsService implements ItemServiceInterface {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.shoppingKartsListRef = firebase.database().ref(`/acquisti/${user.uid}/`);
+        this.items.subscribe(items=>{
+        })
         this.getEntitiesList().on('value', eventSuppliersListSnapshot => {
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
             const kart = new ShoppingKartModel({ key: snap.val() }).initialize(snap.val())
             kart.key = snap.key
             kart.items = kart.items.map(purchaseInitializer)
+            // initialize payment
+            this.payments.items.subscribe(payments => {
+              kart.setPayment(payments.filter((pagamento: PaymentsModel) => pagamento.key == kart.pagamentoId)[0])
+            })
+            // inirtialize supplier 
+            this.suppliers.items.subscribe(suppliers => {
+              kart.setSupplier(suppliers.filter((fornitore: SupplierModel) => fornitore.key == kart.fornitoreId)[0])
+            })
             this.items_list.push(kart);
 
           });

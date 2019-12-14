@@ -18,7 +18,6 @@ export class GeoLocalizeComponent implements OnInit {
     const options: GeolocationOptions = {};
     options.enableHighAccuracy = true;
     const coordinates = await Geolocation.getCurrentPosition(options);
-    console.log('Current', coordinates);
 
 
   }

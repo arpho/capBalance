@@ -81,6 +81,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
     initialize(supplier) {
         Object.assign(this, supplier)
+        this.title = this.title || this.nome
         return this
     }
 

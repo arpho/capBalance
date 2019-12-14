@@ -32,7 +32,6 @@ export class MockCategoriesService implements ItemServiceInterface {
         return { on }
     }
     createCategory() {
-        console.log('dummy')
     }
     updateItem(item: import('../../modules/item/models/itemModelInterface').ItemModelInterface) {
         throw new Error('Method not implemented.');

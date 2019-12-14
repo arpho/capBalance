@@ -140,16 +140,12 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
   }
 
   async ngOnInit() {
-    if (this.service.getEntitiesList()) {
-      this.service.getEntitiesList().on('value', eventSuppliersListSnapshot => {
         this.secondSpinner = true
         this.ItemsList = [];
         this.service.items.subscribe(items=>{
           this.ItemsList = items
           this.secondSpinner = false
         })
-      });
-    }
   }
 
   filter(fileds) {

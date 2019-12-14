@@ -14,8 +14,8 @@ describe("testing filterFunction", () => {
     })
     it('base filterFunction should work properly', () => {
         const options = { test: 'ali' }
-        const cat = new CategoryModel('alimenti', new MockCategoriesService())
-        cat.load()
+        const cat = new CategoryModel('alimenti',)
+        
         const filterFunction2testTrue = question.filterFactory(options)
         
         expect(filterFunction2testTrue(cat)).toBeTruthy()
@@ -31,7 +31,7 @@ describe("testing filterFunction", () => {
         // tslint:disable-next-line: no-shadowed-variable
         const filterFunction = (value: string, item: CategoryModel) => item.title.includes(value)
         const Question = new QuestionBase<string>({ order: 0, key: 'test', label: 'test', value: 'neutralFilter', filterFunction })
-        const cat = new CategoryModel('a', new MockCategoriesService())
+        const cat = new CategoryModel('a', )
         const neutralFilter = Question.filterFactory(options)
         expect(neutralFilter(cat)).toBeTruthy()
 

@@ -28,7 +28,6 @@ export class AgmComponent implements OnInit {
     this.lat = ev.coords.lat;
     this.lng = ev.coords.lng;
     this.locationChoosen = true;
-    console.log(ev.coords);
   }
 
   ngOnInit() {

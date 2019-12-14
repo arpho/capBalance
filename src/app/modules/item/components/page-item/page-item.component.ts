@@ -20,7 +20,6 @@ import { Router } from "@angular/router";
 })
 export class PageItemComponent extends MyItemComponent implements OnInit {
   @Input() Item: ItemModelInterface;
-  @Input() Service: ItemServiceInterface;
 
   constructor(public alertCtrl: AlertController, public router: Router, public ref: ChangeDetectorRef, public modal: ModalController) {
     super(alertCtrl);

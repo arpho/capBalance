@@ -1,5 +1,5 @@
 // tslint:disable: semicolon
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { GeoService } from 'src/app/modules/geo-location/services/geo-service';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
@@ -52,6 +52,7 @@ export class DetailShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = this.navParams.get('item')
+    console.log('got kart ',this.kart)
     this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
       return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
         this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
@@ -63,6 +64,7 @@ export class DetailShoppingKartPage implements OnInit {
 
       })
     }
+
     this.kartFields = [
       new TextboxQuestion({
         key: 'title',
@@ -116,6 +118,7 @@ export class DetailShoppingKartPage implements OnInit {
         }
       )
     ];
+    console.log('kart fields',this.kartFields)
 
 
 

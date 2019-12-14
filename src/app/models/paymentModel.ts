@@ -61,6 +61,7 @@ export class PaymentsModel implements ItemModelInterface {
 
     initialize(payment){
         Object.assign(this,payment)
+        this.title = this.title || this.nome
         return this
     }
     async load() {
@@ -156,7 +157,7 @@ export class PaymentsModel implements ItemModelInterface {
     getTitle() {
         const value = new Value();
         value.label = 'pagamento';
-        value.value = this.title;
+        value.value = this.title||this.nome;
         return value;
     }
 

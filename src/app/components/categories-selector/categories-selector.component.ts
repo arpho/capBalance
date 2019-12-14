@@ -35,7 +35,6 @@ export class CategoriesSelectorComponent implements OnInit {
   }
 
   clickedCategory(cat: CategoryModel) {
-    console.log('clicked', cat)
   }
 
 }

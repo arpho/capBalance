@@ -70,7 +70,6 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   async updateItem(item: ItemModelInterface, slide: {}) {
-
     const modal = await this.modalController.create({ component: this.editModalPage, componentProps: { item } })
     // tslint:disable-next-line: no-string-literal
     slide['close']()
@@ -126,6 +125,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   editItem(item: ItemModelInterface) {
+    console.log('editing',item)
     this.router.navigate([this.editModalPage, item.key]);
   }
 
