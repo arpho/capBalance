@@ -68,7 +68,8 @@ describe('ItemsFilterComponent', () => {
       items: [purchaseData]
     }
     const kartService = new MockShoppingKartervice(testdata)
-    const kart = new ShoppingKartModel({ item: kartdata, service: kartService })
+    const kart = new ShoppingKartModel({ item: kartdata,// service: kartService 
+    })
     kart.load()
     const kartsList = [kart]
   });

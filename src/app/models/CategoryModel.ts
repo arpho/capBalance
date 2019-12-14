@@ -54,10 +54,12 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         return this
     }
     initialize(cat: any) {
-        this.title = cat && cat.title ? cat.title : ''
-        this.fatherKey = cat && cat.fatherKey ? cat.fatherKey : ''
+        Object.assign(this, cat)
+        this.title = this.title || 'deleted'
 
-        if (this.service) {
+
+
+    /*     if (this.service) {
             this.service.getItem(this.key).on('value', cat => {
                 if (cat.val()) {
                     this.title = cat.val().title;
@@ -70,7 +72,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                     this.title = 'deleted'
                 }
             });
-        }
+        } */
         return this
     }
     getCountingText() { return ' categorie'; }
