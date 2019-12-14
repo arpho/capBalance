@@ -50,7 +50,8 @@ describe('PiechartPage', () => {
       barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: 125.5,
       categorieId: ['a', 'b', 'c']
     };
-    const purchaseA = new PurchaseModel(testPurchase, new MockCategoriesService());
+    const purchaseA = new PurchaseModel(testPurchase, // new MockCategoriesService()
+    );
     purchaseA.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
     // const categoriesList = kart.items.reduce(component.expandPurchases, []);
@@ -98,9 +99,11 @@ describe('categoriesMapper', () => {
       barcode: '123457', key: '1', descrizione: "purchaseB", picture: 'picture', prezzo: 126.5,
       categorieId: ['c', 'D', 'e']
     };
-    const purchaseA = new PurchaseModel(testPurchase0, new MockCategoriesService());
+    const purchaseA = new PurchaseModel(testPurchase0,// new MockCategoriesService()
+    );
     purchaseA.load(); // load categories in purchaseA
-    const purchaseB = new PurchaseModel(testPurchase1, new MockCategoriesService());
+    const purchaseB = new PurchaseModel(testPurchase1,// new MockCategoriesService()
+    );
     purchaseB.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
     kart.addItem(purchaseB)
@@ -167,9 +170,11 @@ describe('categoriesMapper', () => {
       barcode: '123457', key: '1', descrizione: "purchaseB", picture: 'picture', prezzo: 126.5,
       categorieId: ['c', 'D', 'e']
     };
-    const purchaseA = new PurchaseModel(testPurchase0, new MockCategoriesService());
+    const purchaseA = new PurchaseModel(testPurchase0, //new MockCategoriesService()
+    );
     purchaseA.load(); // load categories in purchaseA
-    const purchaseB = new PurchaseModel(testPurchase1, new MockCategoriesService());
+    const purchaseB = new PurchaseModel(testPurchase1, //new MockCategoriesService()
+    );
     purchaseB.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
     kart.addItem(purchaseB)
@@ -254,9 +259,11 @@ describe('transformers functions', () => {
       barcode: '123457', key: '1', descrizione: "purchaseB", picture: 'picture', prezzo: 126.5,
       categorieId: ['c', 'D', 'e']
     };
-    const purchaseA = new PurchaseModel(testPurchase0, new MockCategoriesService());
+    const purchaseA = new PurchaseModel(testPurchase0,// new MockCategoriesService()
+    );
     purchaseA.load(); // load categories in purchaseA
-    const purchaseB = new PurchaseModel(testPurchase1, new MockCategoriesService());
+    const purchaseB = new PurchaseModel(testPurchase1,// new MockCategoriesService()
+    );
     purchaseB.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
     kart.addItem(purchaseB)
