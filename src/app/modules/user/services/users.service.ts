@@ -28,7 +28,7 @@ export class UsersService implements ItemServiceInterface {
   }
 
   setLoggedUser(key: string) {
-    this.loggedUser = new UserModel(undefined, key, this);
+    this.loggedUser = new UserModel(undefined, key);
     this.loggedUser.load().then(v => {
       this.loggedUser.build(v);
     });

@@ -8,7 +8,7 @@ import { DateModel } from './birthDateModel';
 import { RoleModel } from './privilegesLevelModel';
 import { configs } from 'src/app/configs/configs';
 import { QuickAction } from '../../item/models/QuickAction';
-import { EditUserPage } from '../pages/edit-user/edit-user.page';
+// import { EditUserPage } from '../pages/edit-user/edit-user.page';
 export class UserModel implements ItemModelInterface {
   birthDate: DateModel; // { day: number; month: number; year: number };
   email: string;
@@ -22,23 +22,24 @@ export class UserModel implements ItemModelInterface {
   privileges: RoleModel;
   service: ItemServiceInterface;
 
-  constructor(item?: {}, key?: string, service?: ItemServiceInterface) {
+  constructor(item?: {}, key?: string, ) {
     this.key = key;
-    this.service = service;
-    if (item) {
-      this.build(item);
-    }
     this.quickActions = [
       new QuickAction({
         icon: 'create',
         title: 'modifica',
         description: '',
         action: (args: { alertCtrl: any; router: any }) => {
-          args.router.navigate([this.getEditPopup(), this.key]);
+          // args.router.navigate([this.getEditPopup(), this.key]);
         }
       })
     ];
   }
+  initialize(user:any){
+    Object.assign(this,user)
+      return this
+    }
+  
 
   getNote() {
     return new Value({
@@ -49,9 +50,6 @@ export class UserModel implements ItemModelInterface {
 
   getTitle() {
     return new Value({ value: this.email, label: 'user mail' });
-  }
-  getDetailPage() {
-    return EditUserPage;
   }
 
   build(item: {}) {
@@ -92,12 +90,12 @@ export class UserModel implements ItemModelInterface {
   }
 
   async load() {
-    if (this.service.getItem(this.key)) {
+    /* if (this.service.getItem(this.key)) {
       this.service.getItem(this.key).on('value', value => {
         this.build(value.val());
         return this;
       });
-    }
+    } */
     return this;
   }
 
