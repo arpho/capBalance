@@ -81,7 +81,8 @@ describe('testing loading', () => {
         categorieId: ['a', 'b', 'c']
     }
     it('purchase to be loaded', () => {
-        const purchase = new PurchaseModel(testdata, service)
+        const purchase = new PurchaseModel(testdata, //service
+            )
         expect(purchase).toBeTruthy()
         purchase.load()
         expect(purchase.categorie.length).toBe(testdata.categorieId.length)
