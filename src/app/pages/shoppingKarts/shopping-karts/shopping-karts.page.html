@@ -10,7 +10,7 @@
         </a>
       </ion-button>
 
-    <app-items-filter [filterFields]="filterFields"(filterSet)="filter($event)"(filterFunction)="setFilterFunction($event)" [createModalPage]="createModalPage" [editModalPage]="editModalPage"></app-items-filter>
+    <app-items-filter [filterFields]="filterFields"(filterSet)="filter($event)"(filterFunction)="setFilterFunction($event)" ></app-items-filter>
     </ion-buttons>
     <ion-title>Carrelli della spesa</ion-title>
 
@@ -19,8 +19,7 @@
 
 <ion-content>
 
-  <app-page-items-list [items_list]="ItemsList" [service]="service" [filterFunction]="filterFunction" [secondSpinner]="secondSpinner"
-    [sorterFunction]="sorterFunction"></app-page-items-list>
+  <app-page-items-list [items_list]="ItemsList" [service]="service" [filterFunction]="filterFunction" [secondSpinner]="secondSpinner"    [sorterFunction]="sorterFunction" [createModalPage]="createModalPage" [editModalPage]="editModalPage"></app-page-items-list>
 
 
 </ion-content>

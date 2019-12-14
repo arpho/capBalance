@@ -32,7 +32,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
     hasQuickActions() {
         return false
     }
-    load(cat:any) { // TODO to be removed
+    load(cat: any) { // TODO to be removed
         this.title = cat.title
         this.father = cat.father
         if (this.service) {
@@ -53,10 +53,10 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
         }
         return this
     }
-     initialize(cat:any) {
-        this.title = cat.title? cat.title:''
-        this.fatherKey = cat.fatherKey ?cat.fatherKey:''
-        
+    initialize(cat: any) {
+        this.title = cat && cat.title ? cat.title : ''
+        this.fatherKey = cat && cat.fatherKey ? cat.fatherKey : ''
+
         if (this.service) {
             this.service.getItem(this.key).on('value', cat => {
                 if (cat.val()) {
@@ -70,7 +70,7 @@ export class CategoryModel implements FirebaseObject, ItemModelInterface {
                     this.title = 'deleted'
                 }
             });
-        } 
+        }
         return this
     }
     getCountingText() { return ' categorie'; }
