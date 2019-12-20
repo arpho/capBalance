@@ -81,12 +81,12 @@ describe('serialize must not have undefined fields', () => {
     })
 
     it('adding items should work', () => {
-        const a = new PurchaseModel({ key: 'a', prezzo: 1,categorieId: ['a', 'b', 'c'],descrizione:'a' })
+        const a = new PurchaseModel({ key: 'a', prezzo: 1, categorieId: ['a', 'b', 'c'], descrizione: 'a' })
         a.load()
         kart.addItem(a)
         expect(kart.items.length).toBe(1)
         expect(kart.items[0].prezzo).toBe(1)
-        const b = new PurchaseModel({ key: 'b', prezzo: 2,categorieId: ['a', 'b', 'c'],descrizione:'b' })
+        const b = new PurchaseModel({ key: 'b', prezzo: 2, categorieId: ['a', 'b', 'c'], descrizione: 'b' })
         b.load()
         kart.addItem(b)
         expect(kart.items.length).toBe(2)
@@ -180,29 +180,36 @@ describe('loading purchase', () => {
         key: 'zxcvbnm',
         items: [purchaseData]
     }
+    const inizializeCategory = (cat: CategoryModel, categoriesServiceMocker: any) => cat.initialize(categoriesServiceMocker.filter((Cat) => Cat.key == cat.key)[0])
+    const catService = [{ key: 'a', title: 'A' }, { key: 'b', title: 'B' }, { key: 'c', title: 'C' }]
+    const initializeCategoryWrapper = (cat: CategoryModel) => inizializeCategory(cat, catService)
     it('kart should be created and purchase and categories instantiated', () => {
         const kartService1 = new MockShoppingKartervice(testdata)
-        const kart1 = new ShoppingKartModel({ item: kartdata,// service: kartService1 
+        const kart1 = new ShoppingKartModel({
+            item: kartdata,// service: kartService1 
         }
-            )
+        )
+        const purchase = new PurchaseModel().initialize(purchaseData)
+        purchase.categorie = purchaseData.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
+        kart1.items = [purchase]
         expect(kart1).toEqual(jasmine.any(ShoppingKartModel))
         expect(kart1.items[0]).toEqual(jasmine.any(PurchaseModel))
-        expect(kart1.service).toBeTruthy()
-        expect(kart1.service.categoriesService).toBeTruthy()
-        expect(kart1.items[0].service).toBeTruthy()
         expect(kart1.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
-        expect(kart1.items[0].categorie[0].service).toBeTruthy()
     })
     it('should load purchase and categories', () => {
-        const kart = new ShoppingKartModel({ item: kartdata,// service: kartService
-         }
-            )
-        kart.load()
+        const kart = new ShoppingKartModel({
+            item: kartdata,// service: kartService
+        }
+        )
+        const purchase = new PurchaseModel().initialize(purchaseData)
+
+        purchase.categorie = purchaseData.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
+        kart.items = [purchase]
         expect(kart.items.length).toBe(1)
         expect(kart.items[0]).toEqual(jasmine.any(PurchaseModel))
         expect(kart.items[0].categorie.length).toBe(3)
         expect(kart.items[0].categorie[0]).toEqual(jasmine.any(CategoryModel))
-        expect(kart.items[0].categorie[0].title).toBe('a')
-        expect(kart.items[0].categorie[1].title).toBe('b')
+        expect(kart.items[0].categorie[0].title).toBe('A')
+        expect(kart.items[0].categorie[1].title).toBe('B')
     })
 })
