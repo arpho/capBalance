@@ -66,7 +66,6 @@ export class PurchaseModel {
         if (categorieId) {
              console.log('got categorieId', categorieId)
             const out = categorieId.map((key: string) => new CategoryModel(key))
-             console.log('instatiated categorie', out)
             return out
         } else { return [] }
     }

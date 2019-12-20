@@ -75,6 +75,9 @@ describe('testing purchaseModel', () => {
 
 })
 describe('testing loading', () => {
+
+    const inizializeCategory = (cat: CategoryModel, categoriesServiceMocker: any) => cat.initialize(categoriesServiceMocker.filter((Cat) => Cat.key == cat.key)[0])
+
     const service = new MockCategoriesService()
     const testdata = {
         barcode: '123456', key: '0', descrizione: 'questo è un test', picture: 'picture', prezzo: '125.5',
@@ -82,16 +85,18 @@ describe('testing loading', () => {
     }
     it('purchase to be loaded', () => {
         const purchase = new PurchaseModel(testdata, //service
-            )
+        )
         expect(purchase).toBeTruthy()
-        purchase.load()
+        const catService = [{ key: 'a', title: 'A' }, { key: 'b', title: 'B' }, { key: 'c', title: 'C' }]
+        const initializeCategoryWrapper = (cat: CategoryModel) => inizializeCategory(cat, catService)
+        purchase.categorie = purchase.categorie.map(initializeCategoryWrapper)
         expect(purchase.categorie.length).toBe(testdata.categorieId.length)
         expect(purchase.categorie[0]).toEqual(jasmine.any(CategoryModel))
         expect(purchase.getCategoriesKeys().length).toBe(3)
         expect(purchase.getCategoriesKeys().includes('a')).toBeTruthy
         expect(purchase.getCategoriesKeys().includes('b')).toBeTruthy
         expect(purchase.getCategoriesKeys().includes('c')).toBeTruthy
-        expect(purchase.categorie[0].title).toBe('a')
+        expect(purchase.categorie[0].title).toBe('A')
 
     })
 
