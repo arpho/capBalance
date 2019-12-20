@@ -124,7 +124,7 @@ describe('getTitle should work when no fornitore', () => {
         ecommerce: false
         // })
     }
-    const kart = new ShoppingKartModel({ item: kartdata })
+    const kart = new ShoppingKartModel({ item: kartdata }).initialize(kartdata)
     it('check getTitle returns the correct title when title is defined', () => {
         expect(kart.getTitle().value).toBe(kartdata.title)
     })

@@ -64,7 +64,6 @@ export class PurchaseModel {
 
     instatiateCategories(categorieId: Array<string>) {
         if (categorieId) {
-             console.log('got categorieId', categorieId)
             const out = categorieId.map((key: string) => new CategoryModel(key))
             return out
         } else { return [] }
