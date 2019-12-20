@@ -14,7 +14,7 @@ describe("testing filterFunction", () => {
     })
     it('base filterFunction should work properly', () => {
         const options = { test: 'ali' }
-        const cat = new CategoryModel('alimenti',)
+        const cat = new CategoryModel('alimenti',).initialize({key:'alimenti',title:'alimenti'})
         
         const filterFunction2testTrue = question.filterFactory(options)
         
