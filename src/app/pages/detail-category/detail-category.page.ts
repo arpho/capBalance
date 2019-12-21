@@ -77,7 +77,7 @@ export class DetailCategoryPage implements OnInit {
       key: 'father',
       label: 'categoria origine',
       text: ' categoria origine',
-      value: this.category.father,
+      value: this.category?this.category.father:{},
       service: this.service,
       required: false
     })];
