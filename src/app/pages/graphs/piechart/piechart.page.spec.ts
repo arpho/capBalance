@@ -99,12 +99,13 @@ describe('categoriesMapper', () => {
       barcode: '123457', key: '1', descrizione: "purchaseB", picture: 'picture', prezzo: 126.5,
       categorieId: ['c', 'D', 'e']
     };
-    const purchaseA = new PurchaseModel(testPurchase0,// new MockCategoriesService()
-    );
-    purchaseA.load(); // load categories in purchaseA
-    const purchaseB = new PurchaseModel(testPurchase1,// new MockCategoriesService()
-    );
-    purchaseB.load(); // load categories in purchaseA
+    const inizializeCategory = (cat: CategoryModel, categoriesServiceMocker: any) => cat.initialize(categoriesServiceMocker.filter((Cat) => Cat.key == cat.key)[0])
+    const catService = [{ key: 'a', title: 'A' }, { key: 'b', title: 'B' }, { key: 'c', title: 'C' }, { key: 'D', title: 'D' }, { key: 'e', title: 'E' }]
+    const initializeCategoryWrapper = (cat: CategoryModel) => inizializeCategory(cat, catService)
+    const purchaseA = new PurchaseModel(testPurchase0).initialize(testPurchase0)
+    purchaseA.categorie = purchaseA.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
+    const purchaseB = new PurchaseModel(testPurchase1).initialize(testPurchase1);
+    purchaseB.categorie = purchaseB.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
     kart.addItem(purchaseA);
     kart.addItem(purchaseB)
     const kartsList = [kart]

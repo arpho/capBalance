@@ -51,14 +51,13 @@ export class SankeyPage implements OnInit {
       ],
       columnNames: ['From', 'To', 'Totale spesa'],
       options: {
-        width: 300,
-        height: 500
+        width: 400,
+        height: 400
       }
     };
-    if (this.service.getEntitiesList()) {
-      this.service.getEntitiesList().on('value', kartsSnap => {
         this.karts = []
         this.service.items.subscribe(items=>{
+          console.log('got items',items.length)
           this.karts = items
         })
         const extractedData = this.extractData(
@@ -66,8 +65,7 @@ export class SankeyPage implements OnInit {
           this.filterFactory(7)
         )
         this.setData({ data: extractedData, title: this.makeTitle(extractedData.totaleSpesa, 7) })
-      })
-    }
+   
   }
 
   makeTitle(tot: number, days: number) {
@@ -75,6 +73,7 @@ export class SankeyPage implements OnInit {
   }
 
   setData(data: { data: [], title: string }) {
+    console.log('setting data',data)
     this.chart.data = data.data
     this.chart.title = data.title
 
@@ -163,6 +162,7 @@ export class SankeyPage implements OnInit {
       dataInizio: new Date(ev.dataInizio),
       dataFine: new Date(ev.dataFine)
     }))
+    console.log('setting data',data2Graph)
     this.setData({ data: data2Graph, title: '' })
   }
 

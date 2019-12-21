@@ -15,12 +15,9 @@ export class CategoriesService implements ItemServiceInterface {
   private items_list: Array<CategoryModel> = []
   initializeCategory(cat) {
     const Cat = new CategoryModel(cat.key).initialize(cat)
-    console.log('initialized category', Cat)
     if (Cat.fatherKey) {
       this.getItem(Cat.fatherKey).on('value', father => {
-        console.log('got category fasther', father.val())
         const FatherCategory = this.initializeCategory(father.val())
-        console.log('got father', FatherCategory)
         Cat.father = FatherCategory
       })
     }
@@ -34,7 +31,6 @@ export class CategoriesService implements ItemServiceInterface {
           this.items_list = [];
           eventCategoriesListSnapshot.forEach(snap => {
             const cat = this.initializeCategory(snap.val())
-            console.log('pushing cat', cat)
             this.items_list.push(cat)
           }
           );
