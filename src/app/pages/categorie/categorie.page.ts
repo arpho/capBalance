@@ -5,6 +5,7 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 import { ItemModelInterface } from 'src/app/modules/item/models/itemModelInterface';
 import { TextboxQuestion } from 'src/app/modules/dynamic-form/models/question-textbox';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
+import {DetailCategoryPage} from '../detail-category/detail-category.page'
 
 @Component({
   selector: 'app-categorie',
@@ -15,6 +16,7 @@ export class CategoriePage implements OnInit {
   public CategoriesList: Array<CategoryModel>;
   public filterLabel = 'Categorie';
   public filterString: string;
+  public editModalPage = DetailCategoryPage
   filterFields: any;
   public filterFunction: (item: ItemModelInterface) => boolean;
 

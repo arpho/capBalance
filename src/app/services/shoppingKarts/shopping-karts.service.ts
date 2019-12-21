@@ -20,9 +20,9 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 })
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
-  private _items: BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
+  public _items: BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
   public readonly items: Observable<Array<ShoppingKartModel>> = this._items.asObservable()
-  private items_list: Array<ShoppingKartModel> = []
+  public items_list: Array<ShoppingKartModel> = []
   categoriesService?: ItemServiceInterface;
 
   getItem(key: string): firebase.database.Reference {
@@ -47,6 +47,8 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
   constructor(categories: CategoriesService, public payments: PaymentsService, public suppliers: SuppliersService) {
     this.categoriesService = categories
+    this.items.subscribe(items=>{
+    })
     const purchaseInitializer = (purchase) => {
       const Purchase = new PurchaseModel().initialize(purchase)
 
