@@ -13,6 +13,19 @@ export class CategoriesService implements ItemServiceInterface {
   private _items: BehaviorSubject<Array<CategoryModel>> = new BehaviorSubject([])
   public readonly items: Observable<Array<CategoryModel>> = this._items.asObservable()
   private items_list: Array<CategoryModel> = []
+  initializeCategory(cat) {
+    const Cat = new CategoryModel(cat.key).initialize(cat)
+    console.log('initialized category', Cat)
+    if (Cat.fatherKey) {
+      this.getItem(Cat.fatherKey).on('value', father => {
+        console.log('got category fasther', father.val())
+        const FatherCategory = this.initializeCategory(father.val())
+        console.log('got father', FatherCategory)
+        Cat.father = FatherCategory
+      })
+    }
+    return Cat
+  }
 
   constructor() {
     firebase.auth().onAuthStateChanged(user => {
@@ -20,21 +33,10 @@ export class CategoriesService implements ItemServiceInterface {
         this.categoriesListRef = firebase.database().ref(`/categorie/${user.uid}/`); this.getEntitiesList().on('value', eventCategoriesListSnapshot => {
           this.items_list = [];
           eventCategoriesListSnapshot.forEach(snap => {
-            const cat = new CategoryModel(snap.key).initialize(snap.val())
-            if (cat.fatherKey) {
-              this.getItem(cat.fatherKey).on('value', (category) => {
-                cat.father = new CategoryModel(cat.fatherKey).initialize(category.val())
-                this.items_list.push(cat);
-              })
-            } else{
-              this.items_list.push(cat)
-            }
+            const cat = this.initializeCategory(snap.val())
+            console.log('pushing cat', cat)
+            this.items_list.push(cat)
           }
-
-              
-              
-
-            
           );
           this._items.next(this.items_list)
         });
