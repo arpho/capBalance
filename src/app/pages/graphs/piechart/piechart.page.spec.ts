@@ -143,11 +143,11 @@ describe('categoriesMapper', () => {
     }
     const reducedCategoryprice = categoriaPrezzoList.reduce(categoryPriceReducer, {})
     expect(Object.entries(reducedCategoryprice).length).toBe(5)
-    expect(reducedCategoryprice.a).toBe(125.5)
-    expect(reducedCategoryprice.b).toBe(125.5)
+    expect(reducedCategoryprice.A).toBe(125.5)
+    expect(reducedCategoryprice.B).toBe(125.5)
     expect(reducedCategoryprice.D).toBe(126.5)
-    expect(reducedCategoryprice.e).toBe(126.5)
-    expect(reducedCategoryprice.c).toBe(252)
+    expect(reducedCategoryprice.E).toBe(126.5)
+    expect(reducedCategoryprice.C).toBe(252)
   })
 
   // tslint:disable-next-line: quotemark
