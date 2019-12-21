@@ -56,8 +56,7 @@ export class SankeyPage implements OnInit {
       }
     };
         this.karts = []
-        this.service.items.subscribe(items=>{
-          console.log('got items',items.length)
+        this.service.items.subscribe(items=>{ 
           this.karts = items
         })
         const extractedData = this.extractData(
@@ -73,7 +72,6 @@ export class SankeyPage implements OnInit {
   }
 
   setData(data: { data: [], title: string }) {
-    console.log('setting data',data)
     this.chart.data = data.data
     this.chart.title = data.title
 
@@ -162,7 +160,6 @@ export class SankeyPage implements OnInit {
       dataInizio: new Date(ev.dataInizio),
       dataFine: new Date(ev.dataFine)
     }))
-    console.log('setting data',data2Graph)
     this.setData({ data: data2Graph, title: '' })
   }
 

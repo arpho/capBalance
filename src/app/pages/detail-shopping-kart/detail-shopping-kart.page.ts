@@ -118,7 +118,6 @@ export class DetailShoppingKartPage implements OnInit {
         }
       )
     ];
-    console.log('kart fields',this.kartFields)
 
 
 

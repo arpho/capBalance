@@ -162,6 +162,9 @@ describe('categoriesMapper', () => {
       key: 'zxcvbnm'
     };
     const kart = new ShoppingKartModel(kartdata);
+    const inizializeCategory = (cat: CategoryModel, categoriesServiceMocker: any) => cat.initialize(categoriesServiceMocker.filter((Cat) => Cat.key == cat.key)[0])
+    const catService = [{ key: 'a', title: 'A' }, { key: 'b', title: 'B' }, { key: 'c', title: 'C' },{key:'D',title:'deleted'},{key:'e',title:'E'}]
+    const initializeCategoryWrapper = (cat: CategoryModel) => inizializeCategory(cat, catService)
     const testPurchase0 = {
       barcode: '123456', key: '0', descrizione: 'purchase A', picture: 'picture', prezzo: 125.5,
       categorieId: ['a', 'b', 'c']
@@ -173,9 +176,10 @@ describe('categoriesMapper', () => {
     };
     const purchaseA = new PurchaseModel(testPurchase0, //new MockCategoriesService()
     );
-    purchaseA.load(); // load categories in purchaseA
-    const purchaseB = new PurchaseModel(testPurchase1, //new MockCategoriesService()
-    );
+    // load categories in purchaseA
+    purchaseA.categorie = purchaseA.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
+    const purchaseB = new PurchaseModel(testPurchase1);
+    purchaseB.categorie = purchaseB.categorieId.map(key => new CategoryModel(key)).map(initializeCategoryWrapper)
     purchaseB.load(); // load categories in purchaseA
     kart.addItem(purchaseA);
     kart.addItem(purchaseB)
@@ -201,25 +205,27 @@ describe('categoriesMapper', () => {
     const categoriaPrezzo = categoriesPriceLists.map(expandCategoriesList2categoryPriceObject)// **/
     expect(categoriaPrezzo.length).toBe(4)
     const reducedCategoriaPrezzo = categoriaPrezzo.reduce(flattener, [])// **/
+    console.log('reducedAtegoriaPrezzo',reducedCategoriaPrezzo)
     expect(reducedCategoriaPrezzo.length).toBe(12)
     const categoryPriceReducer = (acc: {}, currentValue: { categoria: CategoryModel, prezzo: number }) => {
       acc[currentValue.categoria.title] = acc[currentValue.categoria.title] + currentValue.prezzo || currentValue.prezzo
       return acc
     }
-    const reducedCategoryPrice = reducedCategoriaPrezzo.reduce(categoryPriceReducer, {})
+    const reducedCategoryPrice = reducedCategoriaPrezzo.reduce(categoryPriceReducer, {}) 
+    console.log('reducedCategoryPrice',reducedCategoryPrice)
     expect(Object.entries(reducedCategoryPrice).length).toBe(5)
-    expect(reducedCategoryPrice.a).toBe(251)
-    expect(reducedCategoryPrice.b).toBe(251)
-    expect(reducedCategoryPrice.c).toBe(504)
-    expect(reducedCategoryPrice.D).toBe(253)
-    expect(reducedCategoryPrice.e).toBe(253)
+    expect(reducedCategoryPrice.A).toBe(251)
+    expect(reducedCategoryPrice.B).toBe(251)
+    expect(reducedCategoryPrice.C).toBe(504)
+    expect(reducedCategoryPrice.deleted).toBe(253)
+    expect(reducedCategoryPrice.E).toBe(253)
     const c = component.transformers.categories(kartsList)
     expect(Object.entries(c).length).toBe(5)
-    expect(c.a).toBe(251)
-    expect(c.b).toBe(251)
-    expect(c.c).toBe(504)
-    expect(c.D).toBe(253)
-    expect(c.e).toBe(253)
+    expect(c.A).toBe(251)
+    expect(c.B).toBe(251)
+    expect(c.C).toBe(504)
+    expect(c.deleted).toBe(253)
+    expect(c.E).toBe(253)
 
   })
 
