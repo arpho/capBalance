@@ -9,7 +9,7 @@
     <div class="dot2"></div>
   </div>
   <ion-item-sliding
-    *ngFor="let item of service.items |async | filterItems: filterFunction| sorterItems: sorterFunction"
+    *ngFor="let item of service?.items |async | filterItems: filterFunction| sorterItems: sorterFunction"
     #sliding_item
   >
     <app-page-item [Item]="item" ></app-page-item>

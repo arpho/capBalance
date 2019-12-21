@@ -28,7 +28,7 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   @Input() items_list: ItemModelInterface[];
   @Input() secondSpinner
   @Input() service: ItemServiceInterface;
-  @Input() editModalPage:ComponentRef
+  @Input() editModalPage: ComponentRef
   public dummyItem: ItemModelInterface;
   @Input() filterFunction: (item: ItemModelInterface) => boolean;
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
@@ -102,11 +102,14 @@ export class PageItemsListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-      if (this.service && this.service.items) {
-        this.service.items.subscribe((items) => { if (items) { 
+    if (this.service && this.service.items) {
+      this.service.items.subscribe((items) => {
+        if (items) {
           this.showSpinner = false
-        this.secondSpinner = false } })
-      }
+          this.secondSpinner = false
+        }
+      })
+    }
     if (changes.items_list && changes.items_list.currentValue) {
       this.items_list = changes.items_list.currentValue;
       this.showSpinner = false;
@@ -118,14 +121,16 @@ export class PageItemsListComponent implements OnInit, OnChanges {
 
   countItems() {
     var count
-    this.service.items.subscribe(items => {
-      count = items.filter(this.filterFunction).length
-    })
+    if (this.service) {
+      this.service.items.subscribe(items => {
+        count = items.filter(this.filterFunction).length
+      })
+    }
     return (count) ? count : "loading";
   }
 
   editItem(item: ItemModelInterface) {
-    console.log('editing',item)
+    console.log('editing', item)
     this.router.navigate([this.editModalPage, item.key]);
   }
 
