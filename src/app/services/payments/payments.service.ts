@@ -28,8 +28,7 @@ export class PaymentsService implements ItemServiceInterface {
 
           this.items_list = [];
           eventCategoriesListSnapshot.forEach(snap => {
-            const payment =  new PaymentsModel(undefined, snap.key, this)
-            payment.load()
+            const payment =  new PaymentsModel().initialize(snap.val())
             this.items_list.push(payment );
           });
         this._items.next(this.items_list)

@@ -20,9 +20,9 @@ import { CategoryModel } from 'src/app/models/CategoryModel';
 })
 export class ShoppingKartsService implements ItemServiceInterface {
   public shoppingKartsListRef: firebase.database.Reference;
-  public _items: BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
+  private _items: BehaviorSubject<Array<ShoppingKartModel>> = new BehaviorSubject([])
   public readonly items: Observable<Array<ShoppingKartModel>> = this._items.asObservable()
-  public items_list: Array<ShoppingKartModel> = []
+  private items_list: Array<ShoppingKartModel> = []
   categoriesService?: ItemServiceInterface;
 
   getItem(key: string): firebase.database.Reference {
@@ -47,8 +47,6 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
   constructor(categories: CategoriesService, public payments: PaymentsService, public suppliers: SuppliersService) {
     this.categoriesService = categories
-    this.items.subscribe(items=>{
-    })
     const purchaseInitializer = (purchase) => {
       const Purchase = new PurchaseModel().initialize(purchase)
 
@@ -69,8 +67,6 @@ export class ShoppingKartsService implements ItemServiceInterface {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.shoppingKartsListRef = firebase.database().ref(`/acquisti/${user.uid}/`);
-        this.items.subscribe(items=>{
-        })
         this.getEntitiesList().on('value', eventSuppliersListSnapshot => {
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
@@ -79,11 +75,13 @@ export class ShoppingKartsService implements ItemServiceInterface {
             kart.items = kart.items.map(purchaseInitializer)
             // initialize payment
             this.payments.items.subscribe(payments => {
-              kart.setPayment(payments.filter((pagamento: PaymentsModel) => pagamento.key == kart.pagamentoId)[0])
+              const payment = payments.filter(pagamento => pagamento.key == kart.pagamentoId)[0]
+              kart.setPayment(payment)
             })
             // inirtialize supplier 
             this.suppliers.items.subscribe(suppliers => {
-              kart.setSupplier(suppliers.filter((fornitore: SupplierModel) => fornitore.key == kart.fornitoreId)[0])
+              const supplier = suppliers.filter(fornitore => fornitore.key == kart.fornitoreId)[0]
+              kart.setSupplier(supplier)
             })
             this.items_list.push(kart);
 

@@ -36,7 +36,6 @@ export class ShoppingKartModel implements ItemModelInterface {
     purchases: Array<PurchaseModel>
     note: string
     // -next-line: semicolon
-    public service: ShoppingKartsService
 
 
     constructor(args?: { key?: string, item?: {} }) {

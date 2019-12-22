@@ -13,7 +13,6 @@ export class PaymentsModel implements ItemModelInterface {
     key: string;
     quickActions: Array<QuickAction>
     archived: boolean;
-    service: ItemServiceInterface
     constructor(
         payment?: {
             nome?: string,
@@ -30,7 +29,6 @@ export class PaymentsModel implements ItemModelInterface {
             this.build(payment)
         }
         this.key = key || this.key
-        this.service = service;
 
 
     }
@@ -65,17 +63,7 @@ export class PaymentsModel implements ItemModelInterface {
         return this
     }
     async load() {
-        if (this.key && this.service) {
-            this.service.getItem(this.key).on('value', pay => {
-                if (pay.val()) {
-                    this.nome = pay.val().nome ? pay.val().nome : '';
-                    this.title = this.nome;
-                    this.title = pay.val().title || this.nome; // se lo item è aggiornato avrà il valore di tilte, altrimenti quello di nome
-                    this.note = pay.val().note;
-                    this.archived = pay.val().archived;
-                }
-            });
-        }
+       
         return this
     }
 
@@ -133,7 +121,6 @@ export class PaymentsModel implements ItemModelInterface {
                     handler: data => {
                         item.title = data.title;
                         item.note = data.note;
-                        // service.updateItem(item);
                     },
                 },
             ],

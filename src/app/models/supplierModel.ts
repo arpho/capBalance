@@ -11,7 +11,6 @@ import { Coordinates } from '../modules/geo-location/models/coordinates';
 import { FornitoriPage } from '../pages/fornitori/fornitori.page';
 import { QuickAction } from '../modules/item/models/QuickAction';
 import { ModalController, AlertController } from '@ionic/angular';
-import { SuppliersService } from '../services/suppliers/suppliers.service';
 export class SupplierModel implements ItemModelInterface, FirebaseObject {
     nome: string;
     note: string;
@@ -96,40 +95,7 @@ export class SupplierModel implements ItemModelInterface, FirebaseObject {
     }
 
     load(next?: () => void) {
-        // TODO remove
-        /*    if (this.service.getItem(this.key)) {
-               this.service.getItem(this.key).on('value', sup => {
-   
-                   const loader = ([Key, value]) => {
-                       if (Key !== 'key') { // evito di sovrascrivere la chiave
-                           this[Key] = value;
-                       }
-                   };
-                   if (sup.val()) {
-                       Object.entries(sup.val()).forEach(loader);
-                   }
-                   // retro compatibilità
-                   this.title = this.title || this.nome;
-                   this.latitude = Number(this.latitude || this.latitudine);
-                   this.longitude = Number(this.longitude || this.longitudine);
-                   // this.address = this.address || this.indirizzo;
-                   this.ecommerce = this.ecommerce || this.onLine;
-                   this.title = this.title || this.nome
-                   if (this.address) {
-                       this.address =
-                           new Coordinates({
-                               latitude: this.address.latitude,
-                               longitude: this.address.longitude,
-                               address: this.address.address
-                           })
-                   } else {
-                       this.address = new Coordinates({ latitude: this.latitude, longitude: this.longitude, address: this.indirizzo })
-                   }
-                   if (next) {
-                       next()
-                   }
-               }); 
-           }*/
+        
         return this
     }
 

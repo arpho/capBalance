@@ -21,7 +21,6 @@ export class SuppliersService implements ItemServiceInterface {
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
             const supplier = new SupplierModel(undefined, snap.key).initialize(snap.val())
-            // supplier.load()
             supplier.key = snap.key // alcuni item non hanno il campo key
             this.items_list.push(supplier);
             if (supplier.key === '') {
