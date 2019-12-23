@@ -94,9 +94,25 @@ export class CategoriesSelectorPage implements OnInit {
     this.filterFunction = (a: ItemModelInterface) => this.selectedCategoriesList.map((item: ItemModelInterface) => item.key).includes(a.key)
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
   }
+  hasCat(cat2BeChecked: CategoryModel) {
+    return this.selectedCategoriesList.map((cat:CategoryModel)=>cat.key).includes(cat2BeChecked.key)
+  }
+  includesCategories(newCat: CategoryModel[]) {/**
+   * add only the categories not already dselected
+   */
+    const categoriesList = [...this.selectedCategoriesList]
+    newCat.forEach(cat => {
+      if (!this.hasCat(cat)) {
+        categoriesList.push(cat)
+      }
+
+    })
+    return categoriesList
+
+  }
   addCategory(cat: CategoryModel) {
     // TODO this.searchControl.reset()
-    this.selectedCategoriesList = [...this.selectedCategoriesList, ...cat.addCategory()]
+    this.selectedCategoriesList = this.includesCategories(cat.addCategory())
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
 
   }

@@ -21,25 +21,13 @@ export class PurchaseModel {
             this.build(item)
         }
         this.key = this.key || String(new Date().getTime())
-        /* if (categories) {
-            // è presente categoriesService carico le categorie
-            this.service = categories
-            if (this.categorieId) {
-                this.categorie = this.categorieId.map(key => new CategoryModel(key )
-                )
-            }
-            if (item['categorieId']) {
-                // tslint:disable-next-line: quotemark
-                this.categorie = item['categorieId'].map(key => new CategoryModel(key))
-
-            }
-        } */
 
     }
     initialize(purchase){
         Object.assign(this,purchase)
         return this
     }
+    
 
     clone(item: {
         barcode?: string,
