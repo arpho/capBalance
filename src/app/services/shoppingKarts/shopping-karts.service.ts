@@ -74,10 +74,8 @@ export class ShoppingKartsService implements ItemServiceInterface {
             kart.key = snap.key
             kart.items = kart.items.map(purchaseInitializer)
             // initialize payment
-            this.payments.items.subscribe(payments => {
-              const payment = payments.filter(pagamento => pagamento.key == kart.pagamentoId)[0]
-              kart.setPayment(payment)
-            })
+            
+            
             // inirtialize supplier 
             this.suppliers.items.subscribe(suppliers => {
               const supplier = suppliers.filter(fornitore => fornitore.key == kart.fornitoreId)[0]

@@ -49,21 +49,7 @@ export class DetailShoppingKartPage implements OnInit {
   ) {
 
   }
-
-  ngOnInit() {
-    this.kart = this.navParams.get('item')
-    this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
-      return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
-        this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
-    }
-
-    if (this.kart) {
-      this.kart.load().finally(() => {
-        this.title = `${this.kart.title} ${this.kart.moneta} ${this.kart.totale}`
-
-      })
-    }
-
+  setKartFields() {
     this.kartFields = [
       new TextboxQuestion({
         key: 'title',
@@ -117,6 +103,37 @@ export class DetailShoppingKartPage implements OnInit {
         }
       )
     ];
+
+
+  }
+
+  ngOnInit() {
+    this.kart = this.navParams.get('item')
+    /**
+     * spaghetti code TODO remove asap
+     */
+    this.paymentsService.items.subscribe(payments => {
+      this.kart.setPayment(payments.filter(pay => pay.key == this.kart.pagamentoId)[0])
+      this.setKartFields()
+    })
+    /**
+     * spaghetti code TODO remove asap
+     */
+    this.supplierService.items.subscribe(suppliers => {
+      this.kart.setSupplier(suppliers.filter(sup => sup.key == this.kart.fornitoreId)[0])
+      this.setKartFields()
+    })
+    this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
+      return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
+        this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);
+    }
+
+    if (this.kart) {
+      this.kart.load().finally(() => {
+        this.title = `${this.kart.title} ${this.kart.moneta} ${this.kart.totale}`
+
+      })
+    }
 
 
 

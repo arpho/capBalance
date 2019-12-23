@@ -15,6 +15,7 @@ import { DateModel } from '../modules/user/models/birthDateModel'
 import { ShoppingKartsService } from '../services/shoppingKarts/shopping-karts.service';
 import { OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 export class ShoppingKartModel implements ItemModelInterface {
     quickActions?: QuickAction[];
@@ -71,6 +72,8 @@ export class ShoppingKartModel implements ItemModelInterface {
                 .toUpperCase()) : false
         return this.items.map(mapper).reduce(reducer, false)// checs if at least one of the purchases' description conatains the required description
     }
+
+    
 
     getSupplier() {
         return this.fornitore
