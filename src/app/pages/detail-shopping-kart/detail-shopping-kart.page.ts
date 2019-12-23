@@ -52,7 +52,6 @@ export class DetailShoppingKartPage implements OnInit {
 
   ngOnInit() {
     this.kart = this.navParams.get('item')
-    console.log('got kart ',this.kart)
     this.supplierSorterFunction = (a: SupplierModel, b: SupplierModel) => {
       return this.geo.distance(a.address.latitude, a.address.longitude, this.position.latitude, this.position.longitude) -
         this.geo.distance(b.address.latitude, b.address.longitude, this.position.latitude, this.position.longitude);

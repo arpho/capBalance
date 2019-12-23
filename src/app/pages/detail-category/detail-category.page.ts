@@ -53,7 +53,6 @@ export class DetailCategoryPage implements OnInit {
         duration: 2000
       });
       toast.onDidDismiss().then((res) => {
-        console.log('toast dismiss', res);
         this.dismiss();
       });
       toast.present();
