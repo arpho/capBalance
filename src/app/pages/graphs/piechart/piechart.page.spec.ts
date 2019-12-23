@@ -205,14 +205,12 @@ describe('categoriesMapper', () => {
     const categoriaPrezzo = categoriesPriceLists.map(expandCategoriesList2categoryPriceObject)// **/
     expect(categoriaPrezzo.length).toBe(4)
     const reducedCategoriaPrezzo = categoriaPrezzo.reduce(flattener, [])// **/
-    console.log('reducedAtegoriaPrezzo',reducedCategoriaPrezzo)
     expect(reducedCategoriaPrezzo.length).toBe(12)
     const categoryPriceReducer = (acc: {}, currentValue: { categoria: CategoryModel, prezzo: number }) => {
       acc[currentValue.categoria.title] = acc[currentValue.categoria.title] + currentValue.prezzo || currentValue.prezzo
       return acc
     }
     const reducedCategoryPrice = reducedCategoriaPrezzo.reduce(categoryPriceReducer, {}) 
-    console.log('reducedCategoryPrice',reducedCategoryPrice)
     expect(Object.entries(reducedCategoryPrice).length).toBe(5)
     expect(reducedCategoryPrice.A).toBe(251)
     expect(reducedCategoryPrice.B).toBe(251)

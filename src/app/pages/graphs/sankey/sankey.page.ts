@@ -110,9 +110,9 @@ export class SankeyPage implements OnInit {
     const calcolaTotaleCategory = (acc: {}, cv: { categoria: CategoryModel, prezzo: number }) => {
       if (cv.categoria && cv.categoria.key) {
         acc[cv.categoria.key] = acc[cv.categoria.key] ?
-          { categoria: cv.categoria, prezzo: this.roundNumber(acc[cv.categoria.key].prezzo + cv.prezzo) } :
+          { categoria: cv.categoria, prezzo:Number( this.roundNumber(acc[cv.categoria.key].prezzo + cv.prezzo)) } :
           {
-            categoria: cv.categoria, prezzo: cv.prezzo
+            categoria: cv.categoria, prezzo: Number(cv.prezzo)
           }
       }
       return acc
@@ -128,7 +128,7 @@ export class SankeyPage implements OnInit {
     }
     const data2Graph = Object.entries(this.karts
       .filter(filterFunction)
-      .map(mappKart2Purchse)
+      .map(mappKart2Purchse) // lista di liste di acquisti
       .reduce(flattener, [])
       .map(mapPurchase2CategoriesList)
       .map(mapCategoriesprice2CategoryPrice).reduce(flattener, [])
