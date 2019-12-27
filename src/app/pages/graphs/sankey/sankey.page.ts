@@ -5,6 +5,7 @@ import { ShoppingKartModel } from 'src/app/models/shoppingKartModel';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { PurchaseModel } from 'src/app/models/purchasesModel';
 import { CategoryModel } from 'src/app/models/CategoryModel';
+import{CategoriesService} from '../../../services/categories/categorie.service'
 // tslint:disable:semicolon
 @Component({
   selector: 'app-sankey',
@@ -33,7 +34,8 @@ export class SankeyPage implements OnInit {
   })
   ];
   submitText = ' Opzioni grafico';
-  constructor(public service: ShoppingKartsService) { }
+  constructor(public service: ShoppingKartsService,
+    public categories:CategoriesService) { }
 
   ngOnInit() {
     this.chart = {
@@ -125,6 +127,7 @@ export class SankeyPage implements OnInit {
     }
     const totaleCategorieList = Object.entries(totaleCategorie).reduce(reduceTotaleCategorie2List, [])
     const CategoryPrice2dataMapper = (item: { categoria: CategoryModel, prezzo: number }) => {
+      item.categoria = this.categories.initializeCategory(item.categoria) // spaghetti code TOBE removed
       return [item.categoria.title, item.categoria.afferTo(), item.prezzo]
     }
     const data2Graph = Object.entries(this.karts
