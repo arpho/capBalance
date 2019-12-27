@@ -113,8 +113,10 @@ export class DetailShoppingKartPage implements OnInit {
      * spaghetti code TODO remove asap
      */
     this.paymentsService.items.subscribe(payments => {
-      this.kart.setPayment(payments.filter(pay => pay.key == this.kart.pagamentoId)[0])
-      this.setKartFields()
+      if (this.kart) {
+        this.kart.setPayment(payments.filter(pay => pay.key == this.kart.pagamentoId)[0])
+        this.setKartFields()
+      }
     })
     /**
      * spaghetti code TODO remove asap

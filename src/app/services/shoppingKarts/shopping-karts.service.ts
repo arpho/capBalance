@@ -47,6 +47,11 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
   constructor(categories: CategoriesService, public payments: PaymentsService, public suppliers: SuppliersService) {
     this.categoriesService = categories
+    this.initializeItems()
+   
+  }
+
+  private initializeItems(){
     const purchaseInitializer = (purchase) => {
       const Purchase = new PurchaseModel().initialize(purchase)
 

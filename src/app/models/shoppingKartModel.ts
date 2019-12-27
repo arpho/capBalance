@@ -93,13 +93,13 @@ export class ShoppingKartModel implements ItemModelInterface {
             }
         }
         Object.entries(item).forEach(loader)
+        console.log('building kart')
         this.fornitore = new SupplierModel()
         this.pagamento = new PaymentsModel()
         this.fornitore.key = this.fornitore.key || this.fornitoreId
         this.pagamento.key = this.pagamento.key || this.pagamentoId
         this.items = (this.items) ? this.items.map(Item => new PurchaseModel(Item)) : []
         // gli items sono stati tutti definiti non hanno ancora caricato le categorie
-        // purchaseDate deve sempre essere definito
         this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         return this
     }
@@ -213,6 +213,9 @@ export class ShoppingKartModel implements ItemModelInterface {
 
     initialize(cart) {
         Object.assign(this, cart)
+        this.purchaseDate = new DateModel(new Date(this.dataAcquisto))
+        // purchaseDate deve sempre essere definito
+        this.purchaseDate = this.dataAcquisto ? new DateModel(new Date(this.dataAcquisto)) : new DateModel(new Date())
         return this
     }
 

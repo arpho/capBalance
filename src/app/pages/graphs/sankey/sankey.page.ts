@@ -51,20 +51,20 @@ export class SankeyPage implements OnInit {
       ],
       columnNames: ['From', 'To', 'Totale spesa'],
       options: {
-        width: 400,
-        height: 400
+        width: 800,
+        height: 800
       }
     };
-        this.karts = []
-        this.service.items.subscribe(items=>{ 
-          this.karts = items
-        })
-        const extractedData = this.extractData(
-          // this.transformers.categories,
-          this.filterFactory(7)
-        )
-        this.setData({ data: extractedData, title: this.makeTitle(extractedData.totaleSpesa, 7) })
-   
+    this.karts = []
+    this.service.items.subscribe(items => {
+      this.karts = items
+    })
+    const extractedData = this.extractData(
+      // this.transformers.categories,
+      this.filterDaysFactory(7)
+    )
+    this.setData({ data: extractedData, title: this.makeTitle(extractedData.totaleSpesa, 7) })
+
   }
 
   makeTitle(tot: number, days: number) {
@@ -78,10 +78,11 @@ export class SankeyPage implements OnInit {
   }
 
 
-  filterFactory(day: number) {
+  filterDaysFactory(day: number) {
     const today = new Date()
     const since = new Date(new Date().setDate(today.getDate() - day))
     return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) > since
+
 
   }
   roundNumber = (val: number) => Math.round(val * 100) / 100
@@ -103,14 +104,14 @@ export class SankeyPage implements OnInit {
     const categoriesPriceList = purchases.map(mapPurchase2CategoriesList)
     // mappa gli oggetti di categoriesPrice con una lista di oggetti [caegoria:CategoryModel,prezzo:number]
     const mapCategoriesprice2CategoryPrice = (item: { categorie: Array<CategoryModel>, prezzo: number }) => {
-      const CategoryMapper = (cat: CategoryModel) => ({ categoria: cat, prezzo: item.prezzo })
+      const CategoryMapper = (cat: CategoryModel) => ({ categoria: cat, prezzo: Number(item.prezzo) })
       return item.categorie.map(CategoryMapper)
     }
     const categoryPriceList = categoriesPriceList.map(mapCategoriesprice2CategoryPrice).reduce(flattener, [])
     const calcolaTotaleCategory = (acc: {}, cv: { categoria: CategoryModel, prezzo: number }) => {
       if (cv.categoria && cv.categoria.key) {
         acc[cv.categoria.key] = acc[cv.categoria.key] ?
-          { categoria: cv.categoria, prezzo:Number( this.roundNumber(acc[cv.categoria.key].prezzo + cv.prezzo)) } :
+          { categoria: cv.categoria, prezzo: Number(this.roundNumber(acc[cv.categoria.key].prezzo + cv.prezzo)) } :
           {
             categoria: cv.categoria, prezzo: Number(cv.prezzo)
           }
@@ -144,8 +145,10 @@ export class SankeyPage implements OnInit {
 
 
   dateFilterFactory(args: { dataInizio: Date, dataFine: Date }) {
-    return (item: ShoppingKartModel) => new Date(item.purchaseDate.formatDate()) >= args.dataInizio &&
+    return (item: ShoppingKartModel) =>
+      new Date(item.purchaseDate.formatDate()) >= args.dataInizio &&
       new Date(item.purchaseDate.formatDate()) <= args.dataFine
+
 
   }
 
