@@ -34,6 +34,7 @@ export class DynamicFormComponent implements OnInit {
   @Input() submitText: string;
 
   form: FormGroup;
+  payLoad
 
   constructor(private qcs: QuestionControlService) { }
 
@@ -49,6 +50,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.payLoad = {}
     this.singleSubmit.emit(this.form.value);
   }
 }
