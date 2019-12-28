@@ -60,7 +60,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
         label: 'cliente/fornitore',
         labelTrue: 'cliente',
         labelFalse: ' fornitore',
-        // value: this.supplier.cliente,
         iconTrue: 'happy',
         iconFalse: 'hammer',
         required: false,
@@ -73,7 +72,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
         labelFalse: ' fiscale',
         iconTrue: 'man',
         iconFalse: 'business',
-        // value: this.supplier.personaFisica,
         required: false,
         order: 6
       }),

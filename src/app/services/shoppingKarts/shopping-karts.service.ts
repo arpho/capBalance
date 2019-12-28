@@ -48,10 +48,10 @@ export class ShoppingKartsService implements ItemServiceInterface {
   constructor(categories: CategoriesService, public payments: PaymentsService, public suppliers: SuppliersService) {
     this.categoriesService = categories
     this.initializeItems()
-   
+
   }
 
-  private initializeItems(){
+  private async initializeItems() {
     const purchaseInitializer = (purchase) => {
       const Purchase = new PurchaseModel().initialize(purchase)
 
@@ -79,8 +79,10 @@ export class ShoppingKartsService implements ItemServiceInterface {
             kart.key = snap.key
             kart.items = kart.items.map(purchaseInitializer)
             // initialize payment
-            
-            
+            this.payments.items.subscribe(payments => {
+              kart.setPayment(payments.filter(payment => payment.key == kart.pagamentoId)[0])
+            })
+
             // inirtialize supplier 
             this.suppliers.items.subscribe(suppliers => {
               const supplier = suppliers.filter(fornitore => fornitore.key == kart.fornitoreId)[0]
