@@ -95,7 +95,8 @@ export class CategoriesSelectorPage implements OnInit {
     this.filterFunction = this.filterFactory({ selectedCategoriesList: this.selectedCategoriesList })
   }
   hasCat(cat2BeChecked: CategoryModel) {
-    return this.selectedCategoriesList.map((cat:CategoryModel)=>cat.key).includes(cat2BeChecked.key)
+    // return this.selectedCategoriesList.map((cat:CategoryModel)=>cat.key).includes(cat2BeChecked.key)
+    return this.selectedCategoriesList.some((cat:CategoryModel)=>cat.key==cat2BeChecked.key)
   }
   includesCategories(newCat: CategoryModel[]) {/**
    * add only the categories not already dselected
