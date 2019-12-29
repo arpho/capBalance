@@ -53,8 +53,8 @@ export class SankeyPage implements OnInit {
       ],
       columnNames: ['From', 'To', 'Totale spesa'],
       options: {
-        width: 500,
-        height: 500
+        width: 400,
+        height: 400
       }
     };
     this.karts = []
