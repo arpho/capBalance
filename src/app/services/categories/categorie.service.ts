@@ -31,6 +31,7 @@ export class CategoriesService implements ItemServiceInterface {
           this.items_list = [];
           eventCategoriesListSnapshot.forEach(snap => {
             const cat = this.initializeCategory(snap.val())
+            cat.key = cat.key || snap.key // inizialmente il campo key non  veniva serializzato
             this.items_list.push(cat)
           }
           );

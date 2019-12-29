@@ -93,7 +93,6 @@ export class ShoppingKartModel implements ItemModelInterface {
             }
         }
         Object.entries(item).forEach(loader)
-        console.log('building kart')
         this.fornitore = new SupplierModel()
         this.pagamento = new PaymentsModel()
         this.fornitore.key = this.fornitore.key || this.fornitoreId
