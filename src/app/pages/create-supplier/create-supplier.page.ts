@@ -28,6 +28,14 @@ export class CreateSupplierPage implements OnInit {
     this.showSpinner = true
     this.supplier = new SupplierModel(supplier)
     this.supplier.build(supplier)
+    this.service.createItem(this.supplier).on('value', (res => {
+      console.log('created item')
+      console.table(res.val(), 'ecco')
+      const supplier = new SupplierModel().initialize(res.val())
+      supplier.key = res.key
+
+      this.dismiss(supplier)
+    }))
 
   }
 
@@ -35,6 +43,7 @@ export class CreateSupplierPage implements OnInit {
     // public suppliers: SuppliersService,
     public geo: GeoService,
     public router: Router,
+    public service: SuppliersService,
     public modalCtrl: ModalController) {
     this.supplier = new SupplierModel()
     this.filterFields = [
@@ -96,8 +105,8 @@ export class CreateSupplierPage implements OnInit {
 
   }
 
-  dismiss() {
-    this.modalCtrl.dismiss()
+  dismiss(obj) {
+    this.modalCtrl.dismiss(obj)
   }
 
 
