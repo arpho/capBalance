@@ -19,6 +19,8 @@ import { DateModel } from 'src/app/modules/user/models/birthDateModel';
 import { CreatePurchasePage } from '../create-purchase/create-purchase.page';
 import { QuestionBase } from '../../modules/dynamic-form/models/question-base';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
+import { CreatePaymentPage } from '../create-payment/create-payment.page';
+import { CreateSupplierPage } from '../create-supplier/create-supplier.page'
 
 @Component({
   selector: 'app-detail-shopping-kart',
@@ -86,7 +88,8 @@ export class DetailShoppingKartPage implements OnInit {
           value: this.kart ? this.kart.pagamento : new PaymentsModel(),
           required: true,
           service: this.paymentsService,
-          text: this.textSelectPayment
+          text: this.textSelectPayment,
+          createPopup: CreatePaymentPage
         }
       ),
       new SelectorQuestion(
@@ -96,7 +99,8 @@ export class DetailShoppingKartPage implements OnInit {
           required: true,
           text: this.textSelectSupplier,
           sorterFunction: this.supplierSorterFunction,
-          service: this.supplierService
+          service: this.supplierService,
+          createPopup: CreateSupplierPage
           ,
           value: this.kart ? this.kart.fornitore : new SupplierModel()
 

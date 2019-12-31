@@ -33,6 +33,7 @@ export class CategoriePage implements OnInit {
         label: 'categoria origine',
         text: ' categoria origine',
         service: this.categories,
+        createPopup:'',
         // filterFunction: (value: CategoryModel, category: CategoryModel) => value.father ? value.father.key === category.key : false,
         required: false
       }),

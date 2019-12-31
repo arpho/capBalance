@@ -78,7 +78,8 @@ export class DetailCategoryPage implements OnInit {
       text: ' categoria origine',
       value: this.category?this.category.father:{},
       service: this.service,
-      required: false
+      required: false,
+      createPopup:''
     })];
   }
 

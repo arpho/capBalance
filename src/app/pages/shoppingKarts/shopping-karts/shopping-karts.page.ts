@@ -16,6 +16,8 @@ import { PaymentsService } from 'src/app/services/payments/payments.service';
 import { SuppliersService } from 'src/app/services/suppliers/suppliers.service';
 import { CreateShoppingKartPage } from '../../create-shopping-kart/create-shopping-kart.page';
 import { DetailShoppingKartPage } from '../../detail-shopping-kart/detail-shopping-kart.page';
+import { CreateSupplierPage } from '../../create-supplier/create-supplier.page';
+import { CreatePaymentPage} from '../../create-payment/create-payment.page'
 
 @Component({
   selector: 'app-shopping-karts',
@@ -105,11 +107,13 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         label: 'filtra per fornitore',
         service: this.SuppliersService,
         filterFunction: filterBySupplier,
-        order: 5
+        order: 5,
+        createPopup:CreateSupplierPage
       }),
       new SelectorQuestion({
         key: 'payment',
         text: 'Pagamento',
+        createPopup:CreatePaymentPage,
         label: 'filtra per pagamento',
         service: this.paymentsService,
         filterFunction: filterByPayment,
@@ -122,7 +126,8 @@ export class ShoppingKartsPage implements OnInit, ItemControllerInterface {
         label: 'filtra per categoria',
         service: this.service.categoriesService,
         filterFunction: filterByCategory,
-        order: 7
+        order: 7,
+        createPopup:''
       }),
       new TextboxQuestion({
         key: 'purchaseDescription',

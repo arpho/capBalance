@@ -105,7 +105,7 @@ export class CreateSupplierPage implements OnInit {
 
   }
 
-  dismiss(obj) {
+  dismiss(obj?) {
     this.modalCtrl.dismiss(obj)
   }
 
