@@ -53,7 +53,7 @@ export class SankeyPage implements OnInit {
       ],
       columnNames: ['From', 'To', 'Totale spesa'],
       options: {
-        width: 400,
+        width: 500,
         height: 400
       }
     };
