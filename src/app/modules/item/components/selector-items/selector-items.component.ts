@@ -40,6 +40,7 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
   @Input() item: ItemModelInterface
   @Input() service: ItemServiceInterface
   @Output() selectedItem: EventEmitter<ItemModelInterface> = new EventEmitter()
+  @Input() createPopup
   @Input() filterFunction: (item: ItemModelInterface) => boolean
   @Input() sorterFunction: (a: ItemModelInterface, b: ItemModelInterface) => number
   // @Input() formControlName: string
@@ -109,7 +110,8 @@ export class SelectorItemsComponent implements OnInit, OnChanges, ControlValueAc
         title: this.text,
         service: this.service,
         filterFunction: this.filterFunction,
-        sorterFunction: this.sorterFunction
+        sorterFunction: this.sorterFunction,
+        createPopup: this.createPopup
 
       }
     });

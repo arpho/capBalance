@@ -18,6 +18,8 @@ import { DetailPurchasePage } from '../detail-purchase/detail-purchase.page';
 import { ShoppingKartsService } from 'src/app/services/shoppingKarts/shopping-karts.service';
 import { SelectorQuestion } from 'src/app/modules/dynamic-form/models/question-selector';
 import { FormGroup } from '@angular/forms';
+import { CreateSupplierPage } from '../create-supplier/create-supplier.page';
+import { CreatePaymentPage } from '../create-payment/create-payment.page'
 // tslint:disable: semicolon
 @Component({
   selector: 'app-create-shopping-kart',
@@ -106,7 +108,8 @@ export class CreateShoppingKartPage implements OnInit {
         ItemsFilterFunction,
         sorterFunction,
         value: kart.fornitore,
-        required: true
+        required: true,
+        createPopup: CreateSupplierPage
       }),
       new SelectorQuestion({
         key: 'payment',
@@ -114,7 +117,8 @@ export class CreateShoppingKartPage implements OnInit {
         label: 'Pagamento',
         service: this.paymentsService,
         required: true,
-        value: kart.pagamento
+        value: kart.pagamento,
+        createPopup: CreatePaymentPage
 
       })
     ];

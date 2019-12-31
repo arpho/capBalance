@@ -35,6 +35,7 @@
          [text]="question?.text" [service]="question?.service" (selectedItem)="question.selectedItem($event)"
           [sorterFunction]="question?.sorterFunction"
           [filterFunction]="question?.ItemsFilterFunction"
+          [createPopup]= "question?.createPopup"
           [item]="question?.value"
           (selectedItem)="question.selectedItem($event)" ></app-selector-items>
       
