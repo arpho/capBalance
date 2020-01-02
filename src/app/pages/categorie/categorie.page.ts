@@ -60,11 +60,9 @@ export class CategoriePage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('loading categories');
     this.categories.getEntitiesList().on('value', eventCategoriesListSnapshot => {
       this.CategoriesList = [];
       eventCategoriesListSnapshot.forEach(snap => {
-        console.log(snap.val());
       });
     });
   }

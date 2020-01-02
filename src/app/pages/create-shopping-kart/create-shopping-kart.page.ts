@@ -145,7 +145,6 @@ export class CreateShoppingKartPage implements OnInit {
 
   }
   removeItem(item) {
-    console.log('removing ', item)
     this.kart.removeItem(item)
   }
 
@@ -153,7 +152,6 @@ export class CreateShoppingKartPage implements OnInit {
 
     const modal = await this.modalCtrl.create({ component: DetailPurchasePage, componentProps: { purchase } })
     modal.onDidDismiss().then(data => {
-      console.log('got', data)
       if (data.data) {
         this.kart.updateItem(data.data)
       }

@@ -41,23 +41,21 @@ export class CreatePaymentPage implements OnInit {
 
   filter(ev) {
   }
+  dismiss(payment?) {
+    this.modalCtrl.dismiss(payment)
+  }
 
   submit(ev) {
     this.showSpinner = true
     this.payment.build(ev)
-    this.service.createItem(this.payment).then(item => {
-      this.service.getItem(item.key).on('value', (snap) => {
-        const payment = this.service.getDummyItem().build(snap.val())
-        this.showSpinner = false
-        payment.key = snap.key
-        this.dismiss(payment)
-
+    this.service.createItem(this.payment).on('value', payment => {
+      const Payment = new PaymentsModel().initialize(payment.val())
+      Payment.key = payment.key
+      this.service.updateItem(Payment).then(() => {
+        this.dismiss(Payment)
       })
     })
-  }
 
-  dismiss(payment?) {
-    this.modalCtrl.dismiss(payment)
   }
 
 }

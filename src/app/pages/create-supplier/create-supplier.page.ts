@@ -29,12 +29,12 @@ export class CreateSupplierPage implements OnInit {
     this.supplier = new SupplierModel(supplier)
     this.supplier.build(supplier)
     this.service.createItem(this.supplier).on('value', (res => {
-      console.log('created item')
-      console.table(res.val(), 'ecco')
       const supplier = new SupplierModel().initialize(res.val())
       supplier.key = res.key
+      this.service.updateItem(supplier).then(() => {
+        this.dismiss(supplier)
+      })
 
-      this.dismiss(supplier)
     }))
 
   }

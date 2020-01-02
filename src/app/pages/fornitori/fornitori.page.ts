@@ -112,7 +112,6 @@ export class FornitoriPage implements OnInit, OnChanges, ItemControllerInterface
           supplier.key = snap.key // alcuni item non hanno il campo key
           this.ItemsList.push(supplier);
           if (supplier.key === '') {
-            console.log('alert', supplier)
           }
         });
       });

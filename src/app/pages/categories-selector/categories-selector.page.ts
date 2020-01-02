@@ -29,7 +29,6 @@ export class CategoriesSelectorPage implements OnInit {
   filterFunction: (item: CategoryModel) => boolean
   sorterFunction = (a: ItemModelInterface, b: ItemModelInterface) => (a.title < b.title ? -1 : (a.title > b.title ? 1 : 0))
   handleInput(event) {
-    console.log('input', event)
     const query = event.target.value.toLowerCase();
     /*requestAnimationFrame(() => {
       items.forEach(item => {

@@ -24,7 +24,6 @@ export class SuppliersService implements ItemServiceInterface {
             supplier.key = snap.key // alcuni item non hanno il campo key
             this.items_list.push(supplier);
             if (supplier.key === '') {
-              console.log('alert', supplier)
             }
           });
           this._items.next(this.items_list)

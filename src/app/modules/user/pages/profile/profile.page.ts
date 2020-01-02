@@ -86,7 +86,6 @@ export class ProfilePage implements OnInit {
     };
   }
   changedDate(d) {
-    console.log(d);
   }
 
   updateDOB(birthDate: any, ev): void {
