@@ -83,6 +83,7 @@ export class InputGeolocationComponent implements OnInit, ControlValueAccessor {
     const coordinates = await Geolocation.getCurrentPosition(options);
     this.service.inverseGeoLocation(coordinates.coords.latitude, coordinates.coords.longitude).subscribe((v: {}) => {
       // tslint:disable-next-line: no-string-literal
+      console.table(v)
       const address = v['results'].map(item => item['formatted_address']);
       const out = this.promptAddress(address, coordinates);
     });

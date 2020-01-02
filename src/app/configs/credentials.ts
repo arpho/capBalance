@@ -9,6 +9,7 @@ export const configs = {
   appId: "1:84418489236:web:7842bdbbd3fbac26"
   },
   google: {
-    api_key: 'AIzaSyClc8roQ21e1VFTzJTS0XkG7pVA_c3SGis'
+    api_key: 'AIzaSyClc8roQ21e1VFTzJTS0XkG7pVA_c3SGis'// 'AIzaSyClc8roQ21e1VFTzJTS0XkG7pVA_c3SGis'
+    
   }
 };
