@@ -58,9 +58,10 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
       const initiateCategory = (catKey) => {
         const Category = new CategoryModel(catKey)
+        if (catKey!=''){
         this.categoriesService.getItem(catKey).on('value', (category) => {
           Category.initialize(category.val())
-        })
+        })}
         return Category
       }
       Purchase.categorie = Purchase.categorieId ? Purchase.categorieId.map(initiateCategory) : []
