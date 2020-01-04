@@ -58,10 +58,11 @@ export class ShoppingKartsService implements ItemServiceInterface {
 
       const initiateCategory = (catKey) => {
         const Category = new CategoryModel(catKey)
-        if (catKey!=''){
-        this.categoriesService.getItem(catKey).on('value', (category) => {
-          Category.initialize(category.val())
-        })}
+        if (catKey != '') {
+          this.categoriesService.getItem(catKey).on('value', (category) => {
+            Category.initialize(category.val())
+          })
+        }
         return Category
       }
       Purchase.categorie = Purchase.categorieId ? Purchase.categorieId.map(initiateCategory) : []
@@ -79,16 +80,10 @@ export class ShoppingKartsService implements ItemServiceInterface {
             const kart = new ShoppingKartModel({ key: snap.val() }).initialize(snap.val())
             kart.key = snap.key
             kart.items = kart.items.map(purchaseInitializer)
-            // initialize payment
-            this.payments.items.subscribe(payments => {
-              kart.setPayment(payments.filter(payment => payment.key == kart.pagamentoId)[0])
-            })
-
-            // inirtialize supplier 
-            this.suppliers.items.subscribe(suppliers => {
-              const supplier = suppliers.filter(fornitore => fornitore.key == kart.fornitoreId)[0]
-              kart.setSupplier(supplier)
-            })
+            
+              
+            
+            
             this.items_list.push(kart);
 
           });

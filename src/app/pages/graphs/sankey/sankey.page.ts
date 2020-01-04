@@ -54,7 +54,7 @@ export class SankeyPage implements OnInit {
       columnNames: ['From', 'To', 'Totale spesa'],
       options: {
         width: 500,
-        height: 400
+        height: 1340
       }
     };
     this.karts = []
@@ -74,6 +74,7 @@ export class SankeyPage implements OnInit {
   }
 
   setData(data: { data: [], title: string }) {
+    console.log('data',data.data)
     this.chart.data = data.data
     this.chart.title = data.title
 
