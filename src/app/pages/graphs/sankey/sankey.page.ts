@@ -74,7 +74,6 @@ export class SankeyPage implements OnInit {
   }
 
   setData(data: { data: [], title: string }) {
-    console.log('data',data.data)
     this.chart.data = data.data
     this.chart.title = data.title
 

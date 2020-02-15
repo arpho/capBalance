@@ -22,9 +22,9 @@ import { stringify } from '@angular/compiler/src/util';
 // tslint:disable-next-line: component-class-suffix
 
 export class PiechartPage implements OnInit {
-  entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
+ /*  entities = [new Entities({ key: 'Fornitori', value: 'suppliers' }),
   new Entities({ key: 'Pagamenti', value: 'payments' }),
-  new Entities({ key: 'Categorie', value: 'categories' })]
+  new Entities({ key: 'Categorie', value: 'categories' })] */
   tempDate = new Date(Date.now());
   options = [new DateQuestion({
     key: 'dataInizio',
@@ -42,7 +42,7 @@ export class PiechartPage implements OnInit {
   new DropdownQuestion({
     key: 'entity',
     label: 'cosa vedere',
-    options: this.entities,
+    // options: this.entities,
     value: 'categories',
     required: true
   })

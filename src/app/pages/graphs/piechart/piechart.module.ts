@@ -22,7 +22,6 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     DynamicFormModule,
-    GoogleChartsModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [PiechartPage],

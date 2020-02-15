@@ -1,5 +1,5 @@
 // tslint:disable: semicolon
-import { Component, OnInit, OnChanges, SimpleChanges,  } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { ItemModelInterface } from '../../models/itemModelInterface';
 import { ItemServiceInterface } from '../../models/ItemServiceInterface';
@@ -16,15 +16,15 @@ export class SelectorItemsPage implements OnInit, OnChanges {
   service: ItemServiceInterface
   itemsList: Array<ItemModelInterface>
   filterText: string
-  createPopup:ComponentRef
+  createPopup: ComponentRef
   filterFunction: any // (item: ItemModelInterface) => boolean
   sorterFunction: any // (a: ItemModelInterface, b: ItemModelInterface) => number
 
   constructor(public modalCtrl: ModalController, public navParams: NavParams) {
     this.title = `Seleziona  ${this.navParams.get('title')}`
     this.selectedItem = this.navParams.get('item')
-    this.service = this.navParams.get('service')   
-    this.createPopup = this.navParams.get('createPopup')     
+    this.service = this.navParams.get('service')
+    this.createPopup = this.navParams.get('createPopup')
     this.filterFunction = this.navParams.get('filterFunction')
     this.sorterFunction = this.navParams.get('sorterFunction')
   }
@@ -54,7 +54,7 @@ export class SelectorItemsPage implements OnInit, OnChanges {
     }
   }
   filter(ev) {
-    this.filterFunction = (item: ItemModelInterface) => item.title.toUpperCase().includes(ev.detail.value.toUpperCase())
+    this.filterFunction = (item: ItemModelInterface) => (item.title) ? item.title.toUpperCase().includes(ev.detail.value.toUpperCase()) : false
   }
 
   ngOnChanges(changes: SimpleChanges) {

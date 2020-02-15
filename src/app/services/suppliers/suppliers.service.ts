@@ -18,6 +18,7 @@ export class SuppliersService implements ItemServiceInterface {
       if (user) {
         this.suppliersListRef = firebase.database().ref(`/fornitori/${user.uid}/`);
         this.getEntitiesList().on('value', eventSuppliersListSnapshot => {
+          console.log('loading suppliers')
           this.items_list = [];
           eventSuppliersListSnapshot.forEach(snap => {
             const supplier = new SupplierModel(undefined, snap.key).initialize(snap.val())
